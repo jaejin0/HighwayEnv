@@ -185,6 +185,7 @@ class EventHandler(object):
                 action_type.act(action_type.actions_indexes["FASTER"])
             if event.key == pygame.K_LEFT and action_type.longitudinal:
                 action_type.act(action_type.actions_indexes["SLOWER"])
+            ### Modification ###
             if event.key == pygame.K_a and action_type.lateral:
                 action_type.act(action_type.actions_indexes["LANE_RIGHT_FAST"])
             if event.key == pygame.K_s and action_type.lateral:
@@ -197,6 +198,7 @@ class EventHandler(object):
                 action_type.act(action_type.actions_indexes["LANE_LEFT_MEDIUM"])
             if event.key == pygame.K_e and action_type.lateral:
                 action_type.act(action_type.actions_indexes["LANE_LEFT_SLOW"])
+            ###
 
     @classmethod
     def handle_continuous_action_event(cls, action_type: ContinuousAction, event: pygame.event.EventType) -> None:
