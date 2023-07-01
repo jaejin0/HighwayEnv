@@ -17,9 +17,9 @@ class ControlledVehicle(Vehicle):
     """
 
     ### Modification ###
-    TAU_LATERAL_FAST = 2
-    TAU_LATERAL_MEDIUM = 3
-    TAU_LATERAL_SLOW = 4
+    TAU_LATERAL_FAST = 0.1
+    TAU_LATERAL_MEDIUM = 2
+    TAU_LATERAL_SLOW = 10
     ###
 
     target_speed: float

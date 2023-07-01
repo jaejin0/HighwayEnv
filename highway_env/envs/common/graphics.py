@@ -191,11 +191,11 @@ class EventHandler(object):
                 action_type.act(action_type.actions_indexes["LANE_RIGHT_MEDIUM"])
             if event.key == pygame.K_d and action_type.lateral:
                 action_type.act(action_type.actions_indexes["LANE_RIGHT_SLOW"])
-            if event.key == pygame.K_q:
+            if event.key == pygame.K_q and action_type.lateral:
                 action_type.act(action_type.actions_indexes["LANE_LEFT_FAST"])
-            if event.key == pygame.K_w:
+            if event.key == pygame.K_w and action_type.lateral:
                 action_type.act(action_type.actions_indexes["LANE_LEFT_MEDIUM"])
-            if event.key == pygame.K_e:
+            if event.key == pygame.K_e and action_type.lateral:
                 action_type.act(action_type.actions_indexes["LANE_LEFT_SLOW"])
 
     @classmethod
