@@ -181,11 +181,15 @@ class DiscreteMetaAction(ActionType):
     """
 
     ACTIONS_ALL = {
-        0: 'LANE_LEFT',
-        1: 'IDLE',
-        2: 'LANE_RIGHT',
-        3: 'FASTER',
-        4: 'SLOWER'
+        0: 'LANE_LEFT_SLOW',
+        1: 'LANE_LEFT_MEDIUM',
+        2: 'LANE_LEFT_FAST',
+        3: 'IDLE',
+        4: 'LANE_RIGHT_SLOW',
+        5: 'LANE_RIGHT_MEDIUM',
+        6: 'LANE_RIGHT_FAST',
+        7: 'FASTER',
+        8: 'SLOWER'
     }
     """A mapping of action indexes to labels."""
 
@@ -197,9 +201,13 @@ class DiscreteMetaAction(ActionType):
     """A mapping of longitudinal action indexes to labels."""
 
     ACTIONS_LAT = {
-        0: 'LANE_LEFT',
-        1: 'IDLE',
-        2: 'LANE_RIGHT'
+        0: 'LANE_LEFT_SLOW',
+        1: 'LANE_LEFT_MEDIUM',
+        2: 'LANE_LEFT_FAST',
+        3: 'IDLE',
+        4: 'LANE_RIGHT_SLOW',
+        5: 'LANE_RIGHT_MEDIUM',
+        6: 'LANE_RIGHT_FAST'
     }
     """A mapping of lateral action indexes to labels."""
 
@@ -254,11 +262,15 @@ class DiscreteMetaAction(ActionType):
             if l_index[2] < self.controlled_vehicle.lane_index[2] \
                     and network.get_lane(l_index).is_reachable_from(self.controlled_vehicle.position) \
                     and self.lateral:
-                actions.append(self.actions_indexes['LANE_LEFT'])
+                actions.append(self.actions_indexes['LANE_LEFT_SLOW'])
+                actions.append(self.actions_indexes['LANE_LEFT_MEDIUM'])
+                actions.append(self.actions_indexes['LANE_LEFT_FAST'])
             if l_index[2] > self.controlled_vehicle.lane_index[2] \
                     and network.get_lane(l_index).is_reachable_from(self.controlled_vehicle.position) \
                     and self.lateral:
-                actions.append(self.actions_indexes['LANE_RIGHT'])
+                actions.append(self.actions_indexes['LANE_RIGHT_SLOW'])
+                actions.append(self.actions_indexes['LANE_RIGHT_MEDIUM'])
+                actions.append(self.actions_indexes['LANE_RIGHT_FAST'])
         if self.controlled_vehicle.speed_index < self.controlled_vehicle.target_speeds.size - 1 and self.longitudinal:
             actions.append(self.actions_indexes['FASTER'])
         if self.controlled_vehicle.speed_index > 0 and self.longitudinal:

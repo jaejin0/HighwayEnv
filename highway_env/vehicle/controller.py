@@ -16,13 +16,20 @@ class ControlledVehicle(Vehicle):
     - The lateral controller is a heading controller cascaded with a lateral position controller.
     """
 
+    ### Modification ###
+    TAU_LATERAL_FAST = 2
+    TAU_LATERAL_MEDIUM = 3
+    TAU_LATERAL_SLOW = 4
+    ###
+
     target_speed: float
     """ Desired velocity."""
 
     """Characteristic time"""
     TAU_ACC = 0.6  # [s]
     TAU_HEADING = 0.2  # [s]
-    TAU_LATERAL = 3 # [s]
+    TAU_LATERAL = TAU_LATERAL_MEDIUM # [s] 
+    # TAU_LATERAL = 0.6  # [s]
 
     TAU_PURSUIT = 0.5 * TAU_HEADING  # [s]
     KP_A = 1 / TAU_ACC
@@ -89,16 +96,55 @@ class ControlledVehicle(Vehicle):
             self.target_speed += self.DELTA_SPEED
         elif action == "SLOWER":
             self.target_speed -= self.DELTA_SPEED
-        elif action == "LANE_RIGHT":
+        # elif action == "LANE_RIGHT":
+        #     _from, _to, _id = self.target_lane_index
+        #     target_lane_index = _from, _to, np.clip(_id + 1, 0, len(self.road.network.graph[_from][_to]) - 1)
+        #     if self.road.network.get_lane(target_lane_index).is_reachable_from(self.position):
+        #         self.target_lane_index = target_lane_index
+        # elif action == "LANE_LEFT":
+        #     _from, _to, _id = self.target_lane_index
+        #     target_lane_index = _from, _to, np.clip(_id - 1, 0, len(self.road.network.graph[_from][_to]) - 1)
+        #     if self.road.network.get_lane(target_lane_index).is_reachable_from(self.position):
+        #         self.target_lane_index = target_lane_index
+        
+        ### Modification ###
+        elif action == "LANE_RIGHT_SLOW":
+            self.TAU_LATERAL = self.TAU_LATERAL_SLOW
             _from, _to, _id = self.target_lane_index
             target_lane_index = _from, _to, np.clip(_id + 1, 0, len(self.road.network.graph[_from][_to]) - 1)
             if self.road.network.get_lane(target_lane_index).is_reachable_from(self.position):
                 self.target_lane_index = target_lane_index
-        elif action == "LANE_LEFT":
+        elif action == "LANE_LEFT_SLOW":
+            self.TAU_LATERAL = self.TAU_LATERAL_SLOW
             _from, _to, _id = self.target_lane_index
             target_lane_index = _from, _to, np.clip(_id - 1, 0, len(self.road.network.graph[_from][_to]) - 1)
             if self.road.network.get_lane(target_lane_index).is_reachable_from(self.position):
                 self.target_lane_index = target_lane_index
+        elif action == "LANE_RIGHT_MEDIUM":
+            self.TAU_LATERAL = self.TAU_LATERAL_MEDIUM
+            _from, _to, _id = self.target_lane_index
+            target_lane_index = _from, _to, np.clip(_id + 1, 0, len(self.road.network.graph[_from][_to]) - 1)
+            if self.road.network.get_lane(target_lane_index).is_reachable_from(self.position):
+                self.target_lane_index = target_lane_index
+        elif action == "LANE_LEFT_MEDIUM":
+            self.TAU_LATERAL = self.TAU_LATERAL_MEDIUM
+            _from, _to, _id = self.target_lane_index
+            target_lane_index = _from, _to, np.clip(_id - 1, 0, len(self.road.network.graph[_from][_to]) - 1)
+            if self.road.network.get_lane(target_lane_index).is_reachable_from(self.position):
+                self.target_lane_index = target_lane_index
+        elif action == "LANE_RIGHT_FAST":
+            self.TAU_LATERAL = self.TAU_LATERAL_FAST
+            _from, _to, _id = self.target_lane_index
+            target_lane_index = _from, _to, np.clip(_id + 1, 0, len(self.road.network.graph[_from][_to]) - 1)
+            if self.road.network.get_lane(target_lane_index).is_reachable_from(self.position):
+                self.target_lane_index = target_lane_index
+        elif action == "LANE_LEFT_FAST":
+            self.TAU_LATERAL = self.TAU_LATERAL_FAST
+            _from, _to, _id = self.target_lane_index
+            target_lane_index = _from, _to, np.clip(_id - 1, 0, len(self.road.network.graph[_from][_to]) - 1)
+            if self.road.network.get_lane(target_lane_index).is_reachable_from(self.position):
+                self.target_lane_index = target_lane_index
+        ###
 
         action = {"steering": self.steering_control(self.target_lane_index),
                   "acceleration": self.speed_control(self.target_speed)}
