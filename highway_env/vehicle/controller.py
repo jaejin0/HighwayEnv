@@ -109,42 +109,36 @@ class ControlledVehicle(Vehicle):
         
         ### Modification ###
         elif action == "LANE_RIGHT_SLOW":
-            print(self.TAU_LATERAL)
             self.update_lane_change_values(self.TAU_LATERAL_SLOW)
             _from, _to, _id = self.target_lane_index
             target_lane_index = _from, _to, np.clip(_id + 1, 0, len(self.road.network.graph[_from][_to]) - 1)
             if self.road.network.get_lane(target_lane_index).is_reachable_from(self.position):
                 self.target_lane_index = target_lane_index
         elif action == "LANE_LEFT_SLOW":
-            print(self.TAU_LATERAL)
             self.update_lane_change_values(self.TAU_LATERAL_SLOW)
             _from, _to, _id = self.target_lane_index
             target_lane_index = _from, _to, np.clip(_id - 1, 0, len(self.road.network.graph[_from][_to]) - 1)
             if self.road.network.get_lane(target_lane_index).is_reachable_from(self.position):
                 self.target_lane_index = target_lane_index
         elif action == "LANE_RIGHT_MEDIUM":
-            print(self.TAU_LATERAL)
             self.update_lane_change_values(self.TAU_LATERAL_MEDIUM)
             _from, _to, _id = self.target_lane_index
             target_lane_index = _from, _to, np.clip(_id + 1, 0, len(self.road.network.graph[_from][_to]) - 1)
             if self.road.network.get_lane(target_lane_index).is_reachable_from(self.position):
                 self.target_lane_index = target_lane_index
         elif action == "LANE_LEFT_MEDIUM":
-            print(self.TAU_LATERAL)
             self.update_lane_change_values(self.TAU_LATERAL_MEDIUM)
             _from, _to, _id = self.target_lane_index
             target_lane_index = _from, _to, np.clip(_id - 1, 0, len(self.road.network.graph[_from][_to]) - 1)
             if self.road.network.get_lane(target_lane_index).is_reachable_from(self.position):
                 self.target_lane_index = target_lane_index
         elif action == "LANE_RIGHT_FAST":
-            print(self.TAU_LATERAL)
             self.update_lane_change_values(self.TAU_LATERAL_FAST)
             _from, _to, _id = self.target_lane_index
             target_lane_index = _from, _to, np.clip(_id + 1, 0, len(self.road.network.graph[_from][_to]) - 1)
             if self.road.network.get_lane(target_lane_index).is_reachable_from(self.position):
                 self.target_lane_index = target_lane_index
         elif action == "LANE_LEFT_FAST":
-            print(self.TAU_LATERAL)
             self.update_lane_change_values(self.TAU_LATERAL_FAST)
             _from, _to, _id = self.target_lane_index
             target_lane_index = _from, _to, np.clip(_id - 1, 0, len(self.road.network.graph[_from][_to]) - 1)
