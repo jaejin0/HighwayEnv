@@ -10,6 +10,8 @@ from highway_env.utils import near_split
 from highway_env.vehicle.controller import ControlledVehicle
 from highway_env.vehicle.kinematics import Vehicle
 
+import math  ### Modification ###
+
 Observation = np.ndarray
 
 
@@ -47,8 +49,10 @@ class HighwayEnv(AbstractEnv):
             "reward_speed_range": [20, 30],
             "normalize_reward": True,
             "offroad_terminal": False,
-            
-            "energy_consumption": 0.2  ### Modification ###
+
+            ### Modification ###
+            "energy_consumption_reward": 0.2,
+            "energy_consumption_range": [0, 100]
         })
         return config
 
@@ -112,14 +116,17 @@ class HighwayEnv(AbstractEnv):
         forward_speed = self.vehicle.speed * np.cos(self.vehicle.heading)
         scaled_speed = utils.lmap(forward_speed, self.config["reward_speed_range"], [0, 1])
         
-        energy_consumption = (self.vehicle.speed**2 + self.vehicle.heading**2)**2
+        energy_consumption = math.sqrt(self.vehicle.speed**2 + self.vehicle.heading**2)
+        print("THIS IS THE SPEED")
+        print(self.vehicle.speed)
+        energy_consumption = utils.lmap(energy_consumption, self.config["energy_consumption_range"],[0, 1])
         
         return {
             "collision_reward": float(self.vehicle.crashed),
             "right_lane_reward": lane / max(len(neighbours) - 1, 1),
             "high_speed_reward": np.clip(scaled_speed, 0, 1),
             "on_road_reward": float(self.vehicle.on_road),
-            "energy_consumption": float(energy_consumption)  ### Modification ###
+            "energy_consumption_reward": float(energy_consumption)  ### Modification ###
         }
 
     def _is_terminated(self) -> bool:
