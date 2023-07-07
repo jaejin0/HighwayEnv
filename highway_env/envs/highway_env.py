@@ -89,7 +89,8 @@ class HighwayEnv(AbstractEnv):
         """
         rewards = self._rewards(action)
         reward = sum(self.config.get(name, 0) * reward for name, reward in rewards.items())
-
+        print("START")
+        print(reward)
         if self.config["normalize_reward"]:
             reward = utils.lmap(reward,
                                 [self.config["collision_reward"],
@@ -97,6 +98,8 @@ class HighwayEnv(AbstractEnv):
                                 [0, 1])
             print(reward)
         reward *= rewards['on_road_reward']
+        print(reward)
+        print()
         return reward
 
     def _rewards(self, action: Action) -> Dict[Text, float]:
