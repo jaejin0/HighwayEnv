@@ -91,7 +91,7 @@ class HighwayEnv(AbstractEnv):
         reward = sum(self.config.get(name, 0) * reward for name, reward in rewards.items())
         
         for a in rewards.items():
-            if a[0] == 'right_lane_reward':
+            if a[0] == 'high_speed_reward':
                 print(a)
         print("reward is ")
         print(reward)
