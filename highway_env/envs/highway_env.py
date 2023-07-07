@@ -97,7 +97,7 @@ class HighwayEnv(AbstractEnv):
         reward = sum(self.config.get(name, 0) * reward for name, reward in rewards.items())
         
         for a in rewards.items():
-            if a[0] == "energy_consumption":
+            if a[0] == "energy_consumption_reward":
                 print(a)
         
         if self.config["normalize_reward"]:
@@ -117,8 +117,10 @@ class HighwayEnv(AbstractEnv):
         scaled_speed = utils.lmap(forward_speed, self.config["reward_speed_range"], [0, 1])
         
         energy_consumption = math.sqrt(self.vehicle.speed**2 + self.vehicle.heading**2)
-        print("THIS IS THE SPEED")
-        print(self.vehicle.speed)
+        print()
+        print("THIS IS THE HEADING ANGLE")
+        print(self.vehicle.heading)
+        print()
         energy_consumption = utils.lmap(energy_consumption, self.config["energy_consumption_range"],[0, 1])
         
         return {
