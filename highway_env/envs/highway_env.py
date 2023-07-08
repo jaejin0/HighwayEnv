@@ -53,6 +53,10 @@ class HighwayEnv(AbstractEnv):
             ### Modification ###
             "energy_consumption_reward": 0.2,
             "energy_consumption_range": [0, 100]
+            # speed_range_reward:
+            # speed_range_range:
+            # front_distance_reward:
+            # front_distance_range:
         })
         return config
 
@@ -128,7 +132,7 @@ class HighwayEnv(AbstractEnv):
         # speed_range_reward
         
         # front_distance_reward
-        front_vehicle, rear_vehicle = self.road.neighbour_vehicles(self.vehicle.lane_index)
+        front_vehicle, rear_vehicle = self.road.neighbour_vehicles(self.vehicle, self.vehicle.lane_index)
         print(front_vehicle)
         print(rear_vehicle)
         front_distance = self.vehicle.lane_distance_to(front_vehicle)
