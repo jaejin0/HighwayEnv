@@ -96,10 +96,12 @@ class HighwayEnv(AbstractEnv):
         rewards = self._rewards(action)
         reward = sum(self.config.get(name, 0) * reward for name, reward in rewards.items())
         
-        for a in rewards.items():
-            if a[0] == "energy_consumption_reward":
-                print(a)
+        # Debugging Purpose
+        # for a in rewards.items():
+        #     if a[0] == "energy_consumption_reward":
+        #         print(a)
         
+        # Change the range to include Energy Consumption Model
         if self.config["normalize_reward"]:
             reward = utils.lmap(reward,
                                 [self.config["collision_reward"],
@@ -109,26 +111,37 @@ class HighwayEnv(AbstractEnv):
         return reward
 
     def _rewards(self, action: Action) -> Dict[Text, float]:
-        neighbours = self.road.network.all_side_lanes(self.vehicle.lane_index)
-        lane = self.vehicle.target_lane_index[2] if isinstance(self.vehicle, ControlledVehicle) \
-            else self.vehicle.lane_index[2]
+        # neighbours = self.road.network.all_side_lanes(self.vehicle.lane_index)
+        # lane = self.vehicle.target_lane_index[2] if isinstance(self.vehicle, ControlledVehicle) \
+        #     else self.vehicle.lane_index[2]
         # Use forward speed rather than speed, see https://github.com/eleurent/highway-env/issues/268
-        forward_speed = self.vehicle.speed * np.cos(self.vehicle.heading)
-        scaled_speed = utils.lmap(forward_speed, self.config["reward_speed_range"], [0, 1])
+        # forward_speed = self.vehicle.speed * np.cos(self.vehicle.heading)
+        # scaled_speed = utils.lmap(forward_speed, self.config["reward_speed_range"], [0, 1])
         
+        ### Modification ###
+        
+        # Energy Consumption Model
         energy_consumption = math.sqrt(self.vehicle.speed**2 + self.vehicle.heading**2)
-        print()
-        print("THIS IS THE HEADING ANGLE")
-        print(self.vehicle.heading)
-        print()
+        # Normalization
         energy_consumption = utils.lmap(energy_consumption, self.config["energy_consumption_range"],[0, 1])
+        
+        # speed_range_reward
+        
+        # 
+        front_distance, rear_distance = self.vehicle.lane_distance_to(self, self.road.neighbour_vehicles)
+        print(front_distance)
+        print(rear_distance)
+        ###
+        
         
         return {
             "collision_reward": float(self.vehicle.crashed),
-            "right_lane_reward": lane / max(len(neighbours) - 1, 1),
-            "high_speed_reward": np.clip(scaled_speed, 0, 1),
-            "on_road_reward": float(self.vehicle.on_road),
-            "energy_consumption_reward": float(energy_consumption)  ### Modification ###
+            # "right_lane_reward": lane / max(len(neighbours) - 1, 1),
+            # "high_speed_reward": np.clip(scaled_speed, 0, 1),
+            # "on_road_reward": float(self.vehicle.on_road),
+            "energy_consumption_reward": float(energy_consumption),  ### Modification ###
+            # "speed_range_reward": ,
+            "front_distance_reward": float(front_distance)
         }
 
     def _is_terminated(self) -> bool:
