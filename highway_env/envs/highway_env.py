@@ -51,12 +51,12 @@ class HighwayEnv(AbstractEnv):
             "offroad_terminal": False,
 
             ### Modification ###
-            "energy_consumption_reward": 0.2,
-            "energy_consumption_range": [0, 100]
+            "energy_consumption_reward": 0.3,
+            "energy_consumption_range": [0, 100],
             # speed_range_reward:
             # speed_range_range:
-            # front_distance_reward:
-            # front_distance_range:
+            "front_distance_reward": 0.2,
+            "front_distance_range": [0, 30]  # Most reward when the front distance is greater than or equal to 30
         })
         return config
 
@@ -127,15 +127,19 @@ class HighwayEnv(AbstractEnv):
         # Energy Consumption Model
         energy_consumption = math.sqrt(self.vehicle.speed**2 + self.vehicle.heading**2)
         # Normalization
-        energy_consumption = utils.lmap(energy_consumption, self.config["energy_consumption_range"],[0, 1])
+        energy_consumption = utils.lmap(energy_consumption, self.config["energy_consumption_range"], [0, 1])
         
         # speed_range_reward
         
+        
         # front_distance_reward
-        front_vehicle, rear_vehicle = self.road.neighbour_vehicles(self.vehicle, self.vehicle.lane_index)
-        print(front_vehicle)
-        print(rear_vehicle)
+        front_vehicle, _ = self.road.neighbour_vehicles(self.vehicle, self.vehicle.lane_index)
         front_distance = self.vehicle.lane_distance_to(front_vehicle)
+        if front_distance > 30:
+            front_distance = 30
+        print(front_distance)
+        # Normalization
+        front_distance = utils.lmap(front_distance, self.config["front_distance_range"], [0, 1])
         print(front_distance)
         ###
         
