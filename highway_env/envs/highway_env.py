@@ -127,8 +127,8 @@ class HighwayEnv(AbstractEnv):
         
         # speed_range_reward
         
-        # 
-        front_vehicle, rear_vehicle = self.road.neighbour_vehicles(self, self.vehicle.lane_index)
+        # front_distance_reward
+        front_vehicle, rear_vehicle = self.road.neighbour_vehicles(self.vehicle.lane_index)
         print(front_vehicle)
         print(rear_vehicle)
         front_distance = self.vehicle.lane_distance_to(front_vehicle)
