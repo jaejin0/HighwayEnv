@@ -130,17 +130,16 @@ class HighwayEnv(AbstractEnv):
         energy_consumption = utils.lmap(energy_consumption, self.config["energy_consumption_range"], [0, 1])
         
         # speed_range_reward
-        
+        print(self.vehicle.speed)
         
         # front_distance_reward
         front_vehicle, _ = self.road.neighbour_vehicles(self.vehicle, self.vehicle.lane_index)
         front_distance = self.vehicle.lane_distance_to(front_vehicle)
-        if front_distance > 30:
-            front_distance = 30
-        print(front_distance)
+        minimum_safe_distance = 30
+        if front_distance > minimum_safe_distance:
+            front_distance = minimum_safe_distance
         # Normalization
         front_distance = utils.lmap(front_distance, self.config["front_distance_range"], [0, 1])
-        print(front_distance)
         ###
         
         
@@ -150,7 +149,7 @@ class HighwayEnv(AbstractEnv):
             # "high_speed_reward": np.clip(scaled_speed, 0, 1),
             # "on_road_reward": float(self.vehicle.on_road),
             "energy_consumption_reward": float(energy_consumption),  ### Modification ###
-            # "speed_range_reward": ,
+            # "speed_range_reward": float(speed_range),
             "front_distance_reward": float(front_distance)
         }
 
