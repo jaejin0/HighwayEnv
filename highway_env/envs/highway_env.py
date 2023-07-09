@@ -130,11 +130,13 @@ class HighwayEnv(AbstractEnv):
         energy_consumption = utils.lmap(energy_consumption, self.config["energy_consumption_range"], [0, 1])
         
         # speed_range_reward
-        print(self.vehicle.speed)
+       
         
         # front_distance_reward
         front_vehicle, _ = self.road.neighbour_vehicles(self.vehicle, self.vehicle.lane_index)
         front_distance = self.vehicle.lane_distance_to(front_vehicle)
+        np.clip(front_distance, 0, 30)
+        print(front_distance)
         minimum_safe_distance = 30
         if front_distance > minimum_safe_distance:
             front_distance = minimum_safe_distance
