@@ -103,7 +103,7 @@ class EnvViewer(object):
         RoadGraphics.display(self.env.road, self.sim_surface)
 
         ### Modification ###
-        if self.frame % 1000 == 0:
+        if self.frame % 100000 == 0:
             # Slow Left
             self.set_agent_action_sequence([0,3])
             VehicleGraphics.display_trajectory(
