@@ -103,13 +103,50 @@ class EnvViewer(object):
         RoadGraphics.display(self.env.road, self.sim_surface)
 
         ### Modification ###
+        # Slow Left
+        self.set_agent_action_sequence([0,3])
+        VehicleGraphics.display_trajectory(
+            self.vehicle_trajectory,
+            self.sim_surface,
+            offscreen=self.offscreen)
+        
+        # Fast Left
         self.set_agent_action_sequence([2,3])
         VehicleGraphics.display_trajectory(
             self.vehicle_trajectory,
             self.sim_surface,
             offscreen=self.offscreen)
+        
+        # Idle
+        self.set_agent_action_sequence([3,3])
+        VehicleGraphics.display_trajectory(
+            self.vehicle_trajectory,
+            self.sim_surface,
+            offscreen=self.offscreen)
 
+        # Slow Right
+        self.set_agent_action_sequence([4,3])
+        VehicleGraphics.display_trajectory(
+            self.vehicle_trajectory,
+            self.sim_surface,
+            offscreen=self.offscreen)
+        
+        # Fast Right
         self.set_agent_action_sequence([6,3])
+        VehicleGraphics.display_trajectory(
+            self.vehicle_trajectory,
+            self.sim_surface,
+            offscreen=self.offscreen)
+        
+        # Slower
+        self.set_agent_action_sequence([8,3])
+        VehicleGraphics.display_trajectory(
+            self.vehicle_trajectory,
+            self.sim_surface,
+            offscreen=self.offscreen)
+        
+        # Faster
+        self.set_agent_action_sequence([7,3])
         VehicleGraphics.display_trajectory(
             self.vehicle_trajectory,
             self.sim_surface,
