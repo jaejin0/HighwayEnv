@@ -107,6 +107,13 @@ class EnvViewer(object):
                 self.vehicle_trajectory,
                 self.sim_surface,
                 offscreen=self.offscreen)
+        else:
+            self.set_agent_action_sequence(self, [2,2,2,2])
+            VehicleGraphics.display_trajectory(
+                self.vehicle_trajectory,
+                self.sim_surface,
+                offscreen=self.offscreen)
+            
 
         RoadGraphics.display_road_objects(
             self.env.road,
