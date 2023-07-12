@@ -25,11 +25,20 @@ class EnvViewer(object):
         self.offscreen = self.config["offscreen_rendering"]
         self.observer_vehicle = None
         self.agent_surface = None
-        self.vehicle_trajectory = None
+        # self.vehicle_trajectory = None
         self.frame = 0
         self.directory = None
         
-        self.count = 0 ### Motification ###
+        ### Motification ###
+        self.count = 0
+        self.vehicle_trajectory_slow_left = None
+        self.vehicle_trajectory_fast_left = None
+        self.vehicle_trajectory_idle = None
+        self.vehicle_trajectory_slow_right = None
+        self.vehicle_trajectory_fast_right = None
+        self.vehicle_trajectory_faster = None
+        self.vehicle_trajectory_slower = None
+        ###
 
         pygame.init()
         pygame.display.set_caption("Highway-env")
@@ -82,7 +91,31 @@ class EnvViewer(object):
         if isinstance(self.env.action_type, DiscreteMetaAction):
             actions = [self.env.action_type.actions[a] for a in actions]
         if len(actions) > 1:
-            self.vehicle_trajectory = self.env.vehicle.predict_trajectory(actions,
+            self.vehicle_trajectory_slow_left = self.env.vehicle.predict_trajectory([0,3],
+                                                                          1 / self.env.config["policy_frequency"],
+                                                                          1 / 3 / self.env.config["policy_frequency"],
+                                                                          1 / self.env.config["simulation_frequency"])
+            self.vehicle_trajectory_fast_left = self.env.vehicle.predict_trajectory([2,3],
+                                                                          1 / self.env.config["policy_frequency"],
+                                                                          1 / 3 / self.env.config["policy_frequency"],
+                                                                          1 / self.env.config["simulation_frequency"])
+            self.vehicle_trajectory_idle = self.env.vehicle.predict_trajectory([3,3],
+                                                                          1 / self.env.config["policy_frequency"],
+                                                                          1 / 3 / self.env.config["policy_frequency"],
+                                                                          1 / self.env.config["simulation_frequency"])
+            self.vehicle_trajectory_slow_right = self.env.vehicle.predict_trajectory([4,3],
+                                                                          1 / self.env.config["policy_frequency"],
+                                                                          1 / 3 / self.env.config["policy_frequency"],
+                                                                          1 / self.env.config["simulation_frequency"])
+            self.vehicle_trajectory_fast_right = self.env.vehicle.predict_trajectory([6,3],
+                                                                          1 / self.env.config["policy_frequency"],
+                                                                          1 / 3 / self.env.config["policy_frequency"],
+                                                                          1 / self.env.config["simulation_frequency"])
+            self.vehicle_trajectory_faster = self.env.vehicle.predict_trajectory([7,3],
+                                                                          1 / self.env.config["policy_frequency"],
+                                                                          1 / 3 / self.env.config["policy_frequency"],
+                                                                          1 / self.env.config["simulation_frequency"])
+            self.vehicle_trajectory_slower = self.env.vehicle.predict_trajectory([8,3],
                                                                           1 / self.env.config["policy_frequency"],
                                                                           1 / 3 / self.env.config["policy_frequency"],
                                                                           1 / self.env.config["simulation_frequency"])
@@ -106,52 +139,42 @@ class EnvViewer(object):
 
         ### Modification ###
         if self.count % 100 == 0:
-            # Slow Left
-            self.set_agent_action_sequence([0,3])
+            self.set_agent_action_sequence([0,0])
+        
+        # Drawing trajectories
+        if self.vehicle_trajectory_slow_left:
             VehicleGraphics.display_trajectory(
-                self.vehicle_trajectory,
+                self.vehicle_trajectory_slow_left,
                 self.sim_surface,
                 offscreen=self.offscreen)
-            
-            # Fast Left
-            self.set_agent_action_sequence([2,3])
+        if self.vehicle_trajectory_fast_left:
             VehicleGraphics.display_trajectory(
-                self.vehicle_trajectory,
+                self.vehicle_trajectory_fast_left,
                 self.sim_surface,
                 offscreen=self.offscreen)
-            
-            # Idle
-            self.set_agent_action_sequence([3,3])
+        if self.vehicle_trajectory_idle:
             VehicleGraphics.display_trajectory(
-                self.vehicle_trajectory,
+                self.vehicle_trajectory_idle,
                 self.sim_surface,
                 offscreen=self.offscreen)
-
-            # Slow Right
-            self.set_agent_action_sequence([4,3])
+        if self.vehicle_trajectory_slow_right:
             VehicleGraphics.display_trajectory(
-                self.vehicle_trajectory,
+                self.vehicle_trajectory_slow_right,
                 self.sim_surface,
                 offscreen=self.offscreen)
-            
-            # Fast Right
-            self.set_agent_action_sequence([6,3])
+        if self.vehicle_trajectory_fast_right:
             VehicleGraphics.display_trajectory(
-                self.vehicle_trajectory,
+                self.vehicle_trajectory_fast_right,
                 self.sim_surface,
                 offscreen=self.offscreen)
-            
-            # Slower
-            self.set_agent_action_sequence([8,3])
+        if self.vehicle_trajectory_faster:
             VehicleGraphics.display_trajectory(
-                self.vehicle_trajectory,
+                self.vehicle_trajectory_faster,
                 self.sim_surface,
                 offscreen=self.offscreen)
-            
-            # Faster
-            self.set_agent_action_sequence([7,3])
+        if self.vehicle_trajectory_slower:
             VehicleGraphics.display_trajectory(
-                self.vehicle_trajectory,
+                self.vehicle_trajectory_slower,
                 self.sim_surface,
                 offscreen=self.offscreen)
         self.count += 1
