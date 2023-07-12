@@ -90,35 +90,35 @@ class EnvViewer(object):
         """
         if isinstance(self.env.action_type, DiscreteMetaAction):
             actions = [self.env.action_type.actions[a] for a in actions]
-        if len(actions) > 1:
-            self.vehicle_trajectory_slow_left = self.env.vehicle.predict_trajectory(['LANE_LEFT_SLOW', 'IDLE', 'IDLE'],
-                                                                          1 / self.env.config["policy_frequency"],
-                                                                          1 / 3 / self.env.config["policy_frequency"],
-                                                                          1 / self.env.config["simulation_frequency"])
-            self.vehicle_trajectory_fast_left = self.env.vehicle.predict_trajectory(['LANE_LEFT_FAST', 'IDLE', 'IDLE'],
-                                                                          1 / self.env.config["policy_frequency"],
-                                                                          1 / 3 / self.env.config["policy_frequency"],
-                                                                          1 / self.env.config["simulation_frequency"])
-            self.vehicle_trajectory_idle = self.env.vehicle.predict_trajectory(['IDLE', 'IDLE', 'IDLE'],
-                                                                          1 / self.env.config["policy_frequency"],
-                                                                          1 / 3 / self.env.config["policy_frequency"],
-                                                                          1 / self.env.config["simulation_frequency"])
-            self.vehicle_trajectory_slow_right = self.env.vehicle.predict_trajectory(['LANE_RIGHT_SLOW', 'IDLE', 'IDLE'],
-                                                                          1 / self.env.config["policy_frequency"],
-                                                                          1 / 3 / self.env.config["policy_frequency"],
-                                                                          1 / self.env.config["simulation_frequency"])
-            self.vehicle_trajectory_fast_right = self.env.vehicle.predict_trajectory(['LANE_RIGHT_FAST', 'IDLE', 'IDLE'],
-                                                                          1 / self.env.config["policy_frequency"],
-                                                                          1 / 3 / self.env.config["policy_frequency"],
-                                                                          1 / self.env.config["simulation_frequency"])
-            # self.vehicle_trajectory_faster = self.env.vehicle.predict_trajectory(['FASTER', 'IDLE', 'IDLE'],
-            #                                                               1 / self.env.config["policy_frequency"],
-            #                                                               1 / 3 / self.env.config["policy_frequency"],
-            #                                                               1 / self.env.config["simulation_frequency"])
-            # self.vehicle_trajectory_slower = self.env.vehicle.predict_trajectory(['SLOWER', 'IDLE', 'IDLE'],
-            #                                                               1 / self.env.config["policy_frequency"],
-            #                                                               1 / 3 / self.env.config["policy_frequency"],
-            #                                                               1 / self.env.config["simulation_frequency"])
+            if len(actions) > 1:
+                self.vehicle_trajectory_slow_left = self.env.vehicle.predict_trajectory(['LANE_LEFT_SLOW', 'IDLE', 'IDLE'],
+                                                                            1 / self.env.config["policy_frequency"],
+                                                                            1 / 3 / self.env.config["policy_frequency"],
+                                                                            1 / self.env.config["simulation_frequency"])
+                self.vehicle_trajectory_fast_left = self.env.vehicle.predict_trajectory(['LANE_LEFT_FAST', 'IDLE', 'IDLE'],
+                                                                            1 / self.env.config["policy_frequency"],
+                                                                            1 / 3 / self.env.config["policy_frequency"],
+                                                                            1 / self.env.config["simulation_frequency"])
+                self.vehicle_trajectory_idle = self.env.vehicle.predict_trajectory(['IDLE', 'IDLE', 'IDLE'],
+                                                                            1 / self.env.config["policy_frequency"],
+                                                                            1 / 3 / self.env.config["policy_frequency"],
+                                                                            1 / self.env.config["simulation_frequency"])
+                self.vehicle_trajectory_slow_right = self.env.vehicle.predict_trajectory(['LANE_RIGHT_SLOW', 'IDLE', 'IDLE'],
+                                                                            1 / self.env.config["policy_frequency"],
+                                                                            1 / 3 / self.env.config["policy_frequency"],
+                                                                            1 / self.env.config["simulation_frequency"])
+                self.vehicle_trajectory_fast_right = self.env.vehicle.predict_trajectory(['LANE_RIGHT_FAST', 'IDLE', 'IDLE'],
+                                                                            1 / self.env.config["policy_frequency"],
+                                                                            1 / 3 / self.env.config["policy_frequency"],
+                                                                            1 / self.env.config["simulation_frequency"])
+                # self.vehicle_trajectory_faster = self.env.vehicle.predict_trajectory(['FASTER', 'IDLE', 'IDLE'],
+                #                                                               1 / self.env.config["policy_frequency"],
+                #                                                               1 / 3 / self.env.config["policy_frequency"],
+                #                                                               1 / self.env.config["simulation_frequency"])
+                # self.vehicle_trajectory_slower = self.env.vehicle.predict_trajectory(['SLOWER', 'IDLE', 'IDLE'],
+                #                                                               1 / self.env.config["policy_frequency"],
+                #                                                               1 / 3 / self.env.config["policy_frequency"],
+                #                                                               1 / self.env.config["simulation_frequency"])
 
     def handle_events(self) -> None:
         """Handle pygame events by forwarding them to the display and environment vehicle."""
