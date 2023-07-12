@@ -28,6 +28,8 @@ class EnvViewer(object):
         self.vehicle_trajectory = None
         self.frame = 0
         self.directory = None
+        
+        self.count = 0 ### Motification ###
 
         pygame.init()
         pygame.display.set_caption("Highway-env")
@@ -103,7 +105,7 @@ class EnvViewer(object):
         RoadGraphics.display(self.env.road, self.sim_surface)
 
         ### Modification ###
-        if self.frame % 100000 == 0:
+        if self.count % 100 == 0:
             # Slow Left
             self.set_agent_action_sequence([0,3])
             VehicleGraphics.display_trajectory(
@@ -152,6 +154,7 @@ class EnvViewer(object):
                 self.vehicle_trajectory,
                 self.sim_surface,
                 offscreen=self.offscreen)
+        self.count += 1
         ###
 
         RoadGraphics.display_road_objects(
