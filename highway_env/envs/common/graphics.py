@@ -138,7 +138,7 @@ class EnvViewer(object):
         RoadGraphics.display(self.env.road, self.sim_surface)
 
         ### Modification ###
-        if self.count % 10 == 0:
+        if self.count % 20 == 0:
             self.set_agent_action_sequence([0,0])
         
         # Drawing trajectories
