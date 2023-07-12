@@ -111,14 +111,14 @@ class EnvViewer(object):
                                                                           1 / self.env.config["policy_frequency"],
                                                                           1 / 3 / self.env.config["policy_frequency"],
                                                                           1 / self.env.config["simulation_frequency"])
-            self.vehicle_trajectory_faster = self.env.vehicle.predict_trajectory(['FASTER', 'IDLE'],
-                                                                          1 / self.env.config["policy_frequency"],
-                                                                          1 / 3 / self.env.config["policy_frequency"],
-                                                                          1 / self.env.config["simulation_frequency"])
-            self.vehicle_trajectory_slower = self.env.vehicle.predict_trajectory(['SLOWER', 'IDLE'],
-                                                                          1 / self.env.config["policy_frequency"],
-                                                                          1 / 3 / self.env.config["policy_frequency"],
-                                                                          1 / self.env.config["simulation_frequency"])
+            # self.vehicle_trajectory_faster = self.env.vehicle.predict_trajectory(['FASTER', 'IDLE'],
+            #                                                               1 / self.env.config["policy_frequency"],
+            #                                                               1 / 3 / self.env.config["policy_frequency"],
+            #                                                               1 / self.env.config["simulation_frequency"])
+            # self.vehicle_trajectory_slower = self.env.vehicle.predict_trajectory(['SLOWER', 'IDLE'],
+            #                                                               1 / self.env.config["policy_frequency"],
+            #                                                               1 / 3 / self.env.config["policy_frequency"],
+            #                                                               1 / self.env.config["simulation_frequency"])
 
     def handle_events(self) -> None:
         """Handle pygame events by forwarding them to the display and environment vehicle."""
@@ -138,8 +138,8 @@ class EnvViewer(object):
         RoadGraphics.display(self.env.road, self.sim_surface)
 
         ### Modification ###
-        if self.count % 20 == 0:
-            self.set_agent_action_sequence([0,0])
+        # if self.count % 5 == 0:
+        self.set_agent_action_sequence([0,0])
         
         # Drawing trajectories
         if self.vehicle_trajectory_slow_left:
