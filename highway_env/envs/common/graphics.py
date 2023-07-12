@@ -104,7 +104,7 @@ class EnvViewer(object):
 
         ### Modification ###
         if self.vehicle_trajectory:
-            self.set_agent_action_sequence([1,1,1,3,3,6,6,6])
+            self.set_agent_action_sequence([1,6])
             VehicleGraphics.display_trajectory(
                 self.vehicle_trajectory,
                 self.sim_surface,
