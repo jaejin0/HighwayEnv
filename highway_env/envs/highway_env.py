@@ -125,7 +125,7 @@ class HighwayEnv(AbstractEnv):
         ### Modification ###
         
         # Energy Consumption Model
-        energy_consumption = math.sqrt(self.vehicle.speed**2 + self.vehicle.heading**2)
+        energy_consumption = math.sqrt(self.vehicle.speed + self.vehicle.heading**2)
         # Normalization
         energy_consumption = utils.lmap(energy_consumption, self.config["energy_consumption_range"], [0, 1])
         

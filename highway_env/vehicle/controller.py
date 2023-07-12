@@ -178,7 +178,9 @@ class ControlledVehicle(Vehicle):
         :return: a steering wheel angle command [rad]
         """
         target_lane = self.road.network.get_lane(target_lane_index)
+        print(target_lane)
         lane_coords = target_lane.local_coordinates(self.position)
+        print(lane_coords)
         lane_next_coords = lane_coords[0] + self.speed * self.TAU_PURSUIT
         lane_future_heading = target_lane.heading_at(lane_next_coords)
 
