@@ -91,31 +91,31 @@ class EnvViewer(object):
         if isinstance(self.env.action_type, DiscreteMetaAction):
             actions = [self.env.action_type.actions[a] for a in actions]
         if len(actions) > 1:
-            self.vehicle_trajectory_slow_left = self.env.vehicle.predict_trajectory([0,3],
+            self.vehicle_trajectory_slow_left = self.env.vehicle.predict_trajectory(['LANE_LEFT_SLOW', 'IDLE'],
                                                                           1 / self.env.config["policy_frequency"],
                                                                           1 / 3 / self.env.config["policy_frequency"],
                                                                           1 / self.env.config["simulation_frequency"])
-            self.vehicle_trajectory_fast_left = self.env.vehicle.predict_trajectory([2,3],
+            self.vehicle_trajectory_fast_left = self.env.vehicle.predict_trajectory(['LANE_LEFT_FAST', 'IDLE'],
                                                                           1 / self.env.config["policy_frequency"],
                                                                           1 / 3 / self.env.config["policy_frequency"],
                                                                           1 / self.env.config["simulation_frequency"])
-            self.vehicle_trajectory_idle = self.env.vehicle.predict_trajectory([3,3],
+            self.vehicle_trajectory_idle = self.env.vehicle.predict_trajectory(['IDLE', 'IDLE'],
                                                                           1 / self.env.config["policy_frequency"],
                                                                           1 / 3 / self.env.config["policy_frequency"],
                                                                           1 / self.env.config["simulation_frequency"])
-            self.vehicle_trajectory_slow_right = self.env.vehicle.predict_trajectory([4,3],
+            self.vehicle_trajectory_slow_right = self.env.vehicle.predict_trajectory(['LANE_RIGHT_SLOW', 'IDLE'],
                                                                           1 / self.env.config["policy_frequency"],
                                                                           1 / 3 / self.env.config["policy_frequency"],
                                                                           1 / self.env.config["simulation_frequency"])
-            self.vehicle_trajectory_fast_right = self.env.vehicle.predict_trajectory([6,3],
+            self.vehicle_trajectory_fast_right = self.env.vehicle.predict_trajectory(['LANE_RIGHT_FAST', 'IDLE'],
                                                                           1 / self.env.config["policy_frequency"],
                                                                           1 / 3 / self.env.config["policy_frequency"],
                                                                           1 / self.env.config["simulation_frequency"])
-            self.vehicle_trajectory_faster = self.env.vehicle.predict_trajectory([7,3],
+            self.vehicle_trajectory_faster = self.env.vehicle.predict_trajectory(['FASTER', 'IDLE'],
                                                                           1 / self.env.config["policy_frequency"],
                                                                           1 / 3 / self.env.config["policy_frequency"],
                                                                           1 / self.env.config["simulation_frequency"])
-            self.vehicle_trajectory_slower = self.env.vehicle.predict_trajectory([8,3],
+            self.vehicle_trajectory_slower = self.env.vehicle.predict_trajectory(['SLOWER', 'IDLE'],
                                                                           1 / self.env.config["policy_frequency"],
                                                                           1 / 3 / self.env.config["policy_frequency"],
                                                                           1 / self.env.config["simulation_frequency"])
@@ -138,7 +138,7 @@ class EnvViewer(object):
         RoadGraphics.display(self.env.road, self.sim_surface)
 
         ### Modification ###
-        if self.count % 100 == 0:
+        if self.count % 10 == 0:
             self.set_agent_action_sequence([0,0])
         
         # Drawing trajectories
