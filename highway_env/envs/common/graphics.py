@@ -88,13 +88,13 @@ class EnvViewer(object):
 
         :param actions: list of action, following the env's action space specification
         """
-        # if isinstance(self.env.action_type, DiscreteMetaAction):
-        #     actions = [self.env.action_type.actions[a] for a in actions]
-        #     if len(actions) > 1:
-        #         self.vehicle_trajectory_slow_left = self.env.vehicle.predict_trajectory(['LANE_LEFT_SLOW', 'IDLE', 'IDLE'],
-        #                                                                     1 / self.env.config["policy_frequency"],
-        #                                                                     1 / 3 / self.env.config["policy_frequency"],
-        #                                                                     1 / self.env.config["simulation_frequency"])
+        if isinstance(self.env.action_type, DiscreteMetaAction):
+            actions = [self.env.action_type.actions[a] for a in actions]
+            if len(actions) > 1:
+                self.vehicle_trajectory_slow_left = self.env.vehicle.predict_trajectory(['LANE_LEFT_SLOW', 'IDLE', 'IDLE'],
+                                                                            1 / self.env.config["policy_frequency"],
+                                                                            1 / 3 / self.env.config["policy_frequency"],
+                                                                            1 / self.env.config["simulation_frequency"])
         #         self.vehicle_trajectory_fast_left = self.env.vehicle.predict_trajectory(['LANE_LEFT_FAST', 'IDLE', 'IDLE'],
         #                                                                     1 / self.env.config["policy_frequency"],
         #                                                                     1 / 3 / self.env.config["policy_frequency"],
@@ -103,10 +103,10 @@ class EnvViewer(object):
         #                                                                     1 / self.env.config["policy_frequency"],
         #                                                                     1 / 3 / self.env.config["policy_frequency"],
         #                                                                     1 / self.env.config["simulation_frequency"])
-        #         self.vehicle_trajectory_slow_right = self.env.vehicle.predict_trajectory(['LANE_RIGHT_SLOW', 'IDLE', 'IDLE'],
-        #                                                                     1 / self.env.config["policy_frequency"],
-        #                                                                     1 / 3 / self.env.config["policy_frequency"],
-        #                                                                     1 / self.env.config["simulation_frequency"])
+                self.vehicle_trajectory_slow_right = self.env.vehicle.predict_trajectory(['LANE_RIGHT_SLOW', 'IDLE', 'IDLE'],
+                                                                            1 / self.env.config["policy_frequency"],
+                                                                            1 / 3 / self.env.config["policy_frequency"],
+                                                                            1 / self.env.config["simulation_frequency"])
         #         self.vehicle_trajectory_fast_right = self.env.vehicle.predict_trajectory(['LANE_RIGHT_FAST', 'IDLE', 'IDLE'],
         #                                                                     1 / self.env.config["policy_frequency"],
         #                                                                     1 / 3 / self.env.config["policy_frequency"],
