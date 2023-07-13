@@ -202,6 +202,8 @@ class StraightLane(AbstractLane):
             "config": {
                 "start": _to_serializable(self.start),
                 "end": _to_serializable(self.end),
+                "self_direction": self.direction,
+                "self_direction_lateral": self.direction_lateral,
                 "width": self.width,
                 "line_types": self.line_types,
                 "forbidden": self.forbidden,
