@@ -181,10 +181,9 @@ class ControlledVehicle(Vehicle):
         lane_coords = target_lane.local_coordinates(self.position)
         lane_next_coords = lane_coords[0] + self.speed * self.TAU_PURSUIT  # no meaning
         lane_future_heading = target_lane.heading_at(lane_next_coords)  # always 0 -> no meaning
-
+        print(lane_future_heading)
         # Lateral position control
         lateral_speed_command = - self.KP_LATERAL * lane_coords[1]
-        print(lane_coords[1])
         # Lateral speed to heading
         heading_command = np.arcsin(np.clip(lateral_speed_command / utils.not_zero(self.speed), -1, 1))
         heading_ref = lane_future_heading + np.clip(heading_command, -np.pi/4, np.pi/4)
