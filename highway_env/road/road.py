@@ -234,7 +234,7 @@ class RoadNetwork(object):
             end = rotation @ end
             line_types = [LineType.CONTINUOUS_LINE if lane == 0 else LineType.STRIPED,
                           LineType.CONTINUOUS_LINE if lane == lanes - 1 else LineType.NONE]
-            net.add_lane(*nodes_str, SineLane(origin, end, line_types=line_types, speed_limit=speed_limit))
+            net.add_lane(*nodes_str, SineLane(origin, end, 1,1,1, line_types=line_types, speed_limit=speed_limit))
         return net
 
     def position_heading_along_route(self, route: Route, longitudinal: float, lateral: float) \
