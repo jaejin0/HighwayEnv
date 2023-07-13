@@ -179,16 +179,15 @@ class ControlledVehicle(Vehicle):
         """
         target_lane = self.road.network.get_lane(target_lane_index)
         lane_coords = target_lane.local_coordinates(self.position)
-        lane_next_coords = lane_coords[0] + self.speed * self.TAU_PURSUIT
-        lane_future_heading = target_lane.heading_at(lane_next_coords)
+        lane_next_coords = lane_coords[0] + self.speed * self.TAU_PURSUIT  # no meaning
+        lane_future_heading = target_lane.heading_at(lane_next_coords)  # always 0 -> no meaning
 
         # Lateral position control
         lateral_speed_command = - self.KP_LATERAL * lane_coords[1]
+        print(lane_coords[1])
         # Lateral speed to heading
         heading_command = np.arcsin(np.clip(lateral_speed_command / utils.not_zero(self.speed), -1, 1))
-        print(np.clip(heading_command, -np.pi/4, np.pi/4))
         heading_ref = lane_future_heading + np.clip(heading_command, -np.pi/4, np.pi/4)
-        print(heading_ref)
         # Heading control
         heading_rate_command = self.KP_HEADING * utils.wrap_to_pi(heading_ref - self.heading)
         # Heading rate to steering angle
