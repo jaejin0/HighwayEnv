@@ -2,7 +2,7 @@ import numpy as np
 import logging
 from typing import List, Tuple, Dict, TYPE_CHECKING, Optional
 
-from highway_env.road.lane import LineType, StraightLane, AbstractLane, lane_from_config
+from highway_env.road.lane import LineType, StraightLane, AbstractLane, lane_from_config, SineLane
 from highway_env.vehicle.objects import Landmark
 
 if TYPE_CHECKING:
@@ -227,14 +227,14 @@ class RoadNetwork(object):
         net = net or RoadNetwork()
         nodes_str = nodes_str or ("0", "1")
         for lane in range(lanes):
-            origin = np.array([start, lane * StraightLane.DEFAULT_WIDTH])
-            end = np.array([start + length, lane * StraightLane.DEFAULT_WIDTH])
+            origin = np.array([start, lane * SineLane.DEFAULT_WIDTH])
+            end = np.array([start + length, lane * SineLane.DEFAULT_WIDTH])
             rotation = np.array([[np.cos(angle), np.sin(angle)], [-np.sin(angle), np.cos(angle)]])
             origin = rotation @ origin
             end = rotation @ end
             line_types = [LineType.CONTINUOUS_LINE if lane == 0 else LineType.STRIPED,
                           LineType.CONTINUOUS_LINE if lane == lanes - 1 else LineType.NONE]
-            net.add_lane(*nodes_str, StraightLane(origin, end, line_types=line_types, speed_limit=speed_limit))
+            net.add_lane(*nodes_str, SineLane(origin, end, line_types=line_types, speed_limit=speed_limit))
         return net
 
     def position_heading_along_route(self, route: Route, longitudinal: float, lateral: float) \
