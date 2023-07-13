@@ -179,9 +179,9 @@ class ControlledVehicle(Vehicle):
         """
         target_lane = self.road.network.get_lane(target_lane_index)
         lane_coords = target_lane.local_coordinates(self.position)
-        print(lane_coords)
         lane_next_coords = lane_coords[0] + self.speed * self.TAU_PURSUIT
         lane_future_heading = target_lane.heading_at(lane_next_coords)
+        print(lane_future_heading)
 
         # Lateral position control
         lateral_speed_command = - self.KP_LATERAL * lane_coords[1]
