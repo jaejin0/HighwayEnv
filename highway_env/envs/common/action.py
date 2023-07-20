@@ -92,10 +92,9 @@ class TrajectoryAction(ActionType):
                  acceleration_range: Optional[Tuple[float, float]] = None,
                  steering_range: Optional[Tuple[float, float]] = None,
                  speed_range: Optional[Tuple[float, float]] = None,
-                 longitudinal: bool = True,
-                 lateral: bool = True,
                  dynamical: bool = False,
                  clip: bool = True,
+                 action_size: int = 10,
                  **kwargs) -> None:
         """
         Create a continuous action space.
@@ -105,8 +104,6 @@ class TrajectoryAction(ActionType):
         :param steering_range: the range of steering values [rad]
         :param trajectory_distance_range: the range of distance between each trajectory points [m]
         :param speed_range: the range of reachable speeds [m/s]
-        :param longitudinal: enable throttle control
-        :param lateral: enable steering control
         :param dynamical: whether to simulate dynamics (i.e. friction) rather than kinematics
         :param clip: clip action to the defined range
         """
@@ -115,17 +112,13 @@ class TrajectoryAction(ActionType):
         self.steering_range = steering_range if steering_range else self.STEERING_RANGE
         self.trajectory_distance_range = self.TRAJECTORY_DISTANCE_RANGE
         self.speed_range = speed_range
-        self.lateral = lateral
-        self.longitudinal = longitudinal
-        if not self.lateral and not self.longitudinal:
-            raise ValueError("Either longitudinal and/or lateral control must be enabled")
         self.dynamical = dynamical
         self.clip = clip
-        self.size = 2 if self.lateral and self.longitudinal else 1
+        self.size = action_size
         self.last_action = np.zeros(self.size)
 
     def space(self) -> spaces.Box:
-        return spaces.Box(-1., 1., shape=(self.size,), dtype=np.float32)
+        return spaces.Box(0., 1., shape=(self.size,), dtype=np.float32)
 
     @property
     def vehicle_class(self) -> Callable:
@@ -410,6 +403,8 @@ def action_factory(env: 'AbstractEnv', config: dict) -> ActionType:
         return ContinuousAction(env, **config)
     if config["type"] == "DiscreteAction":
         return DiscreteAction(env, **config)
+    elif config["type"] == "TrajectoryAction":
+        return TrajectoryAction(env, **config)
     elif config["type"] == "DiscreteMetaAction":
         return DiscreteMetaAction(env, **config)
     elif config["type"] == "MultiAgentAction":

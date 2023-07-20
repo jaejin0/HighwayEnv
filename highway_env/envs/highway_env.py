@@ -29,7 +29,7 @@ class HighwayEnv(AbstractEnv):
                 "type": "Kinematics"
             },
             "action": {
-                "type": "DiscreteMetaAction",
+                "type": "TrajectoryAction",
             },
             "lanes_count": 4,
             "vehicles_count": 50,
