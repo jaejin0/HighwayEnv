@@ -68,6 +68,96 @@ class ActionType(object):
         self.__controlled_vehicle = vehicle
 
 
+class TrajectoryAction(ActionType):
+
+    """
+    An continuous action space for distance and angle of trajectory points
+
+    [distance, angle]
+
+    The space intervals are always [0, 1], but are mapped to distance/angle intervals through configurations.
+    """
+
+    ACCELERATION_RANGE = (-5, 5.0)
+    """Acceleration range: [-x, x], in m/s²."""
+
+    STEERING_RANGE = (-np.pi / 4, np.pi / 4)
+    """Steering angle range: [-x, x], in rad."""
+    
+    TRAJECTORY_DISTANCE_RANGE = (1, 3)
+    """Trajectory distance range: [min, max], in m."""
+
+    def __init__(self,
+                 env: 'AbstractEnv',
+                 acceleration_range: Optional[Tuple[float, float]] = None,
+                 steering_range: Optional[Tuple[float, float]] = None,
+                 speed_range: Optional[Tuple[float, float]] = None,
+                 longitudinal: bool = True,
+                 lateral: bool = True,
+                 dynamical: bool = False,
+                 clip: bool = True,
+                 **kwargs) -> None:
+        """
+        Create a continuous action space.
+
+        :param env: the environment
+        :param acceleration_range: the range of acceleration values [m/s²]
+        :param steering_range: the range of steering values [rad]
+        :param trajectory_distance_range: the range of distance between each trajectory points [m]
+        :param speed_range: the range of reachable speeds [m/s]
+        :param longitudinal: enable throttle control
+        :param lateral: enable steering control
+        :param dynamical: whether to simulate dynamics (i.e. friction) rather than kinematics
+        :param clip: clip action to the defined range
+        """
+        super().__init__(env)
+        self.acceleration_range = acceleration_range if acceleration_range else self.ACCELERATION_RANGE
+        self.steering_range = steering_range if steering_range else self.STEERING_RANGE
+        self.trajectory_distance_range = self.TRAJECTORY_DISTANCE_RANGE
+        self.speed_range = speed_range
+        self.lateral = lateral
+        self.longitudinal = longitudinal
+        if not self.lateral and not self.longitudinal:
+            raise ValueError("Either longitudinal and/or lateral control must be enabled")
+        self.dynamical = dynamical
+        self.clip = clip
+        self.size = 2 if self.lateral and self.longitudinal else 1
+        self.last_action = np.zeros(self.size)
+
+    def space(self) -> spaces.Box:
+        return spaces.Box(-1., 1., shape=(self.size,), dtype=np.float32)
+
+    @property
+    def vehicle_class(self) -> Callable:
+        return Vehicle if not self.dynamical else BicycleVehicle
+
+    def act(self, action: np.ndarray) -> None:
+        
+        # takes first point of trajectory
+        
+        # if self.clip:
+        #     action = np.clip(action, -1, 1)
+        # if self.speed_range:
+        #     self.controlled_vehicle.MIN_SPEED, self.controlled_vehicle.MAX_SPEED = self.speed_range
+        # if self.longitudinal and self.lateral:
+        #     self.controlled_vehicle.act({
+        #         "acceleration": utils.lmap(action[0], [-1, 1], self.acceleration_range),
+        #         "steering": utils.lmap(action[1], [-1, 1], self.steering_range),
+        #     })
+        # elif self.longitudinal:
+        #     self.controlled_vehicle.act({
+        #         "acceleration": utils.lmap(action[0], [-1, 1], self.acceleration_range),
+        #         "steering": 0,
+        #     })
+        # elif self.lateral:
+        #     self.controlled_vehicle.act({
+        #         "acceleration": 0,
+        #         "steering": utils.lmap(action[0], [-1, 1], self.steering_range)
+        #     })
+        # self.last_action = action
+        print('hello')
+        
+
 class ContinuousAction(ActionType):
 
     """
@@ -181,11 +271,17 @@ class DiscreteMetaAction(ActionType):
     """
 
     ACTIONS_ALL = {
-        0: 'LANE_LEFT',
-        1: 'IDLE',
-        2: 'LANE_RIGHT',
-        3: 'FASTER',
-        4: 'SLOWER'
+        ### Modification ###
+        0: 'LANE_LEFT_SLOW',
+        1: 'LANE_LEFT_MEDIUM',
+        2: 'LANE_LEFT_FAST',
+        3: 'IDLE',
+        4: 'LANE_RIGHT_SLOW',
+        5: 'LANE_RIGHT_MEDIUM',
+        6: 'LANE_RIGHT_FAST',
+        7: 'FASTER',
+        8: 'SLOWER'
+        ###
     }
     """A mapping of action indexes to labels."""
 
@@ -197,9 +293,15 @@ class DiscreteMetaAction(ActionType):
     """A mapping of longitudinal action indexes to labels."""
 
     ACTIONS_LAT = {
-        0: 'LANE_LEFT',
-        1: 'IDLE',
-        2: 'LANE_RIGHT'
+        ### Modification ###
+        0: 'LANE_LEFT_SLOW',
+        1: 'LANE_LEFT_MEDIUM',
+        2: 'LANE_LEFT_FAST',
+        3: 'IDLE',
+        4: 'LANE_RIGHT_SLOW',
+        5: 'LANE_RIGHT_MEDIUM',
+        6: 'LANE_RIGHT_FAST'
+        ###
     }
     """A mapping of lateral action indexes to labels."""
 
@@ -254,11 +356,19 @@ class DiscreteMetaAction(ActionType):
             if l_index[2] < self.controlled_vehicle.lane_index[2] \
                     and network.get_lane(l_index).is_reachable_from(self.controlled_vehicle.position) \
                     and self.lateral:
-                actions.append(self.actions_indexes['LANE_LEFT'])
+                ### Modification ###
+                actions.append(self.actions_indexes['LANE_LEFT_SLOW'])
+                actions.append(self.actions_indexes['LANE_LEFT_MEDIUM'])
+                actions.append(self.actions_indexes['LANE_LEFT_FAST'])
+                ###
             if l_index[2] > self.controlled_vehicle.lane_index[2] \
                     and network.get_lane(l_index).is_reachable_from(self.controlled_vehicle.position) \
                     and self.lateral:
-                actions.append(self.actions_indexes['LANE_RIGHT'])
+                ### Modification ###
+                actions.append(self.actions_indexes['LANE_RIGHT_SLOW'])
+                actions.append(self.actions_indexes['LANE_RIGHT_MEDIUM'])
+                actions.append(self.actions_indexes['LANE_RIGHT_FAST'])
+                ###
         if self.controlled_vehicle.speed_index < self.controlled_vehicle.target_speeds.size - 1 and self.longitudinal:
             actions.append(self.actions_indexes['FASTER'])
         if self.controlled_vehicle.speed_index > 0 and self.longitudinal:
