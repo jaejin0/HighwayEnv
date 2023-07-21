@@ -219,7 +219,7 @@ class VehicleGraphics(object):
             # convert_alpha throws errors in offscreen mode
             # see https://stackoverflow.com/a/19057853
             vehicle_surface = pygame.Surface.convert_alpha(vehicle_surface)
-        # cls.blit_rotate(surface, vehicle_surface, position, np.rad2deg(-h))
+        cls.blit_rotate(surface, vehicle_surface, position, np.rad2deg(-h))
 
         # Label
         if label:
