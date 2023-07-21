@@ -93,6 +93,8 @@ class TrajectoryAction(ActionType):
 
     def __init__(self,
                  env: 'AbstractEnv',
+                 longitudinal: bool = True,
+                 lateral: bool = True,
                  target_speeds: Optional[Vector] = None,
                  **kwargs) -> None:
         """
@@ -118,16 +120,16 @@ class TrajectoryAction(ActionType):
 
     def act(self, action: Union[int, np.ndarray]) -> None:
         self.controlled_vehicle.act({
-            "distance-0": utils.lmap(action[0], [0, 1], self.acceleration_range),
-            "angle-0": utils.lmap(action[1], [0, 1], self.steering_range),
-            "distance-1": utils.lmap(action[2], [0, 1], self.acceleration_range),
-            "angle-1": utils.lmap(action[3], [0, 1], self.steering_range),
-            "distance-2": utils.lmap(action[4], [0, 1], self.acceleration_range),
-            "angle-2": utils.lmap(action[5], [0, 1], self.steering_range),
-            "distance-3": utils.lmap(action[6], [0, 1], self.acceleration_range),
-            "angle-3": utils.lmap(action[7], [0, 1], self.steering_range),
-            "distance-4": utils.lmap(action[8], [0, 1], self.acceleration_range),
-            "angle-4": utils.lmap(action[9], [0, 1], self.steering_range),
+            "distance-0": utils.lmap(action[0], [0, 1], self.trajectory_distance_range),
+            "angle-0": utils.lmap(action[1], [0, 1], self.trajectory_angle_range),
+            "distance-1": utils.lmap(action[2], [0, 1], self.trajectory_distance_range),
+            "angle-1": utils.lmap(action[3], [0, 1], self.trajectory_angle_range),
+            "distance-2": utils.lmap(action[4], [0, 1], self.trajectory_distance_range),
+            "angle-2": utils.lmap(action[5], [0, 1], self.trajectory_angle_range),
+            "distance-3": utils.lmap(action[6], [0, 1], self.trajectory_distance_range),
+            "angle-3": utils.lmap(action[7], [0, 1], self.trajectory_angle_range),
+            "distance-4": utils.lmap(action[8], [0, 1], self.trajectory_distance_range),
+            "angle-4": utils.lmap(action[9], [0, 1], self.trajectory_angle_range),
         })
         
 
