@@ -349,7 +349,7 @@ class TrajectoryVehicle(Vehicle):
         self.target_steering_angle = 0
         self.target_speed = target_speed or self.speed
         self.route = route
-        self.trajectory_distance = [3, 3, 3, 3, 3]
+        self.trajectory_distance = [30, 30, 30, 30, 30]
         self.trajectory_angle = [0, 0, 0, 0, 0]
 
     @classmethod
@@ -395,6 +395,8 @@ class TrajectoryVehicle(Vehicle):
         
         self.target_speed = self.trajectory_distance[0] / 0.5
         self.target_angle = self.trajectory_angle[0]
+        # calculate target speed and target angle using the next trajectory distance and trajectory angle
+        # if it surpass first one, it heads to the second one
         
         action = {"steering": self.steering_control(self.target_steering_angle),
                   "acceleration": self.speed_control(self.target_speed)}
@@ -497,3 +499,6 @@ class TrajectoryVehicle(Vehicle):
                 if (t % int(trajectory_timestep / dt)) == 0:
                     states.append(copy.deepcopy(v))
         return states
+    
+    
+        # return coordinates of 5 trajectory points after calculating from distance and angles using the current coordinate of ego vehicle
