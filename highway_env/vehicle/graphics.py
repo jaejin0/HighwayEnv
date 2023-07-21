@@ -177,7 +177,7 @@ class VehicleGraphics(object):
                                          flags=pygame.SRCALPHA)  # per-pixel alpha
         rect = (surface.pix(tire_length),
                 surface.pix(length / 2 - v.WIDTH / 2),
-                surface.pix(v.LENGTH * 2),
+                surface.pix(v.LENGTH * 100),
                 surface.pix(v.WIDTH))
         rect_headlight_left = (surface.pix(tire_length+v.LENGTH-headlight_length),
                                surface.pix(length / 2 - (1.4*v.WIDTH) / 3),
