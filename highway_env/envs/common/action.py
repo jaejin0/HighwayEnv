@@ -105,7 +105,6 @@ class TrajectoryAction(ActionType):
         super().__init__(env)
         self.trajectory_distance_range = self.TRAJECTORY_DISTANCE_RANGE
         self.trajectory_angle_range = self.TRAJECTORY_ANGLE_RANGE
-        self.target_speeds = np.array(target_speeds) if target_speeds is not None else MDPVehicle.DEFAULT_TARGET_SPEEDS
         self.size = 10  # 5 points of trajectory
 
     def space(self) -> spaces.Space:
