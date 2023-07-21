@@ -144,7 +144,7 @@ class VehicleGraphics(object):
         :param offscreen: whether the rendering should be done offscreen or not
         """
         for vehicle in states:
-            cls.display(vehicle, surface, transparent=True, offscreen=offscreen)
+            cls.display_points(vehicle, surface, transparent=True, offscreen=offscreen)
 
     @classmethod
     def display_points(cls, vehicle: Vehicle, surface: "WorldSurface",
@@ -171,16 +171,14 @@ class VehicleGraphics(object):
         headlight_length, headlight_width = 0.72, 0.6
         roof_length, roof_width = 2.0, 1.5
 
-        point_side = 3
-
         # Vehicle rectangle
         length = v.LENGTH + 2 * tire_length
         vehicle_surface = pygame.Surface((surface.pix(length), surface.pix(length)),
                                          flags=pygame.SRCALPHA)  # per-pixel alpha
         rect = (surface.pix(tire_length),
                 surface.pix(length / 2 - v.WIDTH / 2),
-                surface.pix(6),
-                surface.pix(3))
+                surface.pix(v.LENGTH * 2),
+                surface.pix(v.WIDTH))
         rect_headlight_left = (surface.pix(tire_length+v.LENGTH-headlight_length),
                                surface.pix(length / 2 - (1.4*v.WIDTH) / 3),
                                surface.pix(headlight_length),
@@ -190,7 +188,7 @@ class VehicleGraphics(object):
                                 surface.pix(headlight_length),
                                 surface.pix(headlight_width))
         color = cls.PURPLE
-        color = (color[0], color[1], color[2], 30)  # transparent
+        color = (color[0], color[1], color[2], 30)
         pygame.draw.rect(vehicle_surface, color, rect, 0)
         pygame.draw.rect(vehicle_surface, cls.lighten(color), rect_headlight_left, 0)
         pygame.draw.rect(vehicle_surface, cls.lighten(color), rect_headlight_right, 0)
