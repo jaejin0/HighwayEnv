@@ -93,9 +93,6 @@ class TrajectoryAction(ActionType):
 
     def __init__(self,
                  env: 'AbstractEnv',
-                 longitudinal: bool = True,
-                 lateral: bool = True,
-                 target_speeds: Optional[Vector] = None,
                  **kwargs) -> None:
         """
         Create a discrete action space of meta-actions.
