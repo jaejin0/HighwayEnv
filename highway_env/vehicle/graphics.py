@@ -139,10 +139,27 @@ class VehicleGraphics(object):
                 surface.pix(length / 2 - v.WIDTH / 2),
                 surface.pix(v.LENGTH),
                 surface.pix(v.WIDTH))
-
+        rect_headlight_left = (surface.pix(tire_length+v.LENGTH-headlight_length),
+                               surface.pix(length / 2 - (1.4*v.WIDTH) / 3),
+                               surface.pix(headlight_length),
+                               surface.pix(headlight_width))
+        rect_headlight_right = (surface.pix(tire_length+v.LENGTH-headlight_length),
+                                surface.pix(length / 2 + (0.6*v.WIDTH) / 5),
+                                surface.pix(headlight_length),
+                                surface.pix(headlight_width))
         color = cls.get_color(cls.PURPLE, transparent)
         pygame.draw.rect(vehicle_surface, color, rect, 0)
+        pygame.draw.rect(vehicle_surface, cls.lighten(color), rect_headlight_left, 0)
+        pygame.draw.rect(vehicle_surface, cls.lighten(color), rect_headlight_right, 0)
 
+        # Centered rotation
+        h = v.heading if abs(v.heading) > 2 * np.pi / 180 else 0
+        position = [*surface.pos2pix(v.position[0], v.position[1])]
+        if not offscreen:
+            # convert_alpha throws errors in offscreen mode
+            # see https://stackoverflow.com/a/19057853
+            vehicle_surface = pygame.Surface.convert_alpha(vehicle_surface)
+        cls.blit_rotate(surface, vehicle_surface, position, np.rad2deg(-h))
 
         # Label
         if label:
