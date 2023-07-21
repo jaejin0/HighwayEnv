@@ -178,7 +178,7 @@ class VehicleGraphics(object):
         rect = (surface.pix(tire_length),
                 surface.pix(length / 2 - v.WIDTH / 2),
                 surface.pix(v.LENGTH * 100),
-                surface.pix(v.WIDTH))
+                surface.pix(v.WIDTH * 100))
         rect_headlight_left = (surface.pix(tire_length+v.LENGTH-headlight_length),
                                surface.pix(length / 2 - (1.4*v.WIDTH) / 3),
                                surface.pix(headlight_length),
