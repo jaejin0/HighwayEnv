@@ -112,7 +112,7 @@ class TrajectoryAction(ActionType):
 
     @property
     def vehicle_class(self) -> Callable:
-        return functools.partial(TrajectoryVehicle, target_speeds=self.target_speeds)
+        return TrajectoryVehicle
 
     def act(self, action: Union[int, np.ndarray]) -> None:
         self.controlled_vehicle.act({
