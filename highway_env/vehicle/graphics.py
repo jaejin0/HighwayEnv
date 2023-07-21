@@ -144,7 +144,7 @@ class VehicleGraphics(object):
         :param offscreen: whether the rendering should be done offscreen or not
         """
         for vehicle in states:
-            cls.display_points(vehicle, surface, transparent=True, offscreen=offscreen)
+            cls.display(vehicle, surface, transparent=True, offscreen=offscreen)
 
     @classmethod
     def display_points(cls, vehicle: Vehicle, surface: "WorldSurface",
