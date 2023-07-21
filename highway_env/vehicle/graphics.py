@@ -172,7 +172,7 @@ class VehicleGraphics(object):
         roof_length, roof_width = 2.0, 1.5
 
         # Vehicle rectangle
-        length = v.LENGTH + 2 * tire_length
+        length = v.WIDTH
         vehicle_surface = pygame.Surface((surface.pix(length), surface.pix(length)),
                                          flags=pygame.SRCALPHA)  # per-pixel alpha
         rect = (surface.pix(tire_length),
@@ -187,7 +187,7 @@ class VehicleGraphics(object):
                                 surface.pix(length / 2 + (0.6*v.WIDTH) / 5),
                                 surface.pix(headlight_length),
                                 surface.pix(headlight_width))
-        color = cls.get_color(v, transparent)
+        color = cls.PURPLE
         pygame.draw.rect(vehicle_surface, color, rect, 0)
         pygame.draw.rect(vehicle_surface, cls.lighten(color), rect_headlight_left, 0)
         pygame.draw.rect(vehicle_surface, cls.lighten(color), rect_headlight_right, 0)
@@ -219,7 +219,7 @@ class VehicleGraphics(object):
             # convert_alpha throws errors in offscreen mode
             # see https://stackoverflow.com/a/19057853
             vehicle_surface = pygame.Surface.convert_alpha(vehicle_surface)
-        cls.blit_rotate(surface, vehicle_surface, position, np.rad2deg(-h))
+        # cls.blit_rotate(surface, vehicle_surface, position, np.rad2deg(-h))
 
         # Label
         if label:
