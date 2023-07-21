@@ -105,6 +105,51 @@ class VehicleGraphics(object):
             text = "#{}".format(id(v) % 1000)
             text = font.render(text, 1, (10, 10, 10), (255, 255, 255))
             surface.blit(text, position)
+        
+    @classmethod
+    def display_trajectory_point(cls, vehicle: Vehicle, surface: "WorldSurface",
+                transparent: bool = False,
+                offscreen: bool = False,
+                label: bool = False,
+                draw_roof: bool = False) -> None:
+        """
+        Display a vehicle on a pygame surface.
+
+        The vehicle is represented as a colored rotated rectangle.
+
+        :param vehicle: the vehicle to be drawn
+        :param surface: the surface to draw the vehicle on
+        :param transparent: whether the vehicle should be drawn slightly transparent
+        :param offscreen: whether the rendering should be done offscreen or not
+        :param label: whether a text label should be rendered
+        """
+        if not surface.is_visible(vehicle.position):
+            return
+
+        v = vehicle
+        tire_length, tire_width = 1, 0.3
+        headlight_length, headlight_width = 0.72, 0.6
+        roof_length, roof_width = 2.0, 1.5
+
+        # Vehicle rectangle
+        length = v.LENGTH + 2 * tire_length
+        vehicle_surface = pygame.Surface((surface.pix(length), surface.pix(length)),
+                                         flags=pygame.SRCALPHA)  # per-pixel alpha
+        rect = (surface.pix(tire_length),
+                surface.pix(length / 2 - v.WIDTH / 2),
+                surface.pix(v.LENGTH),
+                surface.pix(v.WIDTH))
+
+        color = cls.get_color(cls.PURPLE, transparent)
+        pygame.draw.rect(vehicle_surface, color, rect, 0)
+
+
+        # Label
+        if label:
+            font = pygame.font.Font(None, 15)
+            text = "#{}".format(id(v) % 1000)
+            text = font.render(text, 1, (10, 10, 10), (255, 255, 255))
+            surface.blit(text, position)
 
     @staticmethod
     def blit_rotate(surf: pygame.SurfaceType, image: pygame.SurfaceType, pos: Vector, angle: float,
