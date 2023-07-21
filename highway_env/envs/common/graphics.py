@@ -103,7 +103,7 @@ class EnvViewer(object):
         RoadGraphics.display(self.env.road, self.sim_surface)
 
         if self.vehicle_trajectory:
-            VehicleGraphics.display_trajectory_point(
+            VehicleGraphics.display_trajectory(
                 self.vehicle_trajectory,
                 self.sim_surface,
                 offscreen=self.offscreen)
