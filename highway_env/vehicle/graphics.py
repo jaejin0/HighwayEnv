@@ -151,6 +151,26 @@ class VehicleGraphics(object):
         pygame.draw.rect(vehicle_surface, color, rect, 0)
         pygame.draw.rect(vehicle_surface, cls.lighten(color), rect_headlight_left, 0)
         pygame.draw.rect(vehicle_surface, cls.lighten(color), rect_headlight_right, 0)
+        if draw_roof:
+            rect_roof = (surface.pix(v.LENGTH/2 - tire_length/2),
+                         surface.pix(0.999*length/ 2 - 0.38625*v.WIDTH),
+                         surface.pix(roof_length),
+                         surface.pix(roof_width))
+            pygame.draw.rect(vehicle_surface, cls.darken(color), rect_roof, 0)
+        pygame.draw.rect(vehicle_surface, cls.BLACK, rect, 1)
+
+        # Tires
+        if type(vehicle) in [Vehicle, BicycleVehicle]:
+            tire_positions = [[surface.pix(tire_length), surface.pix(length / 2 - v.WIDTH / 2)],
+                              [surface.pix(tire_length), surface.pix(length / 2 + v.WIDTH / 2)],
+                              [surface.pix(length - tire_length), surface.pix(length / 2 - v.WIDTH / 2)],
+                              [surface.pix(length - tire_length), surface.pix(length / 2 + v.WIDTH / 2)]]
+            tire_angles = [0, 0, v.action["steering"], v.action["steering"]]
+            for tire_position, tire_angle in zip(tire_positions, tire_angles):
+                tire_surface = pygame.Surface((surface.pix(tire_length), surface.pix(tire_length)), pygame.SRCALPHA)
+                rect = (0, surface.pix(tire_length/2-tire_width/2), surface.pix(tire_length), surface.pix(tire_width))
+                pygame.draw.rect(tire_surface, cls.BLACK, rect, 0)
+                cls.blit_rotate(vehicle_surface, tire_surface, tire_position, np.rad2deg(-tire_angle))
 
         # Centered rotation
         h = v.heading if abs(v.heading) > 2 * np.pi / 180 else 0
