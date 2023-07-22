@@ -501,7 +501,7 @@ class TrajectoryVehicle(Vehicle):
                     
         points = []
         for i in range(0,len(actions),2):
-            pt = Vector([actions[i], actions[i+1]])
+            pt = np.array([actions[i], actions[i+1]])
             points.append(pt)
             
         
