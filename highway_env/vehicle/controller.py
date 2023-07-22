@@ -487,22 +487,19 @@ class TrajectoryVehicle(Vehicle):
         :param dt: the timestep of the simulation
         :return: the sequence of future states
         """
-        states = []
-        v = copy.deepcopy(self)
-        t = 0
-        for action in actions:
-            v.act(action)  # High-level decision
-            for _ in range(int(action_duration / dt)):
-                t += 1
-                v.act()  # Low-level control action
-                v.step(dt)
-                if (t % int(trajectory_timestep / dt)) == 0:
-                    states.append(copy.deepcopy(v))
-                    
+        
         points = []
+        cur_pt = self.position
         for i in range(0,len(actions),2):
-            pt = np.array([actions[i], actions[i+1]])
-            points.append(pt)
+            dis = actions[i] * 5
+            
+            angle = actions[i+1] * 2 * np.pi  # [0, 2 pi]
+            angle = utils.wrap_to_pi(angle)  # [-pi, pi]
+            angle = np.clip(angle, -self.MAX_STEERING_ANGLE, self.MAX_STEERING_ANGLE)  # [-pi/3, pi/3]
+            
+            cur_pt += np.array([np.cos(angle), np.sin(angle)]) * dis
+            
+            points.append(cur_pt)
             
         return points
     
