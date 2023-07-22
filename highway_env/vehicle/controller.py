@@ -498,7 +498,16 @@ class TrajectoryVehicle(Vehicle):
                 v.step(dt)
                 if (t % int(trajectory_timestep / dt)) == 0:
                     states.append(copy.deepcopy(v))
-        return states
+                    
+        points = []
+        distance = True
+        for i in range(0,actions,2):
+            pt = Vector(points[i], points[i+1])
+            points.append(pt)
+            
+        
+        
+        return points
     
     
         # return coordinates of 5 trajectory points after calculating from distance and angles using the current coordinate of ego vehicle
