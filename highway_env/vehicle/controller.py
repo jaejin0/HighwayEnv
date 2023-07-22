@@ -500,9 +500,8 @@ class TrajectoryVehicle(Vehicle):
                     states.append(copy.deepcopy(v))
                     
         points = []
-        distance = True
         for i in range(0,len(actions),2):
-            pt = Vector(actions[i], actions[i+1])
+            pt = Vector([actions[i], actions[i+1]])
             points.append(pt)
             
         
