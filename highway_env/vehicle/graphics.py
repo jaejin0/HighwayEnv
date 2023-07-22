@@ -173,6 +173,9 @@ class VehicleGraphics(object):
 
         # Vehicle rectangle
         length = v.LENGTH + 2 * tire_length
+        print(tire_length)
+        print(v.WIDTH)
+        print(v.LENGTH)
         vehicle_surface = pygame.Surface((surface.pix(length), surface.pix(length)),
                                          flags=pygame.SRCALPHA)  # per-pixel alpha
         rect = (surface.pix(tire_length),
