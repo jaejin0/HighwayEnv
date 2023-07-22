@@ -188,7 +188,7 @@ class VehicleGraphics(object):
                                 surface.pix(headlight_length),
                                 surface.pix(headlight_width))
         color = cls.PURPLE
-        color = (color[0], color[1], color[2], 30)
+        color = (color[0], color[1], color[2], 30)  # transparent
         pygame.draw.rect(vehicle_surface, color, rect, 0)
         pygame.draw.rect(vehicle_surface, cls.lighten(color), rect_headlight_left, 0)
         pygame.draw.rect(vehicle_surface, cls.lighten(color), rect_headlight_right, 0)
