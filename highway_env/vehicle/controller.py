@@ -349,7 +349,7 @@ class TrajectoryVehicle(Vehicle):
         self.target_steering_angle = 0
         self.target_speed = target_speed or self.speed
         self.route = route
-        self.trajectory_distance = [30, 30, 30, 30, 30]
+        self.trajectory_distance = [10, 10, 10, 10, 10]
         self.trajectory_angle = [0, 0, 0, 0, 0]
 
     @classmethod
