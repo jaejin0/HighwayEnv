@@ -135,7 +135,7 @@ class VehicleGraphics(object):
             pygame.draw.rect(surf, (255, 0, 0), (*origin, *rotated_image.get_size()), 2)
 
     @classmethod
-    def display_trajectory(cls, states: List[Vector], surface: "WorldSurface", offscreen: bool = False) -> None:
+    def display_trajectory(cls, points: List[Vector], surface: "WorldSurface", offscreen: bool = False) -> None:
         """
         Display the whole trajectory of a vehicle on a pygame surface.
 
@@ -143,7 +143,8 @@ class VehicleGraphics(object):
         :param surface: the surface to draw the vehicle future states on
         :param offscreen: whether the rendering should be done offscreen or not
         """
-        for point in states:
+        for point in points:
+            print(point)
             cls.display_points(point, surface, transparent=True, offscreen=offscreen)
 
     @classmethod

@@ -504,8 +504,6 @@ class TrajectoryVehicle(Vehicle):
             pt = np.array([actions[i], actions[i+1]])
             points.append(pt)
             
-        
-        print(points)
         return points
     
     
