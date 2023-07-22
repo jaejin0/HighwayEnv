@@ -477,7 +477,7 @@ class TrajectoryVehicle(Vehicle):
                      for t in times]))
     
     def predict_trajectory(self, actions: List, action_duration: float, trajectory_timestep: float, dt: float) \
-            -> List[ControlledVehicle]:
+            -> List[Vector]:
         """
         Predict the future trajectory of the vehicle given a sequence of actions.
 
