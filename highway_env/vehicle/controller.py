@@ -505,7 +505,7 @@ class TrajectoryVehicle(Vehicle):
             points.append(pt)
             
         
-        
+        print(points)
         return points
     
     
