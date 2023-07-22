@@ -175,8 +175,8 @@ class VehicleGraphics(object):
         length = 5 + 2 * 1
         vehicle_surface = pygame.Surface((surface.pix(length), surface.pix(length)),
                                          flags=pygame.SRCALPHA)  # per-pixel alpha
-        rect = (surface.pix(4),
-                surface.pix(4),
+        rect = (surface.pix(1),
+                surface.pix(1),
                 surface.pix(2),
                 surface.pix(2))
         rect_headlight_left = (surface.pix(tire_length+5-headlight_length),
