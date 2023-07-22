@@ -490,6 +490,7 @@ class TrajectoryVehicle(Vehicle):
         
         points = []
         cur_pt = copy.deepcopy(self.position)
+        print(cur_pt)
         for i in range(0,len(actions),2):
             dis = actions[i] * 5
             
@@ -501,7 +502,7 @@ class TrajectoryVehicle(Vehicle):
             
             points.append(cur_pt)
         
-        print(points)    
+        print(points)
         return points
 
     
