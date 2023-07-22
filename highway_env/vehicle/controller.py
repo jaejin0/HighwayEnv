@@ -491,7 +491,6 @@ class TrajectoryVehicle(Vehicle):
         points = []
         cur_pt = copy.deepcopy(self.position)
         for i in range(0,len(actions),2):
-            print("AHAHAHAH")
             dis = actions[i] * 5
             
             angle = actions[i+1] * 2 * np.pi  # [0, 2 pi]
@@ -501,9 +500,9 @@ class TrajectoryVehicle(Vehicle):
             cur_pt += np.array([np.cos(angle), np.sin(angle)]) * dis
             
             points.append(cur_pt)
-            
-        print("+++++++++++")
+        
+        print(points)    
         return points
-    
+
     
         # return coordinates of 5 trajectory points after calculating from distance and angles using the current coordinate of ego vehicle
