@@ -147,7 +147,7 @@ class VehicleGraphics(object):
             cls.display_points(vehicle, surface, transparent=True, offscreen=offscreen)
 
     @classmethod
-    def display_points(cls, vehicle: Vehicle, surface: "WorldSurface",
+    def display_points(cls, point: Vector, surface: "WorldSurface",
                 transparent: bool = False,
                 offscreen: bool = False,
                 label: bool = False,
@@ -163,31 +163,27 @@ class VehicleGraphics(object):
         :param offscreen: whether the rendering should be done offscreen or not
         :param label: whether a text label should be rendered
         """
-        if not surface.is_visible(vehicle.position):
+        if not surface.is_visible(point):
             return
 
-        v = vehicle
         tire_length, tire_width = 1, 0.3
         headlight_length, headlight_width = 0.72, 0.6
         roof_length, roof_width = 2.0, 1.5
 
         # Vehicle rectangle
-        length = v.LENGTH + 2 * tire_length
-        print(tire_length)
-        print(v.WIDTH)
-        print(v.LENGTH)
+        length = 5 + 2 * 1
         vehicle_surface = pygame.Surface((surface.pix(length), surface.pix(length)),
                                          flags=pygame.SRCALPHA)  # per-pixel alpha
         rect = (surface.pix(tire_length),
-                surface.pix(length / 2 - v.WIDTH / 2),
-                surface.pix(v.WIDTH),
-                surface.pix(v.WIDTH))
-        rect_headlight_left = (surface.pix(tire_length+v.LENGTH-headlight_length),
-                               surface.pix(length / 2 - (1.4*v.WIDTH) / 3),
+                surface.pix(length / 2 - 2 / 2),
+                surface.pix(2),
+                surface.pix(2))
+        rect_headlight_left = (surface.pix(tire_length+5-headlight_length),
+                               surface.pix(length / 2 - (1.4*2) / 3),
                                surface.pix(headlight_length),
                                surface.pix(headlight_width))
-        rect_headlight_right = (surface.pix(tire_length+v.LENGTH-headlight_length),
-                                surface.pix(length / 2 + (0.6*v.WIDTH) / 5),
+        rect_headlight_right = (surface.pix(tire_length+5-headlight_length),
+                                surface.pix(length / 2 + (0.6*2) / 5),
                                 surface.pix(headlight_length),
                                 surface.pix(headlight_width))
         color = cls.PURPLE
@@ -196,41 +192,21 @@ class VehicleGraphics(object):
         pygame.draw.rect(vehicle_surface, cls.lighten(color), rect_headlight_left, 0)
         pygame.draw.rect(vehicle_surface, cls.lighten(color), rect_headlight_right, 0)
         if draw_roof:
-            rect_roof = (surface.pix(v.LENGTH/2 - tire_length/2),
-                         surface.pix(0.999*length/ 2 - 0.38625*v.WIDTH),
+            rect_roof = (surface.pix(5/2 - tire_length/2),
+                         surface.pix(0.999*length/ 2 - 0.38625*2),
                          surface.pix(roof_length),
                          surface.pix(roof_width))
             pygame.draw.rect(vehicle_surface, cls.darken(color), rect_roof, 0)
         pygame.draw.rect(vehicle_surface, cls.BLACK, rect, 1)
 
-        # Tires
-        if type(vehicle) in [Vehicle, BicycleVehicle]:
-            tire_positions = [[surface.pix(tire_length), surface.pix(length / 2 - v.WIDTH / 2)],
-                              [surface.pix(tire_length), surface.pix(length / 2 + v.WIDTH / 2)],
-                              [surface.pix(length - tire_length), surface.pix(length / 2 - v.WIDTH / 2)],
-                              [surface.pix(length - tire_length), surface.pix(length / 2 + v.WIDTH / 2)]]
-            tire_angles = [0, 0, v.action["steering"], v.action["steering"]]
-            for tire_position, tire_angle in zip(tire_positions, tire_angles):
-                tire_surface = pygame.Surface((surface.pix(tire_length), surface.pix(tire_length)), pygame.SRCALPHA)
-                rect = (0, surface.pix(tire_length/2-tire_width/2), surface.pix(tire_length), surface.pix(tire_width))
-                pygame.draw.rect(tire_surface, cls.BLACK, rect, 0)
-                cls.blit_rotate(vehicle_surface, tire_surface, tire_position, np.rad2deg(-tire_angle))
-
-        # Centered rotation
-        h = v.heading if abs(v.heading) > 2 * np.pi / 180 else 0
-        position = [*surface.pos2pix(v.position[0], v.position[1])]
-        if not offscreen:
-            # convert_alpha throws errors in offscreen mode
-            # see https://stackoverflow.com/a/19057853
-            vehicle_surface = pygame.Surface.convert_alpha(vehicle_surface)
-        cls.blit_rotate(surface, vehicle_surface, position, np.rad2deg(-h))
-
+        position = point
+        
         # Label
-        if label:
-            font = pygame.font.Font(None, 15)
-            text = "#{}".format(id(v) % 1000)
-            text = font.render(text, 1, (10, 10, 10), (255, 255, 255))
-            surface.blit(text, position)
+        # if label:
+        #     font = pygame.font.Font(None, 15)
+            # text = "#{}".format(id(v) % 1000)
+            # text = font.render(text, 1, (10, 10, 10), (255, 255, 255))
+            # surface.blit(text, position)
 
     @classmethod
     def display_history(cls, vehicle: Vehicle, surface: "WorldSurface", frequency: float = 3, duration: float = 2,
