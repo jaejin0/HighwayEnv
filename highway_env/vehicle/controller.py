@@ -497,7 +497,7 @@ class TrajectoryVehicle(Vehicle):
             
             print(np.array([np.cos(angle), np.sin(angle)]) * dis)
             
-            cur_pt += np.array([np.cos(angle), np.sin(angle)]) * dis
+            cur_pt = cur_pt + np.array([np.cos(angle), np.sin(angle)]) * dis
             
             points.append(cur_pt)
         
