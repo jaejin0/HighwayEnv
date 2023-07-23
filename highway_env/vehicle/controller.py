@@ -491,7 +491,7 @@ class TrajectoryVehicle(Vehicle):
         points = []
         cur_pt = copy.deepcopy(self.position)
         for i in range(0,len(actions),2):
-            dis = actions[i] * 10
+            dis = actions[i] * 15
             angle = utils.lmap(actions[i+1], [0,1], [-self.MAX_STEERING_ANGLE, self.MAX_STEERING_ANGLE])
             
             cur_pt = cur_pt + np.array([np.cos(angle), np.sin(angle)]) * dis
