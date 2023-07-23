@@ -498,17 +498,17 @@ class TrajectoryVehicle(Vehicle):
         :return: the sequence of future states
         """
         
-        points = []
-        cur_pt = copy.deepcopy(self.position)
-        for i in range(0,len(actions),2):
-            dis = actions[i] * 15
-            angle = utils.lmap(actions[i+1], [0,1], [-self.MAX_STEERING_ANGLE, self.MAX_STEERING_ANGLE])
+        # points = []
+        # cur_pt = copy.deepcopy(self.position)
+        # for i in range(0,len(actions),2):
+        #     dis = actions[i] * 15
+        #     angle = utils.lmap(actions[i+1], [0,1], [-self.MAX_STEERING_ANGLE, self.MAX_STEERING_ANGLE])
             
-            cur_pt = cur_pt + np.array([np.cos(angle), np.sin(angle)]) * dis
+        #     cur_pt = cur_pt + np.array([np.cos(angle), np.sin(angle)]) * dis
             
-            points.append(cur_pt)
+        #     points.append(cur_pt)
         
-        return points
+        # return points
 
     
         # return coordinates of 5 trajectory points after calculating from distance and angles using the current coordinate of ego vehicle
