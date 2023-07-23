@@ -349,8 +349,8 @@ class TrajectoryVehicle(Vehicle):
         self.target_steering_angle = 0
         self.target_speed = target_speed or self.speed
         self.route = route
-        self.trajectory_distance = [10, 10, 10, 10, 10]
-        self.trajectory_angle = [0, 0, 0, 0, 0]
+        
+        self.trajectory_points = []
 
     @classmethod
     def create_from(cls, vehicle: "ControlledVehicle") -> "ControlledVehicle":
@@ -394,6 +394,8 @@ class TrajectoryVehicle(Vehicle):
         """
         
         # update speed with acceleration
+        acceleration = action["acceleration"]
+        print(acceleration)
         # set trajectory points (x, y) from input actions
         # call drawing trajectory
         # find target speed and target angle based on the targetting trajectory

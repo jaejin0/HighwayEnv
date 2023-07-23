@@ -91,7 +91,7 @@ class TrajectoryAction(ActionType):
     TRAJECTORY_ANGLE_RANGE = (-np.pi / 4, np.pi / 4)
     """Trajectory angle range: [-x, x], in rad."""
     
-    TRAJECTORY_POINTS_NUM = 8
+    TRAJECTORY_POINTS_NUM = 6
 
     def __init__(self,
                  env: 'AbstractEnv',
