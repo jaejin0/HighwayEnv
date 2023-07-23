@@ -399,8 +399,8 @@ class TrajectoryVehicle(Vehicle):
         print(action)
         # update speed with acceleration
         
-        acceleration = action["acceleration"]
-        print(acceleration)
+        x = action["acceleration"]
+        print(x)
         # set trajectory points (x, y) from input actions
         # call drawing trajectory
         # find target speed and target angle based on the targetting trajectory
