@@ -126,7 +126,7 @@ class TrajectoryAction(ActionType):
         
         angle = []
         for j in range(2, len(action), 2):
-            print(i)
+            print(j)
             angle.append(utils.lmap(action[j], [0, 1], self.trajectory_angle_range))
         
         print(len(distance))
