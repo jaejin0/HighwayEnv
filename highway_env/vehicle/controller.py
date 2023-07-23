@@ -398,8 +398,8 @@ class TrajectoryVehicle(Vehicle):
         """
         print(action)
         # update speed with acceleration
-        if action["acceleration"]:
-            acceleration = action["acceleration"]
+        
+        acceleration = action["acceleration"]
         print(acceleration)
         # set trajectory points (x, y) from input actions
         # call drawing trajectory
