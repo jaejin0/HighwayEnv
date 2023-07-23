@@ -405,13 +405,12 @@ class TrajectoryVehicle(Vehicle):
             # make it to break if it gets new action if the loop keep changing values
         
         
-        self.target_speed = self.trajectory_distance[0] / 0.5
-        self.target_angle = self.trajectory_angle[0]
+        
         # calculate target speed and target angle using the next trajectory distance and trajectory angle
         # if it surpass first one, it heads to the second one
         
         action = {"steering": self.steering_control(self.target_steering_angle),
-                  "acceleration": self.speed_control(self.target_speed)}
+                  "acceleration": acceleration}
         super().act(action)
 
     def follow_road(self) -> None:
