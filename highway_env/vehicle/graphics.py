@@ -200,6 +200,15 @@ class VehicleGraphics(object):
             pygame.draw.rect(vehicle_surface, cls.darken(color), rect_roof, 0)
         pygame.draw.rect(vehicle_surface, cls.BLACK, rect, 1)
 
+        # Centered rotation
+        h = 0
+        position = [*surface.pos2pix(point[0], point[1])]
+        if not offscreen:
+            # convert_alpha throws errors in offscreen mode
+            # see https://stackoverflow.com/a/19057853
+            vehicle_surface = pygame.Surface.convert_alpha(vehicle_surface)
+        cls.blit_rotate(surface, vehicle_surface, position, np.rad2deg(-h))
+
         position = [*surface.pos2pix(point[0], point[1])]
         if label:
             font = pygame.font.Font(None, 15)
