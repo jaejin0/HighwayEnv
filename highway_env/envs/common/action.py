@@ -90,6 +90,8 @@ class TrajectoryAction(ActionType):
     
     TRAJECTORY_ANGLE_RANGE = (-np.pi / 4, np.pi / 4)
     """Trajectory angle range: [-x, x], in rad."""
+    
+    TRAJECTORY_POINTS_NUM = 5
 
     def __init__(self,
                  env: 'AbstractEnv',
@@ -105,7 +107,7 @@ class TrajectoryAction(ActionType):
         super().__init__(env)
         self.trajectory_distance_range = self.TRAJECTORY_DISTANCE_RANGE
         self.trajectory_angle_range = self.TRAJECTORY_ANGLE_RANGE
-        self.size = 10  # 5 points of trajectory
+        self.size = 1 + self.TRAJECTORY_POINTS_NUM * 2  # acceleration and distance and angle of each trajectory points 
 
     def space(self) -> spaces.Space:
         return spaces.Box(0., 1., shape=(self.size,), dtype=np.float32)
@@ -115,17 +117,25 @@ class TrajectoryAction(ActionType):
         return TrajectoryVehicle
 
     def act(self, action: Union[int, np.ndarray]) -> None:
+        acceleration = utils.lmap(action[0], [0, 1], self.ACCELERATION_RANGE)
+        
+        distance = []
+        for i in range(1, action, 2):
+            print(i)
+            distance.append(utils.lmap(action[i], [0, 1], self.trajectory_distance_range))
+        
+        angle = []
+        for j in range(2, action, 2):
+            print(i)
+            angle.append(utils.lmap(action[j], [0, 1], self.trajectory_angle_range))
+        
+        print(len(distance))
+        print(len(angle))
+        
         self.controlled_vehicle.act({
-            "distance-0": utils.lmap(action[0], [0, 1], self.trajectory_distance_range),
-            "angle-0": utils.lmap(action[1], [0, 1], self.trajectory_angle_range),
-            "distance-1": utils.lmap(action[2], [0, 1], self.trajectory_distance_range),
-            "angle-1": utils.lmap(action[3], [0, 1], self.trajectory_angle_range),
-            "distance-2": utils.lmap(action[4], [0, 1], self.trajectory_distance_range),
-            "angle-2": utils.lmap(action[5], [0, 1], self.trajectory_angle_range),
-            "distance-3": utils.lmap(action[6], [0, 1], self.trajectory_distance_range),
-            "angle-3": utils.lmap(action[7], [0, 1], self.trajectory_angle_range),
-            "distance-4": utils.lmap(action[8], [0, 1], self.trajectory_distance_range),
-            "angle-4": utils.lmap(action[9], [0, 1], self.trajectory_angle_range),
+            "acceleration": acceleration,
+            "distance": np.array(distance),
+            "angle": np.array(angle)
         })
         
 

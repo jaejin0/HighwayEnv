@@ -393,6 +393,16 @@ class TrajectoryVehicle(Vehicle):
         :param action: a high-level action
         """
         
+        # update speed with acceleration
+        # set trajectory points (x, y) from input actions
+        # call drawing trajectory
+        # find target speed and target angle based on the targetting trajectory
+            # for points
+            #   while vehicle has not reach the point
+            
+            # make it to break if it gets new action if the loop keep changing values
+        
+        
         self.target_speed = self.trajectory_distance[0] / 0.5
         self.target_angle = self.trajectory_angle[0]
         # calculate target speed and target angle using the next trajectory distance and trajectory angle

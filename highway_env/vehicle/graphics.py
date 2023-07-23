@@ -144,7 +144,6 @@ class VehicleGraphics(object):
         :param offscreen: whether the rendering should be done offscreen or not
         """
         for point in points:
-            print(point)
             cls.display_point(point, surface, transparent=True, offscreen=offscreen)
 
     @classmethod
