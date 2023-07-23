@@ -53,8 +53,8 @@ class VehicleGraphics(object):
         length = v.LENGTH + 2 * tire_length
         vehicle_surface = pygame.Surface((surface.pix(length), surface.pix(length)),
                                          flags=pygame.SRCALPHA)  # per-pixel alpha
-        rect = (surface.pix(tire_length),
-                surface.pix(length / 2 - v.WIDTH / 2),
+        rect = (surface.pix(1), # tire_length
+                surface.pix(2.5), # length / 2 - v.WIDTH / 2
                 surface.pix(v.LENGTH),
                 surface.pix(v.WIDTH))
         rect_headlight_left = (surface.pix(tire_length+v.LENGTH-headlight_length),
@@ -175,8 +175,8 @@ class VehicleGraphics(object):
         length = 5 + 2 * 1
         vehicle_surface = pygame.Surface((surface.pix(length), surface.pix(length)),
                                          flags=pygame.SRCALPHA)  # per-pixel alpha
-        rect = (surface.pix(1),
-                surface.pix(1),
+        rect = (surface.pix(point[0]),
+                surface.pix(point[1]),
                 surface.pix(2),
                 surface.pix(2))
         rect_headlight_left = (surface.pix(tire_length+5-headlight_length),
