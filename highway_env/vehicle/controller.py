@@ -415,7 +415,7 @@ class TrajectoryVehicle(Vehicle):
         # if it surpass first one, it heads to the second one
         
         action = {"steering": self.steering_control(self.target_steering_angle),
-                  "acceleration": acceleration}
+                  "acceleration": x}
         super().act(action)
 
     def follow_road(self) -> None:
