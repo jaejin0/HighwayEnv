@@ -383,7 +383,11 @@ class TrajectoryVehicle(Vehicle):
             self.route = [self.lane_index]
         return self
 
-    def act(self, action: dict = None) -> None:
+    def act(self, action: dict = {
+            "acceleration": 0,
+            "distance": np.array([]),
+            "angle": np.array([])
+        }) -> None:
         """
         Perform a high-level action to change the desired lane or speed.
 
