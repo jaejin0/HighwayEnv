@@ -120,12 +120,12 @@ class TrajectoryAction(ActionType):
         acceleration = utils.lmap(action[0], [0, 1], self.ACCELERATION_RANGE)
         
         distance = []
-        for i in range(1, action, 2):
+        for i in range(1, len(action), 2):
             print(i)
             distance.append(utils.lmap(action[i], [0, 1], self.trajectory_distance_range))
         
         angle = []
-        for j in range(2, action, 2):
+        for j in range(2, len(action), 2):
             print(i)
             angle.append(utils.lmap(action[j], [0, 1], self.trajectory_angle_range))
         
