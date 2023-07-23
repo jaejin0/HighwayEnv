@@ -145,10 +145,10 @@ class VehicleGraphics(object):
         """
         for point in points:
             print(point)
-            cls.display_points(point, surface, transparent=True, offscreen=offscreen)
+            cls.display_point(point, surface, transparent=True, offscreen=offscreen)
 
     @classmethod
-    def display_points(cls, point: Vector, surface: "WorldSurface",
+    def display_point(cls, point: Vector, surface: "WorldSurface",
                 transparent: bool = False,
                 offscreen: bool = False,
                 label: bool = False,
@@ -200,13 +200,12 @@ class VehicleGraphics(object):
             pygame.draw.rect(vehicle_surface, cls.darken(color), rect_roof, 0)
         pygame.draw.rect(vehicle_surface, cls.BLACK, rect, 1)
 
-        
-        # Label
-        # if label:
-        #     font = pygame.font.Font(None, 15)
-            # text = "#{}".format(id(v) % 1000)
-            # text = font.render(text, 1, (10, 10, 10), (255, 255, 255))
-            # surface.blit(text, position)
+        position = [*surface.pos2pix(point[0], point[1])]
+        if label:
+            font = pygame.font.Font(None, 15)
+            text = "#"
+            text = font.render(text, 1, (10, 10, 10), (255, 255, 255))
+            surface.blit(text, position)
 
     @classmethod
     def display_history(cls, vehicle: Vehicle, surface: "WorldSurface", frequency: float = 3, duration: float = 2,
