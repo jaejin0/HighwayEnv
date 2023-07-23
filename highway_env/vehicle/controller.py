@@ -383,7 +383,7 @@ class TrajectoryVehicle(Vehicle):
             self.route = [self.lane_index]
         return self
 
-    def act(self, action: Union[dict, str] = None) -> None:
+    def act(self, action = None) -> None:
         """
         Perform a high-level action to change the desired lane or speed.
 
@@ -392,10 +392,10 @@ class TrajectoryVehicle(Vehicle):
 
         :param action: a high-level action
         """
-        
+        print(type(action))
         # update speed with acceleration
         acceleration = action["acceleration"]
-        print(acceleration)
+        
         # set trajectory points (x, y) from input actions
         # call drawing trajectory
         # find target speed and target angle based on the targetting trajectory
