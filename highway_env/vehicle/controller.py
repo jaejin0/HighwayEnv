@@ -404,7 +404,7 @@ class TrajectoryVehicle(Vehicle):
             
             # make it to break if it gets new action if the loop keep changing values
         
-        
+
         
         # calculate target speed and target angle using the next trajectory distance and trajectory angle
         # if it surpass first one, it heads to the second one
