@@ -400,16 +400,16 @@ class TrajectoryVehicle(Vehicle):
             return
         # update speed with acceleration
         acceleration = action["acceleration"]
+        # set trajectory points (x, y) from input actions
         self.trajectory_points = self.predict_trajectory(distances=action["distance"], angles=action["angle"])
 
-        # set trajectory points (x, y) from input actions
-        # call drawing trajectory
         # find target speed and target angle based on the targetting trajectory
             # for points
             #   while vehicle has not reach the point
             
             # make it to break if it gets new action if the loop keep changing values
-        
+        print(self.trajectory_points)
+        print(acceleration)
 
         
         # calculate target speed and target angle using the next trajectory distance and trajectory angle
