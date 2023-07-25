@@ -415,7 +415,8 @@ class TrajectoryVehicle(Vehicle):
             # make it to break if it gets new action if the loop keep changing values
 
         x, y = self.position[0], self.position[1]
-        target_x, target_y = self.trajectory_points[0][0], self.trajectory_points[0][1]
+        if len(action["distance"]) != 0:
+            target_x, target_y = self.trajectory_points[0][0], self.trajectory_points[0][1]
       
         _x, _y = target_x - x, target_y - y
         self.target_steering_angle = math.atan(_x / _y)
