@@ -401,25 +401,28 @@ class TrajectoryVehicle(Vehicle):
 
         :param action: a high-level action
         """
-        # if len(action["distance"]) == 0:  # if there is not a new trajectory, we do not update trajectory
-        #     return
+        x, y = self.position[0], self.position[1]
         
-        self.trajectory_distances = action["distance"]
-        self.trajectory_angles = action["angle"]
-        acceleration = action["acceleration"]
-        # set trajectory points (x, y) from input actions
-        self.trajectory_points = self.predict_trajectory(distances=action["distance"], angles=action["angle"])
-
+        if len(action["distance"]) != 0:  # if there is not a new trajectory, we do not update trajectory
+            self.trajectory_distances = action["distance"]
+            self.trajectory_angles = action["angle"]
+            self.trajectory_points = self.predict_trajectory(distances=action["distance"], angles=action["angle"])
+            
+            self.target_x, self.target_y = self.trajectory_points[0][0], self.trajectory_points[0][1]
         # find target speed and target angle based on the targetting trajectory
             # for points
             #   while vehicle has not reach the point
             
             # make it to break if it gets new action if the loop keep changing values
 
-        x, y = self.position[0], self.position[1]
-        if len(action["distance"]) != 0:
-            self.target_x, self.target_y = self.trajectory_points[0][0], self.trajectory_points[0][1]
-      
+        else:
+            for pt in range(self.trajectory_points):
+                
+                if x < self.trajectory_points[pt][0]:
+                    self.target_x = self.trajectory_points[pt][0]
+                    self.target_y = self.trajectory_points[pt][1]
+                    break
+
         _x, _y = self.target_x - x, self.target_y - y
         self.target_steering_angle = math.atan(_x / _y)
         
@@ -427,7 +430,7 @@ class TrajectoryVehicle(Vehicle):
         # if it surpass first one, it heads to the second one
         print(self.target_steering_angle)
         action = {"steering": self.steering_control(self.target_steering_angle),
-                  "acceleration": acceleration}
+                  "acceleration": action["acceleration"]}
         super().act(action)
 
     def follow_road(self) -> None:
