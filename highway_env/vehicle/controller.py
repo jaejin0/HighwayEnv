@@ -399,8 +399,8 @@ class TrajectoryVehicle(Vehicle):
 
         :param action: a high-level action
         """
-        if len(action["distance"]) == 0:  # if there is not a new trajectory, we do not update trajectory
-            return
+        # if len(action["distance"]) == 0:  # if there is not a new trajectory, we do not update trajectory
+        #     return
         
         self.trajectory_distances = action["distance"]
         self.trajectory_angles = action["angle"]
