@@ -416,7 +416,7 @@ class TrajectoryVehicle(Vehicle):
             # make it to break if it gets new action if the loop keep changing values
 
         else:
-            for pt in range(self.trajectory_points):
+            for pt in self.trajectory_points:
                 
                 if x < pt[0]:
                     self.target_x = pt[0]
