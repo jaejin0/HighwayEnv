@@ -398,7 +398,6 @@ class TrajectoryVehicle(Vehicle):
 
         :param action: a high-level action
         """
-        print("hdfdfsd")
         if len(action["distance"]) == 0:  # if there is not a new trajectory, we do not update trajectory
             return
         
@@ -415,8 +414,9 @@ class TrajectoryVehicle(Vehicle):
             # make it to break if it gets new action if the loop keep changing values
         
         self.target_steering_angle = self.trajectory_angles[0]
-        print(self.target_steering_angle)
-        
+
+        x, y = self.position[0], self.position[1]
+        print(x, y)
         
         # calculate target speed and target angle using the next trajectory distance and trajectory angle
         # if it surpass first one, it heads to the second one
