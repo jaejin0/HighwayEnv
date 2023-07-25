@@ -79,11 +79,11 @@ class EnvViewer(object):
         """
         if isinstance(self.env.action_type, DiscreteMetaAction):
             actions = [self.env.action_type.actions[a] for a in actions]
-        if len(actions) > 1:
-            self.vehicle_trajectory = self.env.vehicle.predict_trajectory(actions,
-                                                                          1 / self.env.config["policy_frequency"],
-                                                                          1 / 3 / self.env.config["policy_frequency"],
-                                                                          1 / self.env.config["simulation_frequency"])
+        # if len(actions) > 1:
+        #     self.vehicle_trajectory = self.env.vehicle.predict_trajectory(actions,
+        #                                                                   1 / self.env.config["policy_frequency"],
+        #                                                                   1 / 3 / self.env.config["policy_frequency"],
+        #                                                                   1 / self.env.config["simulation_frequency"])
 
     def handle_events(self) -> None:
         """Handle pygame events by forwarding them to the display and environment vehicle."""
