@@ -412,11 +412,11 @@ class TrajectoryVehicle(Vehicle):
             #   while vehicle has not reach the point
             
             # make it to break if it gets new action if the loop keep changing values
-        
-        self.target_steering_angle = self.trajectory_angles[0]
 
         x, y = self.position[0], self.position[1]
+        target_x, target_y = self.trajectory_points[0][0], self.trajectory_points[0][1]
         print(x, y)
+        print(target_x, target_y)
         
         # calculate target speed and target angle using the next trajectory distance and trajectory angle
         # if it surpass first one, it heads to the second one
