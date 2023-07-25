@@ -351,6 +351,8 @@ class TrajectoryVehicle(Vehicle):
         self.route = route
         
         self.trajectory_points = []
+        self.trajectory_distances = []
+        self.trajectory_angles = []
 
     @classmethod
     def create_from(cls, vehicle: "ControlledVehicle") -> "ControlledVehicle":
@@ -398,7 +400,9 @@ class TrajectoryVehicle(Vehicle):
         """
         if len(action["distance"]) == 0:  # if there is not a new trajectory, we do not update trajectory
             return
-        # update speed with acceleration
+        
+        self.trajectory_distances = action["distance"]
+        self.trajectory_angles = action["angle"]
         acceleration = action["acceleration"]
         # set trajectory points (x, y) from input actions
         self.trajectory_points = self.predict_trajectory(distances=action["distance"], angles=action["angle"])
@@ -408,8 +412,8 @@ class TrajectoryVehicle(Vehicle):
             #   while vehicle has not reach the point
             
             # make it to break if it gets new action if the loop keep changing values
-        print(self.trajectory_points)
-        print(acceleration)
+        self.target_steering_angle = self.trajectory_angles[0]
+                
 
         
         # calculate target speed and target angle using the next trajectory distance and trajectory angle
