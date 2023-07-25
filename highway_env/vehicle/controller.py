@@ -403,7 +403,7 @@ class TrajectoryVehicle(Vehicle):
         """
         x, y = self.position[0], self.position[1]
         
-        if len(action["distance"]) != 0:  # if there is not a new trajectory, we do not update trajectory
+        if len(action["distance"]) != 0:  # if there is new trajectory, we set values and follow the first point
             self.trajectory_distances = action["distance"]
             self.trajectory_angles = action["angle"]
             self.trajectory_points = self.predict_trajectory(distances=action["distance"], angles=action["angle"])
@@ -417,7 +417,6 @@ class TrajectoryVehicle(Vehicle):
 
         else:
             for pt in self.trajectory_points:
-                
                 if x < pt[0]:
                     self.target_x = pt[0]
                     self.target_y = pt[1]
@@ -521,10 +520,11 @@ class TrajectoryVehicle(Vehicle):
         
         points = []
         cur_pt = copy.deepcopy(self.position)
+        cur_angle = copy.deepcopy(self.heading)
         for i in range(len(distances)):
             dis = distances[i]
-            angle = angles[i]
-            cur_pt = cur_pt + np.array([np.cos(angle), np.sin(angle)]) * dis
+            cur_angle = cur_angle + angles[i]
+            cur_pt = cur_pt + np.array([np.cos(cur_angle), np.sin(cur_angle)]) * dis
             
             points.append(cur_pt)
         
