@@ -493,7 +493,7 @@ class TrajectoryVehicle(Vehicle):
         return tuple(zip(*[self.road.network.position_heading_along_route(route, coordinates[0] + self.speed * t, 0)
                      for t in times]))
     
-    def predict_trajectory(self, distances: List, angles: List, action_duration: float, trajectory_timestep: float, dt: float) \
+    def predict_trajectory(self, distances: List, angles: List) \
             -> List[Vector]:
         """
         Predict the future trajectory of the vehicle given a sequence of actions.
