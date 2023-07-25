@@ -418,11 +418,7 @@ class TrajectoryVehicle(Vehicle):
         target_x, target_y = self.trajectory_points[0][0], self.trajectory_points[0][1]
       
         _x, _y = target_x - x, target_y - y
-        angle = math.atan(_x / _y)
-        print(angle)
-        
-        
-        
+        self.target_steering_angle = math.atan(_x / _y)
         
         # calculate target speed and target angle using the next trajectory distance and trajectory angle
         # if it surpass first one, it heads to the second one
