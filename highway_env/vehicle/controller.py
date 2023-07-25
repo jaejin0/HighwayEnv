@@ -1,6 +1,7 @@
 from typing import List, Tuple, Union, Optional
 
 import numpy as np
+import math
 import copy
 from highway_env import utils
 from highway_env.road.road import Road, LaneIndex, Route
@@ -417,7 +418,7 @@ class TrajectoryVehicle(Vehicle):
         target_x, target_y = self.trajectory_points[0][0], self.trajectory_points[0][1]
       
         _x, _y = target_x - x, target_y - y
-        angle = np.arctan([_x / _y])
+        angle = math.atan(_x / _y)
         print(angle)
         
         
