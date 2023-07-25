@@ -413,7 +413,7 @@ class TrajectoryVehicle(Vehicle):
             
             # make it to break if it gets new action if the loop keep changing values
         self.target_steering_angle = self.trajectory_angles[0]
-                
+        
 
         
         # calculate target speed and target angle using the next trajectory distance and trajectory angle
