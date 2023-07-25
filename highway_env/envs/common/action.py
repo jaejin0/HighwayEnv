@@ -85,7 +85,7 @@ class TrajectoryAction(ActionType):
     STEERING_RANGE = (-np.pi / 4, np.pi / 4)
     """Steering angle range: [-x, x], in rad."""
     
-    TRAJECTORY_DISTANCE_RANGE = (10, 30)
+    TRAJECTORY_DISTANCE_RANGE = (5, 15)
     """Trajectory distance range: [min, max], in m."""
     
     TRAJECTORY_ANGLE_RANGE = (-np.pi / 4, np.pi / 4)
