@@ -102,9 +102,9 @@ class EnvViewer(object):
         self.sim_surface.move_display_window_to(self.window_position())
         RoadGraphics.display(self.env.road, self.sim_surface)
 
-        if self.vehicle_trajectory:
+        if self.env.vehicle.trajectory_points:
             VehicleGraphics.display_trajectory(
-                self.vehicle_trajectory,
+                self.env.vehicle.trajectory_points,
                 self.sim_surface,
                 offscreen=self.offscreen)
 

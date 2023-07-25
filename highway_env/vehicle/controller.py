@@ -400,6 +400,7 @@ class TrajectoryVehicle(Vehicle):
             return
         # update speed with acceleration
         acceleration = action["acceleration"]
+        self.trajectory_points = self.predict_trajectory(distances=action["distance"], angles=action["angle"])
 
         # set trajectory points (x, y) from input actions
         # call drawing trajectory
@@ -492,7 +493,7 @@ class TrajectoryVehicle(Vehicle):
         return tuple(zip(*[self.road.network.position_heading_along_route(route, coordinates[0] + self.speed * t, 0)
                      for t in times]))
     
-    def predict_trajectory(self, actions: List, action_duration: float, trajectory_timestep: float, dt: float) \
+    def predict_trajectory(self, distances: List, angles: List, action_duration: float, trajectory_timestep: float, dt: float) \
             -> List[Vector]:
         """
         Predict the future trajectory of the vehicle given a sequence of actions.
@@ -504,17 +505,17 @@ class TrajectoryVehicle(Vehicle):
         :return: the sequence of future states
         """
         
-        # points = []
-        # cur_pt = copy.deepcopy(self.position)
-        # for i in range(0,len(actions),2):
-        #     dis = actions[i] * 15
-        #     angle = utils.lmap(actions[i+1], [0,1], [-self.MAX_STEERING_ANGLE, self.MAX_STEERING_ANGLE])
+        points = []
+        cur_pt = copy.deepcopy(self.position)
+        for i in range(len(distances)):
+            dis = distances[i] * 15
+            angle = utils.lmap(angles[i], [0,1], [-self.MAX_STEERING_ANGLE, self.MAX_STEERING_ANGLE])
             
-        #     cur_pt = cur_pt + np.array([np.cos(angle), np.sin(angle)]) * dis
+            cur_pt = cur_pt + np.array([np.cos(angle), np.sin(angle)]) * dis
             
-        #     points.append(cur_pt)
+            points.append(cur_pt)
         
-        # return points
+        return points
 
     
         # return coordinates of 5 trajectory points after calculating from distance and angles using the current coordinate of ego vehicle
