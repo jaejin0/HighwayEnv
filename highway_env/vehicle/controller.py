@@ -418,9 +418,9 @@ class TrajectoryVehicle(Vehicle):
         else:
             for pt in range(self.trajectory_points):
                 
-                if x < self.trajectory_points[pt][0]:
-                    self.target_x = self.trajectory_points[pt][0]
-                    self.target_y = self.trajectory_points[pt][1]
+                if x < pt[0]:
+                    self.target_x = pt[0]
+                    self.target_y = pt[1]
                     break
 
         _x, _y = self.target_x - x, self.target_y - y
