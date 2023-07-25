@@ -519,10 +519,11 @@ class TrajectoryVehicle(Vehicle):
         
         points = []
         cur_pt = copy.deepcopy(self.position)
+        print(self.heading)
         cur_angle = copy.deepcopy(self.heading)
         for i in range(len(distances)):
             dis = distances[i]
-            print(cur_angle)
+            
             cur_angle = cur_angle + angles[i]
             cur_pt = cur_pt + np.array([np.cos(cur_angle), np.sin(cur_angle)]) * dis
             
