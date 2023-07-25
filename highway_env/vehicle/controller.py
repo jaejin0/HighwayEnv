@@ -354,6 +354,8 @@ class TrajectoryVehicle(Vehicle):
         self.trajectory_points = []
         self.trajectory_distances = []
         self.trajectory_angles = []
+        self.target_x = 0
+        self.target_y = 0
 
     @classmethod
     def create_from(cls, vehicle: "ControlledVehicle") -> "ControlledVehicle":
