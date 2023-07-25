@@ -396,11 +396,11 @@ class TrajectoryVehicle(Vehicle):
 
         :param action: a high-level action
         """
-        print(action)
+        if len(action["distance"]) == 0:  # if there is not a new trajectory, we do not update trajectory
+            return
         # update speed with acceleration
-        
-        x = action["acceleration"]
-        print(x)
+        acceleration = action["acceleration"]
+
         # set trajectory points (x, y) from input actions
         # call drawing trajectory
         # find target speed and target angle based on the targetting trajectory
@@ -415,7 +415,7 @@ class TrajectoryVehicle(Vehicle):
         # if it surpass first one, it heads to the second one
         
         action = {"steering": self.steering_control(self.target_steering_angle),
-                  "acceleration": x}
+                  "acceleration": acceleration}
         super().act(action)
 
     def follow_road(self) -> None:
