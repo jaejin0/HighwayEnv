@@ -423,11 +423,10 @@ class TrajectoryVehicle(Vehicle):
                     break
 
         _x, _y = self.target_x - x, self.target_y - y
-        self.target_steering_angle = math.atan(_x / _y)
+        self.target_steering_angle = math.atan2(_x, _y)
         
         # calculate target speed and target angle using the next trajectory distance and trajectory angle
         # if it surpass first one, it heads to the second one
-        print(self.target_steering_angle)
         action = {"steering": self.steering_control(self.target_steering_angle),
                   "acceleration": action["acceleration"]}
         super().act(action)
@@ -523,6 +522,7 @@ class TrajectoryVehicle(Vehicle):
         cur_angle = copy.deepcopy(self.heading)
         for i in range(len(distances)):
             dis = distances[i]
+            print(cur_angle)
             cur_angle = cur_angle + angles[i]
             cur_pt = cur_pt + np.array([np.cos(cur_angle), np.sin(cur_angle)]) * dis
             
