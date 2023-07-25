@@ -415,8 +415,13 @@ class TrajectoryVehicle(Vehicle):
 
         x, y = self.position[0], self.position[1]
         target_x, target_y = self.trajectory_points[0][0], self.trajectory_points[0][1]
-        print(x, y)
-        print(target_x, target_y)
+      
+        _x, _y = target_x - x, target_y - y
+        angle = np.arctan(_x, _y)
+        print(angle)
+        
+        
+        
         
         # calculate target speed and target angle using the next trajectory distance and trajectory angle
         # if it surpass first one, it heads to the second one
