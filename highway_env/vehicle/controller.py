@@ -524,7 +524,7 @@ class TrajectoryVehicle(Vehicle):
         for i in range(len(distances)):
             dis = distances[i]
             
-            cur_angle += angles[i]
+            cur_angle = angles[i]
             cur_pt = cur_pt + np.array([np.cos(cur_angle), np.sin(cur_angle)]) * dis
             
             points.append(cur_pt)
