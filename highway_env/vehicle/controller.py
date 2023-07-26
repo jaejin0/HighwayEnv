@@ -529,7 +529,6 @@ class TrajectoryVehicle(Vehicle):
         cur_pt = copy.deepcopy(self.position)
         # print(self.heading)
         cur_angle = copy.deepcopy(self.heading)
-        cur_angle = 0
         for i in range(len(distances)):
             dis = distances[i]
             cur_angle = cur_angle + angles[i]
