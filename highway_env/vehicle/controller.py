@@ -417,13 +417,21 @@ class TrajectoryVehicle(Vehicle):
 
         else:
             for pt in self.trajectory_points:
+                # if pt in 1st coordinate
+                print(self.heading)
+                # if x == pt[0] and y <= pt[1]:
+                    
+                # elif pt in 2nd coordinate
+                # elif pt in 3rd coordinate
+                # else pt in 4th coordinate
+                
                 if x < pt[0]:
                     self.target_x = pt[0]
                     self.target_y = pt[1]
                     break
 
         _x, _y = self.target_x - x, self.target_y - y
-        self.target_steering_angle = math.atan(_x/_y)
+        self.target_steering_angle = math.atan(_y / _x)
         
         # calculate target speed and target angle using the next trajectory distance and trajectory angle
         # if it surpass first one, it heads to the second one
