@@ -356,6 +356,7 @@ class TrajectoryVehicle(Vehicle):
         self.trajectory_angles = []
         self.target_x = 0
         self.target_y = 0
+        self.trajectory_index = 0
 
     @classmethod
     def create_from(cls, vehicle: "ControlledVehicle") -> "ControlledVehicle":
@@ -404,6 +405,7 @@ class TrajectoryVehicle(Vehicle):
         x, y = self.position[0], self.position[1]
         
         if len(action["distance"]) != 0:  # if there is new trajectory, we set values and follow the first point
+            self.trajectory_index = 0
             self.trajectory_distances = action["distance"]
             self.trajectory_angles = action["angle"]
             self.trajectory_points = self.predict_trajectory(distances=action["distance"], angles=action["angle"])
@@ -416,19 +418,23 @@ class TrajectoryVehicle(Vehicle):
             # make it to break if it gets new action if the loop keep changing values
 
         else:
-            for pt in self.trajectory_points:
-                # if pt in 1st coordinate
-                print(self.heading / np.pi)
-                # if x == pt[0] and y <= pt[1]:
-                    
-                # elif pt in 2nd coordinate
-                # elif pt in 3rd coordinate
-                # else pt in 4th coordinate
+            
+            
+            
+            if self.trajectory_index > len(self.trajectory_distances):
+                print("it passed the last point!")
+            pt = self.trajectory_points[self.trajectory_index]
+            # if pt in 1st coordinate
+            # if x == pt[0] and y <= pt[1]:
                 
-                if x < pt[0]:
-                    self.target_x = pt[0]
-                    self.target_y = pt[1]
-                    break
+            # elif pt in 2nd coordinate
+            # elif pt in 3rd coordinate
+            # else pt in 4th coordinate
+            
+            
+            self.target_x = pt[0]
+            self.target_y = pt[1]
+            
                 # if self.position[0] <= pt[0] and self.position[1] <= pt[1]:
                 #     while self.position[0] <= pt[0] and self.position[1] <= pt[1]:
                 #         self.target_x = pt[0]
