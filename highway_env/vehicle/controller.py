@@ -447,8 +447,9 @@ class TrajectoryVehicle(Vehicle):
                 #                 "acceleration": action["acceleration"]}
                 #         super().act(action)
         _x, _y = self.target_x - x, self.target_y - y
+        print(x, y)
         self.target_steering_angle = math.atan(_y / _x)
-        print(self.target_steering_angle)
+        # print(self.target_steering_angle)
         
         # calculate target speed and target angle using the next trajectory distance and trajectory angle
         # if it surpass first one, it heads to the second one
