@@ -420,7 +420,7 @@ class TrajectoryVehicle(Vehicle):
         else:
             
             
-            
+            print(self.heading)
             if self.trajectory_index > len(self.trajectory_distances):
                 print("it passed the last point!")
             pt = self.trajectory_points[self.trajectory_index]
