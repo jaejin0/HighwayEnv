@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING, Callable, List, Optional
 import numpy as np
 import pygame
 
-from highway_env.envs.common.action import ActionType, DiscreteMetaAction, ContinuousAction
+from highway_env.envs.common.action import ActionType, DiscreteMetaAction, ContinuousAction, TrajectoryAction
 from highway_env.road.graphics import WorldSurface, RoadGraphics
 from highway_env.vehicle.graphics import VehicleGraphics
 
@@ -102,11 +102,12 @@ class EnvViewer(object):
         self.sim_surface.move_display_window_to(self.window_position())
         RoadGraphics.display(self.env.road, self.sim_surface)
 
-        if self.env.vehicle.trajectory_points:
-            VehicleGraphics.display_trajectory(
-                self.env.vehicle.trajectory_points,
-                self.sim_surface,
-                offscreen=self.offscreen)
+        if self.env.action_type == TrajectoryAction:
+            if self.env.vehicle.trajectory_points:
+                VehicleGraphics.display_trajectory(
+                    self.env.vehicle.trajectory_points,
+                    self.sim_surface,
+                    offscreen=self.offscreen)
 
         RoadGraphics.display_road_objects(
             self.env.road,
