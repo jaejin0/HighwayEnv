@@ -418,7 +418,7 @@ class TrajectoryVehicle(Vehicle):
         else:
             for pt in self.trajectory_points:
                 # if pt in 1st coordinate
-                print(self.heading)
+                print(self.heading / np.pi)
                 # if x == pt[0] and y <= pt[1]:
                     
                 # elif pt in 2nd coordinate
