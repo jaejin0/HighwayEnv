@@ -428,58 +428,25 @@ class TrajectoryVehicle(Vehicle):
                 if x < pt[0]:
                     self.target_x = pt[0]
                     self.target_y = pt[1]
-                if self.position[0] <= pt[0] and self.position[1] <= pt[1]:
-                    while self.position[0] <= pt[0] and self.position[1] <= pt[1]:
-                        self.target_x = pt[0]
-                        self.target_y = pt[1]
+                # if self.position[0] <= pt[0] and self.position[1] <= pt[1]:
+                #     while self.position[0] <= pt[0] and self.position[1] <= pt[1]:
+                #         self.target_x = pt[0]
+                #         self.target_y = pt[1]
                         
-                        _x, _y = self.target_x - self.position[0], self.target_y - self.position[1]
-                        self.target_steering_angle = math.atan(_y / _x)
+                #         _x, _y = self.target_x - self.position[0], self.target_y - self.position[1]
+                #         self.target_steering_angle = math.atan(_y / _x)
 
-                        action = {"steering": self.steering_control(self.target_steering_angle),
-                                "acceleration": action["acceleration"]}
-                        super().act(action)
-                elif self.position[0] > pt[0] and self.position[1] <= pt[1]:
-                    while self.position[0] > pt[0] and self.position[1] <= pt[1]:
-                        self.target_x = pt[0]
-                        self.target_y = pt[1]
-                        
-                        _x, _y = self.target_x - self.position[0], self.target_y - self.position[1]
-                        self.target_steering_angle = math.atan(_y / _x)
-
-                        action = {"steering": self.steering_control(self.target_steering_angle),
-                                "acceleration": action["acceleration"]}
-                        super().act(action)
-                elif self.position[0] > pt[0] and self.position[1] > pt[1]:
-                    while self.position[0] > pt[0] and self.position[1] > pt[1]:
-                        self.target_x = pt[0]
-                        self.target_y = pt[1]
-                        
-                        _x, _y = self.target_x - self.position[0], self.target_y - self.position[1]
-                        self.target_steering_angle = math.atan(_y / _x)
-
-                        action = {"steering": self.steering_control(self.target_steering_angle),
-                                "acceleration": action["acceleration"]}
-                        super().act(action)
-                elif self.position[0] <= pt[0] and self.position[1] > pt[1]:
-                    while self.position[0] <= pt[0] and self.position[1] > pt[1]:
-                        self.target_x = pt[0]
-                        self.target_y = pt[1]
+                #         action = {"steering": self.steering_control(self.target_steering_angle),
+                #                 "acceleration": action["acceleration"]}
+                #         super().act(action)
+        _x, _y = self.target_x - x, self.target_y - y
+        self.target_steering_angle = math.atan(_y / _x)
         
-                        _x, _y = self.target_x - self.position[0], self.target_y - self.position[1]
-                        self.target_steering_angle = math.atan(_y / _x)
-
-                        action = {"steering": self.steering_control(self.target_steering_angle),
-                                "acceleration": action["acceleration"]}
-                        super().act(action)
-        # _x, _y = self.target_x - x, self.target_y - y
-        # self.target_steering_angle = math.atan(_y / _x)
-        
-        # # calculate target speed and target angle using the next trajectory distance and trajectory angle
-        # # if it surpass first one, it heads to the second one
-        # action = {"steering": self.steering_control(self.target_steering_angle),
-        #           "acceleration": action["acceleration"]}
-        # super().act(action)
+        # calculate target speed and target angle using the next trajectory distance and trajectory angle
+        # if it surpass first one, it heads to the second one
+        action = {"steering": self.steering_control(self.target_steering_angle),
+                  "acceleration": action["acceleration"]}
+        super().act(action)
 
     def follow_road(self) -> None:
         """At the end of a lane, automatically switch to a next one."""
