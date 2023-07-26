@@ -118,7 +118,6 @@ class Vehicle(RoadObject):
 
         :param dt: timestep of integration of the model [s]
         """
-        print(self.heading)
         self.clip_actions()
         delta_f = self.action['steering']
         beta = np.arctan(1 / 2 * np.tan(delta_f))
