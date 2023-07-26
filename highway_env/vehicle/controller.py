@@ -428,7 +428,7 @@ class TrajectoryVehicle(Vehicle):
                 if x < pt[0]:
                     self.target_x = pt[0]
                     self.target_y = pt[1]
-                    break
+                    continue
 
         _x, _y = self.target_x - x, self.target_y - y
         self.target_steering_angle = math.atan(_y / _x)
