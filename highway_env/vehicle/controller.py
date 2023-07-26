@@ -428,7 +428,7 @@ class TrajectoryVehicle(Vehicle):
                 if x < pt[0]:
                     self.target_x = pt[0]
                     self.target_y = pt[1]
-                    continue
+                    break
                 # if self.position[0] <= pt[0] and self.position[1] <= pt[1]:
                 #     while self.position[0] <= pt[0] and self.position[1] <= pt[1]:
                 #         self.target_x = pt[0]
