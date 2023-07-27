@@ -411,29 +411,23 @@ class TrajectoryVehicle(Vehicle):
             self.trajectory_points = self.predict_trajectory(distances=action["distance"], angles=action["angle"])
             
             self.target_x, self.target_y = self.trajectory_points[0][0], self.trajectory_points[0][1]
-        # find target speed and target angle based on the targetting trajectory
+            # find target speed and target angle based on the targetting trajectory
             # for points
             #   while vehicle has not reach the point
             
             # make it to break if it gets new action if the loop keep changing values
 
         else:
-            
-            
-            
-            if self.trajectory_index > len(self.trajectory_distances):
-                print("it passed the last point!")
-            pt = self.trajectory_points[self.trajectory_index]
-            # if pt in 1st coordinate
-            # if x == pt[0] and y <= pt[1]:
-                
-            # elif pt in 2nd coordinate
-            # elif pt in 3rd coordinate
-            # else pt in 4th coordinate
-            
-            
-            self.target_x = pt[0]
-            self.target_y = pt[1]
+            while self.trajectory_index < len(self.trajectory_distances):
+                diff_x, diff_y = x - self.trajectory_points[self.trajectory_index][0], y - self.trajectory_points[self.trajectory_index][1]
+                diff_angle = math.atan(diff_y / diff_x)
+                if utils.wrap_to_pi(self.heading - diff_angle) <= np.pi / 4 and utils.wrap_to_pi(self.heading - diff_angle) >= -np.pi / 4:
+                    print("Follow current point")
+                    self.target_x = self.trajectory_points[self.trajectory_index][0]
+                    self.target_y = self.trajectory_points[self.trajectory_index][1]
+                    break
+                else:
+                    self.trajectory_index += 1 
             
                 # if self.position[0] <= pt[0] and self.position[1] <= pt[1]:
                 #     while self.position[0] <= pt[0] and self.position[1] <= pt[1]:
@@ -455,7 +449,7 @@ class TrajectoryVehicle(Vehicle):
         action = {"steering": self.steering_control(self.target_steering_angle),
                   "acceleration": action["acceleration"]}
         super().act(action)
-        print(self.heading)
+        
 
     def follow_road(self) -> None:
         """At the end of a lane, automatically switch to a next one."""
