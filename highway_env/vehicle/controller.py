@@ -422,12 +422,13 @@ class TrajectoryVehicle(Vehicle):
                 diff_x, diff_y = x - self.trajectory_points[self.trajectory_index][0], y - self.trajectory_points[self.trajectory_index][1]
                 diff_angle = math.atan(diff_y / diff_x)
                 if utils.wrap_to_pi(self.heading - diff_angle) <= np.pi / 4 and utils.wrap_to_pi(self.heading - diff_angle) >= -np.pi / 4:
-                    print("Follow current point")
                     self.target_x = self.trajectory_points[self.trajectory_index][0]
                     self.target_y = self.trajectory_points[self.trajectory_index][1]
                     break
                 else:
-                    self.trajectory_index += 1 
+                    print("Follow next point")
+                    self.trajectory_index += 1
+                    print(self.trajectory_index) 
             
                 # if self.position[0] <= pt[0] and self.position[1] <= pt[1]:
                 #     while self.position[0] <= pt[0] and self.position[1] <= pt[1]:
