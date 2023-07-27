@@ -447,7 +447,6 @@ class TrajectoryVehicle(Vehicle):
                 #                 "acceleration": action["acceleration"]}
                 #         super().act(action)
         _x, _y = self.target_x - x, self.target_y - y
-        print(x, y)
         self.target_steering_angle = math.atan(_y / _x)
         # print(self.target_steering_angle)
         
@@ -456,6 +455,7 @@ class TrajectoryVehicle(Vehicle):
         action = {"steering": self.steering_control(self.target_steering_angle),
                   "acceleration": action["acceleration"]}
         super().act(action)
+        print(self.heading)
 
     def follow_road(self) -> None:
         """At the end of a lane, automatically switch to a next one."""
