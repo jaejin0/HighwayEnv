@@ -418,6 +418,7 @@ class TrajectoryVehicle(Vehicle):
             # make it to break if it gets new action if the loop keep changing values
 
         else:
+            print("-----------------------------")
             while self.trajectory_index < len(self.trajectory_distances):
                 diff_x, diff_y = x - self.trajectory_points[self.trajectory_index][0], y - self.trajectory_points[self.trajectory_index][1]
                 diff_angle = math.atan(diff_y / diff_x)
