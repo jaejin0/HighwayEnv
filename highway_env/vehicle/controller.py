@@ -485,6 +485,7 @@ class TrajectoryVehicle(Vehicle):
         # if it surpass first one, it heads to the second one
         # action = {"steering": self.steering_control(self.target_steering_angle),
         #           "acceleration": action["acceleration"]}
+        self.target_steering_angle = 0
         action = {"steering": self.target_steering_angle,
                     "acceleration": action["acceleration"]}
         super().act(action)
