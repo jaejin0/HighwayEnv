@@ -434,7 +434,7 @@ class TrajectoryVehicle(Vehicle):
             diff_angle = math.atan2(diff_y, diff_x)
             
             if abs(self.heading - diff_angle) < (np.pi / 2):
-                print("now")
+                print(abs(self.heading - diff_angle))
             
             
             #  self.trajectory_index < len(self.trajectory_distances):
