@@ -415,7 +415,7 @@ class TrajectoryVehicle(Vehicle):
             _x, _y = self.target_x - x, self.target_y - y
             self.target_steering_angle = math.atan2(_y, _x)
             print(self.target_steering_angle / np.pi)
-            self.target_steering_angle = self.trajectory_angles[0]
+            
             # find target speed and target angle based on the targetting trajectory
             # for points
             #   while vehicle has not reach the point
