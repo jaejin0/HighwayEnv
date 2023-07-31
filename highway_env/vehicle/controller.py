@@ -412,12 +412,9 @@ class TrajectoryVehicle(Vehicle):
             
             self.target_x, self.target_y = self.trajectory_points[0][0], self.trajectory_points[0][1]
             
-            _x, _y = self.target_x - x, self.target_y - y
-            self.target_steering_angle = math.atan2(_y, _x)
-            print(self.target_steering_angle / np.pi * 180)
-            
-            input("HEY")
-            
+        _x, _y = self.target_x - x, self.target_y - y
+        self.target_steering_angle = math.atan2(_y, _x)
+        print(self.target_steering_angle / np.pi * 180)
            
 
         # else:
