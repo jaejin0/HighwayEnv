@@ -419,7 +419,7 @@ class TrajectoryVehicle(Vehicle):
         
         target_angle = math.atan2(_y, _x)
         
-        if abs(target_angle) <= np.pi / 2:  # within 135 deg on each side
+        if abs(target_angle - self.heading) <= np.pi / 2:  # within 135 deg on each side
             self.target_steering_angle = target_angle
         else:
             if self.trajectory_index < len(self.trajectory_distances) - 1:
@@ -578,7 +578,6 @@ class TrajectoryVehicle(Vehicle):
         
         points = []
         cur_pt = copy.deepcopy(self.position)
-        # print(self.heading)
         cur_angle = copy.deepcopy(self.heading)
         for i in range(len(distances)):
             dis = distances[i]
