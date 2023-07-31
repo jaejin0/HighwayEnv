@@ -420,7 +420,7 @@ class TrajectoryVehicle(Vehicle):
             
             # make it to break if it gets new action if the loop keep changing values
 
-        else:
+        # else:
             
             # how many did it pass?
             # what is pass? if it is behind the car.
