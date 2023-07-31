@@ -419,6 +419,7 @@ class TrajectoryVehicle(Vehicle):
         
         target_angle = math.atan2(_y, _x)
         
+        print(target_angle / np.pi * 180)
         if abs(target_angle - self.heading) <= np.pi / 2:  # within 135 deg on each side
             self.target_steering_angle = target_angle
         else:
@@ -428,7 +429,7 @@ class TrajectoryVehicle(Vehicle):
                 self.target_steering_angle = 0
             
         
-        print(self.trajectory_index)
+        
             
            
 
