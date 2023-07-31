@@ -447,6 +447,7 @@ class TrajectoryVehicle(Vehicle):
                 
                 _x, _y = self.target_x - x, self.target_y - y
                 self.target_steering_angle = math.atan2(_y, _x)
+                print(self.target_steering_angle)
                 self.target_steering_angle = self.trajectory_angles[self.trajectory_index]
             
             else:
