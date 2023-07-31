@@ -433,8 +433,10 @@ class TrajectoryVehicle(Vehicle):
             diff_x, diff_y = x - self.trajectory_points[self.trajectory_index][0], y - self.trajectory_points[self.trajectory_index][1]
             diff_angle = math.atan2(diff_y, diff_x)
             
-            if abs(self.heading - diff_angle) < (np.pi / 2):
-                print(abs(self.heading - diff_angle))
+            if abs(self.heading - diff_angle) < (np.pi / 2):  # the trajectory point is behind the vehicle
+                self.trajectory_index += 1
+            self.target_x, self.target_y = self.trajectory_points[self.trajectory_index][0], self.trajectory_points[self.trajectory_index][1]
+            
             
             
             #  self.trajectory_index < len(self.trajectory_distances):
@@ -460,9 +462,8 @@ class TrajectoryVehicle(Vehicle):
                 #         action = {"steering": self.steering_control(self.target_steering_angle),
                 #                 "acceleration": action["acceleration"]}
                 #         super().act(action)
-        # _x, _y = self.target_x - x, self.target_y - y
-        # self.target_steering_angle = math.atan(_y / _x)
-        self.target_steering_angle = 0.2
+        _x, _y = self.target_x - x, self.target_y - y
+        self.target_steering_angle = math.atan(_y / _x)
         # print(self.target_steering_angle)
         
         # calculate target speed and target angle using the next trajectory distance and trajectory angle
