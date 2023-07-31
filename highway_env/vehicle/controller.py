@@ -422,7 +422,11 @@ class TrajectoryVehicle(Vehicle):
         if abs(target_angle) < np.pi / 2:
             self.target_steering_angle = target_angle
         else:
-            self.trajectory_index += 1
+            if self.trajectory_index < len(self.trajectory_distances):
+                self.trajectory_index += 1
+            else:
+                self.target_steering_angle = 0
+            
         
         print(self.target_steering_angle / np.pi * 180)
             
