@@ -336,7 +336,7 @@ class TrajectoryVehicle(Vehicle):
     KP_A = 1 / TAU_ACC
     KP_HEADING = 1 / TAU_HEADING
     KP_LATERAL = 1 / TAU_LATERAL  # [1/s]
-    MAX_STEERING_ANGLE = np.pi / 6  # [rad]
+    MAX_STEERING_ANGLE = np.pi / 5  # [rad] (36 deg)
     DELTA_SPEED = 5  # [m/s]
 
     def __init__(self,
@@ -483,11 +483,10 @@ class TrajectoryVehicle(Vehicle):
         
         # calculate target speed and target angle using the next trajectory distance and trajectory angle
         # if it surpass first one, it heads to the second one
-        # action = {"steering": self.steering_control(self.target_steering_angle),
-        #           "acceleration": action["acceleration"]}
+        
         self.target_steering_angle = 3 * np.pi /4
-        action = {"steering": self.target_steering_angle,
-                    "acceleration": action["acceleration"]}
+        action = {"steering": self.steering_control(self.target_steering_angle),
+                  "acceleration": action["acceleration"]}
         super().act(action)
         
 
