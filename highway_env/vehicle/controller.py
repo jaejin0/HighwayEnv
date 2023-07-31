@@ -423,6 +423,7 @@ class TrajectoryVehicle(Vehicle):
         
         if self.trajectory_index < len(self.trajectory_distances) - 1:
                 self.trajectory_index += 1
+                print(self.trajectory_index)
         
         # print(target_angle / np.pi * 180)
         # if abs(target_angle - self.heading) <= np.pi / 2: 
