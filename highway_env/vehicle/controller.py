@@ -483,8 +483,10 @@ class TrajectoryVehicle(Vehicle):
         
         # calculate target speed and target angle using the next trajectory distance and trajectory angle
         # if it surpass first one, it heads to the second one
-        action = {"steering": self.steering_control(self.target_steering_angle),
-                  "acceleration": action["acceleration"]}
+        # action = {"steering": self.steering_control(self.target_steering_angle),
+        #           "acceleration": action["acceleration"]}
+        action = {"steering": self.target_steering_angle,
+                    "acceleration": action["acceleration"]}
         super().act(action)
         
 
