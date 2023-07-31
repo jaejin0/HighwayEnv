@@ -438,7 +438,7 @@ class TrajectoryVehicle(Vehicle):
                 diff_x, diff_y = x - self.trajectory_points[self.trajectory_index][0], y - self.trajectory_points[self.trajectory_index][1]
                 diff_angle = math.atan2(diff_y, diff_x)
                 
-                if abs(self.heading - diff_angle) > (np.pi / 4):  # the trajectory point is behind the vehicle
+                if abs(self.heading - diff_angle) > (np.pi / 2):  # the trajectory point is behind the vehicle
                     self.trajectory_index += 1
                     if self.trajectory_index >= len(self.trajectory_distances):
                         self.trajectory_index = len(self.trajectory_distances) - 1
