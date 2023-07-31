@@ -436,11 +436,14 @@ class TrajectoryVehicle(Vehicle):
                 
                 if abs(self.heading - diff_angle) < (np.pi / 2):  # the trajectory point is behind the vehicle
                     self.trajectory_index += 1
+                    if self.trajectory_index >= len(self.trajectory_distances):
+                        self.trajectory_index = len(self.trajectory_distances) - 1
                 print(self.trajectory_index)
                 self.target_x, self.target_y = self.trajectory_points[self.trajectory_index][0], self.trajectory_points[self.trajectory_index][1]
                 
                 _x, _y = self.target_x - x, self.target_y - y
                 self.target_steering_angle = math.atan(_y / _x)
+            
             else:
                 self.target_steering_angle = 0
                 #  self.trajectory_index < len(self.trajectory_distances):
