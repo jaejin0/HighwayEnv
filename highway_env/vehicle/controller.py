@@ -414,6 +414,7 @@ class TrajectoryVehicle(Vehicle):
             
             _x, _y = self.target_x - x, self.target_y - y
             self.target_steering_angle = math.atan2(_y, _x)
+            self.target_steering_angle = self.trajectory_angles[0]
             # find target speed and target angle based on the targetting trajectory
             # for points
             #   while vehicle has not reach the point
@@ -484,8 +485,7 @@ class TrajectoryVehicle(Vehicle):
         
         # calculate target speed and target angle using the next trajectory distance and trajectory angle
         # if it surpass first one, it heads to the second one
-        
-        self.target_steering_angle = 3 * np.pi /4
+
         action = {"steering": self.steering_control(self.target_steering_angle),
                   "acceleration": action["acceleration"]}
         super().act(action)
