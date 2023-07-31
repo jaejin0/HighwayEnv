@@ -431,7 +431,7 @@ class TrajectoryVehicle(Vehicle):
             # if so, increment the trajectory index.
             # set target to the next one.
             diff_x, diff_y = x - self.trajectory_points[self.trajectory_index][0], y - self.trajectory_points[self.trajectory_index][1]
-            diff_angle = math.atan2(diff_y / diff_x)
+            diff_angle = math.atan2(diff_y, diff_x)
             # print("___________")
             # print(diff_angle / np.pi)
             print(self.heading)
