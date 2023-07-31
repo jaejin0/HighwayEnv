@@ -402,19 +402,21 @@ class TrajectoryVehicle(Vehicle):
 
         :param action: a high-level action
         """
-        # x, y = self.position[0], self.position[1]
+        x, y = self.position[0], self.position[1]
         
-        # if len(action["distance"]) != 0:  # if there is new trajectory, we set values and follow the first point
-        #     self.trajectory_index = 0
-        #     self.trajectory_distances = action["distance"]
-        #     self.trajectory_angles = action["angle"]
-        #     self.trajectory_points = self.predict_trajectory(distances=action["distance"], angles=action["angle"])
+        if len(action["distance"]) != 0:  # if there is new trajectory, we set values and follow the first point
+            self.trajectory_index = 0
+            self.trajectory_distances = action["distance"]
+            self.trajectory_angles = action["angle"]
+            self.trajectory_points = self.predict_trajectory(distances=action["distance"], angles=action["angle"])
             
-        #     self.target_x, self.target_y = self.trajectory_points[0][0], self.trajectory_points[0][1]
+            self.target_x, self.target_y = self.trajectory_points[0][0], self.trajectory_points[0][1]
             
-        #     _x, _y = self.target_x - x, self.target_y - y
-        #     self.target_steering_angle = math.atan2(_y, _x)
-        #     print(self.target_steering_angle / np.pi)
+            _x, _y = self.target_x - x, self.target_y - y
+            self.target_steering_angle = math.atan2(_y, _x)
+            
+            self.target_steering_angle = int(input("what is the steering angle?"))
+            print(self.target_steering_angle / np.pi)
            
 
         # else:
@@ -467,7 +469,7 @@ class TrajectoryVehicle(Vehicle):
         # if it surpass first one, it heads to the second one
 
 
-        self.target_steering_angle = int(input("what is the steering angle?"))
+        
 
 
         action = {"steering": self.steering_control(self.target_steering_angle),
