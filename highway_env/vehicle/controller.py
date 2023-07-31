@@ -428,7 +428,7 @@ class TrajectoryVehicle(Vehicle):
                 self.target_steering_angle = 0
             
         
-        print(self.target_steering_angle / np.pi * 180)
+        print(self.trajectory_index)
             
            
 
