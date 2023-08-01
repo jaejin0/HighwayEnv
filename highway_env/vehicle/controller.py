@@ -418,8 +418,10 @@ class TrajectoryVehicle(Vehicle):
         _x, _y = self.target_x - x, self.target_y - y
         
         target_angle = math.atan2(_y, _x)
+        angle_diff = abs(target_angle - self.heading)
+        print(angle_diff)
         
-        if abs(target_angle) <= np.pi / 2: 
+        if angle_diff <= np.pi / 2: 
             self.target_steering_angle = target_angle
         else:
             if self.trajectory_index < len(self.trajectory_distances) - 1:
