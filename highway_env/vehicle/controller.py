@@ -419,12 +419,13 @@ class TrajectoryVehicle(Vehicle):
         angle_diff = target_angle - self.heading
         # print((target_angle / np.pi * 180) + (self.heading / np.pi * 180))
         # print(f"target angle: {(target_angle / np.pi * 180)} |heading: {(self.heading / np.pi * 180)}")
-        print(angle_diff)
+        #print(angle_diff)
         
         if abs(angle_diff) <= np.pi / 2: 
             self.target_steering_angle = target_angle
         elif abs(angle_diff) >= 3 * np.pi / 2:
-            self.target_steering_angle = -target_angle
+            print("hehe")
+            #self.target_steering_angle = -target_angle
         else:
             if self.trajectory_index < len(self.trajectory_distances) - 1:
                 self.trajectory_index += 1
