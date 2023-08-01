@@ -422,7 +422,8 @@ class TrajectoryVehicle(Vehicle):
                 self.trajectory_index += 1
             else:
                 self.target_steering_angle = 0
-        print(action["acceleration"])
+        # print(action["acceleration"])
+        print(self.speed)
 
         action = {"steering": self.steering_control(self.target_steering_angle),
                   "acceleration": action["acceleration"]}
