@@ -132,7 +132,6 @@ class Vehicle(RoadObject):
         self.heading = utils.wrap_to_pi(self.heading)
         self.speed += self.action['acceleration'] * dt
         self.on_state_update()
-        print(self.speed)
 
     def clip_actions(self) -> None:
         if self.crashed:
