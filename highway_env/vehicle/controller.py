@@ -432,6 +432,7 @@ class TrajectoryVehicle(Vehicle):
         else:
             if self.trajectory_index < len(self.trajectory_distances) - 1:
                 self.trajectory_index += 1
+                print("NEXTTT")
             else:
                 self.target_steering_angle = 0
 
