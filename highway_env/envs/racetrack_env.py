@@ -35,7 +35,7 @@ class RacetrackEnv(AbstractEnv):
                 "align_to_vehicle_axes": True
             },
             "action": {
-                "type": "ContinuousAction",
+                "type": "TrajectoryAction",
                 "longitudinal": False,
                 "lateral": True,
                 "target_speeds": [0, 5, 10]
