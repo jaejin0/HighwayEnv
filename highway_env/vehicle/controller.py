@@ -436,7 +436,7 @@ class TrajectoryVehicle(Vehicle):
 
         #print(self.target_steering_angle)
 
-        action = {"steering": self.steering_control(self.target_steering_angle),
+        action = {"steering": self.target_steering_angle,
                   "acceleration": action["acceleration"]}
         super().act(action)
         
