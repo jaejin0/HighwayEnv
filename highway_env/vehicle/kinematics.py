@@ -122,7 +122,6 @@ class Vehicle(RoadObject):
         delta_f = self.action['steering']
         beta = np.arctan(1 / 2 * np.tan(delta_f))
         
-        beta = self.action['steering']
         v = self.speed * np.array([np.cos(self.heading + beta),
                                    np.sin(self.heading + beta)])
         self.position += v * dt
