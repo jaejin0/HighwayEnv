@@ -34,7 +34,7 @@ class Vehicle(RoadObject):
     def __init__(self,
                  road: Road,
                  position: Vector,
-                 heading: float = -3.11,
+                 heading: float = 0,
                  speed: float = 0,
                  predition_type: str = 'constant_steering'):
         super().__init__(road, position, heading, speed)
