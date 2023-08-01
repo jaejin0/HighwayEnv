@@ -419,7 +419,7 @@ class TrajectoryVehicle(Vehicle):
         
         target_angle = math.atan2(_y, _x)
         angle_diff = abs(target_angle - (self.heading / np.pi))
-        print(angle_diff)
+        print(self.heading / np.pi * 180)
        
         
         if angle_diff <= np.pi / 2: 
