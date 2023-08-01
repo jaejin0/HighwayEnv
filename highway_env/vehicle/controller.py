@@ -424,9 +424,10 @@ class TrajectoryVehicle(Vehicle):
         if abs(angle_diff) <= np.pi / 2: 
             self.target_steering_angle = target_angle
         elif angle_diff >= 3 * np.pi / 2:
-            
+            print("THIS")
             self.target_steering_angle = target_angle - np.pi
         elif angle_diff <= - 3 * np.pi / 2:
+            print("))))))))")
             self.target_steering_angle = target_angle + np.pi
         else:
             if self.trajectory_index < len(self.trajectory_distances) - 1:
@@ -434,7 +435,7 @@ class TrajectoryVehicle(Vehicle):
             else:
                 self.target_steering_angle = 0
 
-        print(self.target_steering_angle)
+        #print(self.target_steering_angle)
 
         action = {"steering": self.target_steering_angle,
                   "acceleration": action["acceleration"]}
