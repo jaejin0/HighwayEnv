@@ -409,8 +409,6 @@ class TrajectoryVehicle(Vehicle):
             self.trajectory_angles = action["angle"]
             self.trajectory_points = self.predict_trajectory(distances=action["distance"], angles=action["angle"])
             
-        
-        
         x, y = self.position[0], self.position[1]
         
         self.target_x, self.target_y = self.trajectory_points[self.trajectory_index][0], self.trajectory_points[self.trajectory_index][1]
@@ -423,71 +421,15 @@ class TrajectoryVehicle(Vehicle):
         # print(f"target angle: {(target_angle / np.pi * 180)} |heading: {(self.heading / np.pi * 180)}")
         print(angle_diff)
         
-        if abs(angle_diff) <= np.pi: 
+        if abs(angle_diff) <= np.pi / 2: 
             self.target_steering_angle = target_angle
+        elif abs(angle_diff) >= 3 * np.pi / 2:
+            self.target_steering_angle = -target_angle
         else:
             if self.trajectory_index < len(self.trajectory_distances) - 1:
                 self.trajectory_index += 1
             else:
                 self.target_steering_angle = 0
-            
-        
-        
-            
-           
-
-        # else:
-            
-        #     # how many did it pass?
-        #     # what is pass? if it is behind the car.
-            
-        #     # if it pass, it increase the trajectory index 
-            
-            
-        #     # calculate the direction of vector from car to the point[trajectory index] then print it
-        #     # print the heading angle of the car
-        #     # compare and find what value would it be to say it is behind the car. 90 < Angle - Angle < 270
-        #     # if so, increment the trajectory index.
-        #     # set target to the next one.
-        #     if self.trajectory_index < len(self.trajectory_distances):
-        #         diff_x, diff_y = x - self.trajectory_points[self.trajectory_index][0], y - self.trajectory_points[self.trajectory_index][1]
-        #         diff_angle = math.atan2(diff_y, diff_x)
-                
-        #         if abs(self.heading - diff_angle) > (np.pi / 2):  # the trajectory point is behind the vehicle
-        #             self.trajectory_index += 1
-        #             if self.trajectory_index >= len(self.trajectory_distances):
-        #                 self.trajectory_index = len(self.trajectory_distances) - 1
-
-        #         self.target_x, self.target_y = self.trajectory_points[self.trajectory_index][0], self.trajectory_points[self.trajectory_index][1]
-                
-        #         _x, _y = self.target_x - x, self.target_y - y
-        #         self.target_steering_angle = math.atan2(_y, _x)
-                
-        #         self.target_steering_angle = self.trajectory_angles[self.trajectory_index]
-            
-        #     else:
-        #         self.target_steering_angle = 0
-                
-            
-                    # if self.position[0] <= pt[0] and self.position[1] <= pt[1]:
-                    #     while self.position[0] <= pt[0] and self.position[1] <= pt[1]:
-                    #         self.target_x = pt[0]
-                    #         self.target_y = pt[1]
-                            
-                    #         _x, _y = self.target_x - self.position[0], self.target_y - self.position[1]
-                    #         self.target_steering_angle = math.atan(_y / _x)
-
-                    #         action = {"steering": self.steering_control(self.target_steering_angle),
-                    #                 "acceleration": action["acceleration"]}
-                    #         super().act(action)
-     
-        
-        # calculate target speed and target angle using the next trajectory distance and trajectory angle
-        # if it surpass first one, it heads to the second one
-
-
-        
-
 
         action = {"steering": self.steering_control(self.target_steering_angle),
                   "acceleration": action["acceleration"]}
