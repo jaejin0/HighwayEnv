@@ -123,17 +123,16 @@ class Vehicle(RoadObject):
         beta = np.arctan(1 / 2 * np.tan(delta_f))
         
         beta = self.action['steering']
-        
-        v = self.speed * np.array([np.cos(self.heading + beta),
-                                   np.sin(self.heading + beta)])
+        self.heading = self.action['steering']
+        v = self.speed * np.array([np.cos(self.heading),
+                                   np.sin(self.heading)])
         self.position += v * dt
         if self.impact is not None:
             self.position += self.impact
             self.crashed = True
             self.impact = None
-        self.heading += self.speed * np.sin(beta) / (self.LENGTH / 2) * dt
-        self.heading = utils.wrap_to_pi(self.heading)
-        self.heading = self.action['steering']
+        # self.heading += self.speed * np.sin(beta) / (self.LENGTH / 2) * dt
+        # self.heading = utils.wrap_to_pi(self.heading)
         self.speed += self.action['acceleration'] * dt
         self.on_state_update()
 
