@@ -412,9 +412,9 @@ class TrajectoryVehicle(Vehicle):
         
         
         x, y = self.position[0], self.position[1]
-        print(x, y)
         
         self.target_x, self.target_y = self.trajectory_points[self.trajectory_index][0], self.trajectory_points[self.trajectory_index][1]
+        print(self.target_x, self.target_y)
             
         _x, _y = self.target_x - x, self.target_y - y
         
