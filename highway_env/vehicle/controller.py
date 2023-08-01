@@ -452,8 +452,8 @@ class TrajectoryVehicle(Vehicle):
         
         Steer the vehicle to follow the center of an given lane.
         """
-        
-        steering_angle = np.clip(target_steering_angle, -self.MAX_STEERING_ANGLE, self.MAX_STEERING_ANGLE)
+        steering_angle = target_steering_angle - self.heading
+        # steering_angle = np.clip(target_steering_angle, -self.MAX_STEERING_ANGLE, self.MAX_STEERING_ANGLE)
         return float(steering_angle)
 
     def speed_control(self, target_speed: float) -> float:
