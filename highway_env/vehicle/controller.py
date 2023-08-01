@@ -404,6 +404,7 @@ class TrajectoryVehicle(Vehicle):
         """
         
         if len(action["distance"]) != 0:  # if there is new trajectory, we set values and follow the first point
+            print("HEY")
             self.trajectory_index = 0
             self.trajectory_distances = action["distance"]
             self.trajectory_angles = action["angle"]
@@ -419,7 +420,7 @@ class TrajectoryVehicle(Vehicle):
         
         target_angle = math.atan2(_y, _x)
         angle_diff = abs(target_angle - (self.heading / np.pi))
-        print((target_angle / np.pi * 180) - (self.heading / np.pi * 180))
+        # print((target_angle / np.pi * 180) - (self.heading / np.pi * 180))
         
        
         
