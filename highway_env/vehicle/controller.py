@@ -413,7 +413,7 @@ class TrajectoryVehicle(Vehicle):
         self.target_x, self.target_y = self.trajectory_points[self.trajectory_index][0], self.trajectory_points[self.trajectory_index][1]
         _x, _y = self.target_x - x, self.target_y - y
         target_angle = math.atan2(_y, _x)
-        angle_diff = target_angle - utils.wrap_to_pi(self.heading)
+        angle_diff = target_angle - self.heading
         
         if abs(angle_diff) <= np.pi / 2 or abs(angle_diff) >= 3 * np.pi / 2: 
             self.target_steering_angle = target_angle
@@ -422,8 +422,6 @@ class TrajectoryVehicle(Vehicle):
                 self.trajectory_index += 1
             else:
                 self.target_steering_angle = 0
-        # print(action["acceleration"])
-        print(self.heading)
 
         action = {"steering": self.steering_control(self.target_steering_angle),
                   "acceleration": action["acceleration"]}
