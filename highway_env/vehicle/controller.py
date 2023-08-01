@@ -424,7 +424,7 @@ class TrajectoryVehicle(Vehicle):
         print(angle_diff)
         
         if angle_diff - np.pi <= np.pi / 2: 
-            self.target_steering_angle = target_angle
+            self.target_steering_angle = target_angle - np.pi
         else:
             if self.trajectory_index < len(self.trajectory_distances) - 1:
                 self.trajectory_index += 1
