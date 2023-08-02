@@ -26,7 +26,9 @@ class HighwayEnv(AbstractEnv):
         config = super().default_config()
         config.update({
             "observation": {
-                "type": "Kinematics"
+                "type": "Kinematics",
+                "vehicles_count": 10,
+                "features": ["presence", "x", "y", "vx", "vy", "heading", "cos_d", "sin_d"],
             },
             "action": {
                 "type": "TrajectoryAction",
