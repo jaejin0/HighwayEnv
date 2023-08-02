@@ -28,7 +28,7 @@ class HighwayEnv(AbstractEnv):
             "observation": {
                 "type": "Kinematics",
                 "vehicles_count": 10,
-                "features": ["presence", "x", "y", "vx", "vy", "heading"],
+                "features": ["presence", "x", "y", "vx", "vy"],
             },
             "action": {
                 "type": "TrajectoryAction",
