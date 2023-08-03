@@ -71,6 +71,7 @@ class Vehicle(RoadObject):
         _to = lane_to or road.np_random.choice(list(road.network.graph[_from].keys()))
         _id = lane_id if lane_id is not None else road.np_random.choice(len(road.network.graph[_from][_to]))
         lane = road.network.get_lane((_from, _to, _id))
+        speed = 10
         if speed is None:
             if lane.speed_limit is not None:
                 speed = road.np_random.uniform(0.7*lane.speed_limit, 0.8*lane.speed_limit)
@@ -134,7 +135,6 @@ class Vehicle(RoadObject):
         self.on_state_update()
 
     def clip_actions(self) -> None:
-        print(self.crashed)
         if self.crashed:
             self.action['steering'] = 0
             self.action['acceleration'] = -1.0*self.speed
