@@ -426,8 +426,6 @@ class TrajectoryVehicle(Vehicle):
         action = {"steering": self.steering_control(self.target_steering_angle),
                   "acceleration": action["acceleration"]}
         super().act(action)
-        print(self.speed)
-        print(action["acceleration"])
 
     def follow_road(self) -> None:
         """At the end of a lane, automatically switch to a next one."""

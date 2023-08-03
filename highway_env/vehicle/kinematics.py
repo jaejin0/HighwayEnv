@@ -131,7 +131,6 @@ class Vehicle(RoadObject):
         self.heading += self.speed * np.sin(beta) / (self.LENGTH / 2) * dt
         self.heading = utils.wrap_to_pi(self.heading)
         self.speed += self.action['acceleration'] * dt
-        self.speed += 5
         self.on_state_update()
 
     def clip_actions(self) -> None:
@@ -140,6 +139,7 @@ class Vehicle(RoadObject):
             self.action['acceleration'] = -1.0*self.speed
         self.action['steering'] = float(self.action['steering'])
         self.action['acceleration'] = float(self.action['acceleration'])
+        print(self.action['acceleration'])
         # if self.speed > self.MAX_SPEED:
         #     self.action['acceleration'] = min(self.action['acceleration'], 1.0 * (self.MAX_SPEED - self.speed))
         # elif self.speed < self.MIN_SPEED:
