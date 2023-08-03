@@ -420,8 +420,7 @@ class TrajectoryVehicle(Vehicle):
         else:
             if self.trajectory_index < len(self.trajectory_distances) - 1:
                 self.trajectory_index += 1
-            else:
-                self.target_steering_angle = 0
+            # else: do not change angle
 
         action = {"steering": self.steering_control(self.target_steering_angle),
                   "acceleration": action["acceleration"]}
