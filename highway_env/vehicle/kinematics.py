@@ -137,6 +137,7 @@ class Vehicle(RoadObject):
         self.speed += self.acceleration * dt
         self.speed += 1
         self.on_state_update()
+        print(self.speed)
 
     def clip_actions(self) -> None:
         if self.crashed:
