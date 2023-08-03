@@ -134,8 +134,8 @@ class Vehicle(RoadObject):
             self.impact = None
         self.heading += self.speed * np.sin(beta) / (self.LENGTH / 2) * dt
         self.heading = utils.wrap_to_pi(self.heading)
-        self.speed += self.acceleration * dt
-        self.speed += 1
+        self.action['acceleration'] = 1
+        self.speed += self.action["acceleration"] * dt
         self.on_state_update()
         print(self.speed)
 
