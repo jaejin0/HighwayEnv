@@ -390,7 +390,7 @@ class TrajectoryVehicle(Vehicle):
         return self
 
     def act(self, action: dict = {
-            "acceleration": 0,
+            "acceleration": 1,
             "distance": np.array([]),
             "angle": np.array([])
         }) -> None:
