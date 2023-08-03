@@ -402,7 +402,6 @@ class TrajectoryVehicle(Vehicle):
 
         :param action: a high-level action
         """
-        print(action["acceleration"])
         
         if len(action["distance"]) != 0:  # if there is new trajectory, we set values and follow the first point
             self.trajectory_index = 0
