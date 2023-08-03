@@ -110,7 +110,6 @@ class Vehicle(RoadObject):
         if action:
             self.action = action
             self.acceleration = action['acceleration']
-            print(self.acceleration)
 
 
     def step(self, dt: float) -> None:
