@@ -131,6 +131,7 @@ class Vehicle(RoadObject):
         self.heading += self.speed * np.sin(beta) / (self.LENGTH / 2) * dt
         self.heading = utils.wrap_to_pi(self.heading)
         self.speed += self.action['acceleration'] * dt
+        print(self.speed)
         self.on_state_update()
 
     def clip_actions(self) -> None:
@@ -150,7 +151,6 @@ class Vehicle(RoadObject):
             self.lane = self.road.network.get_lane(self.lane_index)
             if self.road.record_history:
                 self.history.appendleft(self.create_from(self))
-        print(self.speed)
 
     def predict_trajectory_constant_speed(self, times: np.ndarray) -> Tuple[List[np.ndarray], List[float]]:
         if self.prediction_type == 'zero_steering':
