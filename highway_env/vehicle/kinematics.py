@@ -134,11 +134,11 @@ class Vehicle(RoadObject):
         self.on_state_update()
 
     def clip_actions(self) -> None:
+        print(self.action['acceleration'])
         if self.crashed:
             self.action['steering'] = 0
             self.action['acceleration'] = -1.0*self.speed
         self.action['steering'] = float(self.action['steering'])
-        print(self.action['acceleration'])
         self.action['acceleration'] = float(self.action['acceleration'])
         
         # if self.speed > self.MAX_SPEED:
