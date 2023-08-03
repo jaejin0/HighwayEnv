@@ -118,7 +118,6 @@ class Vehicle(RoadObject):
 
         :param dt: timestep of integration of the model [s]
         """ 
-        print(self.action)
         self.clip_actions()
         beta = self.action['steering']
         
@@ -140,6 +139,7 @@ class Vehicle(RoadObject):
             self.action['acceleration'] = -1.0*self.speed
         self.action['steering'] = float(self.action['steering'])
         self.action['acceleration'] = float(self.action['acceleration'])
+        print(self.action['acceleration'])
         # if self.speed > self.MAX_SPEED:
         #     self.action['acceleration'] = min(self.action['acceleration'], 1.0 * (self.MAX_SPEED - self.speed))
         # elif self.speed < self.MIN_SPEED:
@@ -156,7 +156,7 @@ class Vehicle(RoadObject):
         if self.prediction_type == 'zero_steering':
             action = {'acceleration': 0.0, 'steering': 0.0}
         elif self.prediction_type == 'constant_steering':
-            action = {'acceleration': self.action['acceleration'], 'steering': self.action['steering']}
+            action = {'acceleration': 0.0, 'steering': self.action['steering']}
         else:
             raise ValueError("Unknown predition type")
 
