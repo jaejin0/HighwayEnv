@@ -107,7 +107,6 @@ class Vehicle(RoadObject):
         """
         if action:
             self.action = action
-            print(action)
 
     def step(self, dt: float) -> None:
         """
