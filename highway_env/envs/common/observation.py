@@ -200,7 +200,6 @@ class KinematicObservation(ObservationType):
                 df[feature] = utils.lmap(df[feature], [f_range[0], f_range[1]], [-1, 1])
                 if self.clip:
                     df[feature] = np.clip(df[feature], -1, 1)
-        print(df)
         return df
 
     def observe(self) -> np.ndarray:
