@@ -118,6 +118,7 @@ class Vehicle(RoadObject):
 
         :param dt: timestep of integration of the model [s]
         """ 
+        print(self.action['acceleration'])
         self.clip_actions()
         beta = self.action['steering']
         
@@ -131,7 +132,6 @@ class Vehicle(RoadObject):
         self.heading += self.speed * np.sin(beta) / (self.LENGTH / 2) * dt
         self.heading = utils.wrap_to_pi(self.heading)
         self.speed += self.action['acceleration'] * dt
-        print(self.action['acceleration'])
         self.on_state_update()
 
     def clip_actions(self) -> None:
