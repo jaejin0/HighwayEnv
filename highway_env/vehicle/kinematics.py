@@ -107,6 +107,7 @@ class Vehicle(RoadObject):
         """
         if action:
             self.action = action
+            print(self.action)
 
     def step(self, dt: float) -> None:
         """
@@ -118,7 +119,6 @@ class Vehicle(RoadObject):
 
         :param dt: timestep of integration of the model [s]
         """ 
-        print(self.action['acceleration'])
         self.clip_actions()
         beta = self.action['steering']
         
