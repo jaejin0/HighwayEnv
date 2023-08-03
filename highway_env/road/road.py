@@ -334,7 +334,6 @@ class Road(object):
     def act(self) -> None:
         """Decide the actions of each entity on the road."""
         for vehicle in self.vehicles:
-            print(vehicle.action['acceleration'])
             vehicle.act()
 
     def step(self, dt: float) -> None:
