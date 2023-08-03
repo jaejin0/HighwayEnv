@@ -404,6 +404,7 @@ class TrajectoryVehicle(Vehicle):
         """
         
         if len(action["distance"]) != 0:  # if there is new trajectory, we set values and follow the first point
+            print(action)
             self.action['acceleration'] = action['acceleration']
             
             self.trajectory_index = 0
