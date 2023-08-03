@@ -146,10 +146,10 @@ class Vehicle(RoadObject):
         self.action['steering'] = float(self.action['steering'])
         self.action['acceleration'] = float(self.action['acceleration'])
         
-        # if self.speed > self.MAX_SPEED:
-        #     self.action['acceleration'] = min(self.action['acceleration'], 1.0 * (self.MAX_SPEED - self.speed))
-        # elif self.speed < self.MIN_SPEED:
-        #     self.action['acceleration'] = max(self.action['acceleration'], 1.0 * (self.MIN_SPEED - self.speed))
+        if self.speed > self.MAX_SPEED:
+            self.action['acceleration'] = min(self.action['acceleration'], 1.0 * (self.MAX_SPEED - self.speed))
+        elif self.speed < self.MIN_SPEED:
+            self.action['acceleration'] = max(self.action['acceleration'], 1.0 * (self.MIN_SPEED - self.speed))
 
     def on_state_update(self) -> None:
         if self.road:
