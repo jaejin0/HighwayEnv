@@ -153,12 +153,12 @@ class Vehicle(RoadObject):
                 self.history.appendleft(self.create_from(self))
 
     def predict_trajectory_constant_speed(self, times: np.ndarray) -> Tuple[List[np.ndarray], List[float]]:
-        if self.prediction_type == 'zero_steering':
-            action = {'acceleration': 0.0, 'steering': 0.0}
-        elif self.prediction_type == 'constant_steering':
-            action = {'acceleration': 0.0, 'steering': self.action['steering']}
-        else:
-            raise ValueError("Unknown predition type")
+        # if self.prediction_type == 'zero_steering':
+        #     action = {'acceleration': 0.0, 'steering': 0.0}
+        # elif self.prediction_type == 'constant_steering':
+        #     action = {'acceleration': 0.0, 'steering': self.action['steering']}
+        # else:
+        #     raise ValueError("Unknown predition type")
 
         dt = np.diff(np.concatenate(([0.0], times)))
 
