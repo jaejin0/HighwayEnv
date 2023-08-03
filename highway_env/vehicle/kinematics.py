@@ -160,17 +160,17 @@ class Vehicle(RoadObject):
         # else:
         #     raise ValueError("Unknown predition type")
 
-        dt = np.diff(np.concatenate(([0.0], times)))
+        # dt = np.diff(np.concatenate(([0.0], times)))
 
-        positions = []
-        headings = []
-        v = copy.deepcopy(self)
-        v.act(action)
-        for t in dt:
-            v.step(t)
-            positions.append(v.position.copy())
-            headings.append(v.heading)
-        return (positions, headings)
+        # positions = []
+        # headings = []
+        # v = copy.deepcopy(self)
+        # v.act(action)
+        # for t in dt:
+        #     v.step(t)
+        #     positions.append(v.position.copy())
+        #     headings.append(v.heading)
+        # return (positions, headings)
 
     @property
     def velocity(self) -> np.ndarray:
