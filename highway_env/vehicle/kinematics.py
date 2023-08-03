@@ -107,7 +107,6 @@ class Vehicle(RoadObject):
         """
         if action:
             self.action = action
-            print(action)
 
     def step(self, dt: float) -> None:
         """
@@ -132,6 +131,7 @@ class Vehicle(RoadObject):
         self.heading += self.speed * np.sin(beta) / (self.LENGTH / 2) * dt
         self.heading = utils.wrap_to_pi(self.heading)
         self.speed += self.action['acceleration'] * dt
+        print(self.action['acceleration'] * dt)
         self.on_state_update()
 
     def clip_actions(self) -> None:
