@@ -39,7 +39,7 @@ class Vehicle(RoadObject):
                  predition_type: str = 'constant_steering'):
         super().__init__(road, position, heading, speed)
         self.prediction_type = predition_type
-        self.action = {'steering': 0, 'acceleration': 0}
+        self.action = {'steering': 0, 'acceleration': 3}
         self.crashed = False
         self.impact = None
         self.log = []
