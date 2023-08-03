@@ -27,12 +27,17 @@ class RacetrackEnv(AbstractEnv):
         config = super().default_config()
         config.update({
             "observation": {
-                "type": "OccupancyGrid",
-                "features": ['presence', 'on_road'],
-                "grid_size": [[-18, 18], [-18, 18]],
-                "grid_step": [3, 3],
-                "as_image": False,
-                "align_to_vehicle_axes": True
+                # "type": "OccupancyGrid",
+                # "features": ['presence', 'on_road'],
+                # "grid_size": [[-18, 18], [-18, 18]],
+                # "grid_step": [3, 3],
+                # "as_image": False,
+                # "align_to_vehicle_axes": True
+                
+                
+                "type": "Kinematics",
+                "vehicles_count": 10,
+                "features": ["presence", "x", "y", "vx", "vy", "heading", "cos_h", "sin_h"],
             },
             "action": {
                 "type": "TrajectoryAction",
@@ -48,7 +53,7 @@ class RacetrackEnv(AbstractEnv):
             "lane_centering_reward": 1,
             "action_reward": -0.3,
             "controlled_vehicles": 1,
-            "other_vehicles": 1,
+            "other_vehicles": 3,
             "screen_width": 600,
             "screen_height": 600,
             "centering_position": [0.5, 0.5],
