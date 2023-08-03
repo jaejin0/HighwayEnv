@@ -39,11 +39,13 @@ class Vehicle(RoadObject):
                  predition_type: str = 'constant_steering'):
         super().__init__(road, position, heading, speed)
         self.prediction_type = predition_type
-        self.action = {'steering': 0, 'acceleration': 3}
+        self.action = {'steering': 0, 'acceleration': 0}
         self.crashed = False
         self.impact = None
         self.log = []
         self.history = deque(maxlen=self.HISTORY_SIZE)
+        
+        self.acceleration = 0
 
     @classmethod
     def create_random(cls, road: Road,
@@ -107,6 +109,8 @@ class Vehicle(RoadObject):
         """
         if action:
             self.action = action
+            self.acceleration = action['acceleration']
+
 
     def step(self, dt: float) -> None:
         """
@@ -130,7 +134,7 @@ class Vehicle(RoadObject):
             self.impact = None
         self.heading += self.speed * np.sin(beta) / (self.LENGTH / 2) * dt
         self.heading = utils.wrap_to_pi(self.heading)
-        self.speed += self.action['acceleration'] * dt
+        self.speed += self.acceleration * dt
         self.on_state_update()
 
     def clip_actions(self) -> None:
