@@ -122,7 +122,7 @@ class Vehicle(RoadObject):
 
         :param dt: timestep of integration of the model [s]
         """ 
-        self.action['acceleration'] = 3
+        self.action['acceleration'] = -5
         self.clip_actions()
         beta = self.action['steering']
         
