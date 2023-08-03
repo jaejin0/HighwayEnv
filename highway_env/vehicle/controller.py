@@ -390,7 +390,7 @@ class TrajectoryVehicle(Vehicle):
         return self
 
     def act(self, action: dict = {
-            "acceleration": 1,
+            "acceleration": 0,
             "distance": np.array([]),
             "angle": np.array([])
         }) -> None:
@@ -404,6 +404,8 @@ class TrajectoryVehicle(Vehicle):
         """
         
         if len(action["distance"]) != 0:  # if there is new trajectory, we set values and follow the first point
+            self.action['acceleration'] = action['acceleration']
+            
             self.trajectory_index = 0
             self.trajectory_distances = action["distance"]
             self.trajectory_angles = action["angle"]
