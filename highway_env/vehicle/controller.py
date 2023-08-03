@@ -404,9 +404,6 @@ class TrajectoryVehicle(Vehicle):
         """
         
         if len(action["distance"]) != 0:  # if there is new trajectory, we set values and follow the first point
-            print(action)
-            self.action['acceleration'] = action['acceleration']
-            
             self.trajectory_index = 0
             self.trajectory_distances = action["distance"]
             self.trajectory_angles = action["angle"]
@@ -428,6 +425,7 @@ class TrajectoryVehicle(Vehicle):
         action = {"steering": self.steering_control(self.target_steering_angle),
                   "acceleration": action["acceleration"]}
         super().act(action)
+        print(self.action['acceleration'])
 
     def follow_road(self) -> None:
         """At the end of a lane, automatically switch to a next one."""
