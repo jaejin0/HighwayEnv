@@ -427,6 +427,7 @@ class TrajectoryVehicle(Vehicle):
                   "acceleration": action["acceleration"]}
         super().act(action)
         print(self.speed)
+        print(action["acceleration"])
 
     def follow_road(self) -> None:
         """At the end of a lane, automatically switch to a next one."""
