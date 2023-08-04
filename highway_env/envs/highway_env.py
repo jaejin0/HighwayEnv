@@ -134,9 +134,6 @@ class HighwayEnv(AbstractEnv):
         
         ### Safety ###
         front_vehicle, rear_vehicle = self.road.neighbour_vehicles(self.vehicle, self.vehicle.lane_index)
-        if rear_vehicle == None:
-            print("NONEE")
-        
         
         front_distance, rear_distance = self.vehicle.lane_distance_to(front_vehicle), self.vehicle.lane_distance_to(rear_vehicle)
         rear_distance = abs(rear_distance)
@@ -148,9 +145,18 @@ class HighwayEnv(AbstractEnv):
         if rear_distance > minimum_safe_distance:
             rear_distance = minimum_safe_distance
 
-        front_distance = utils.lmap(front_distance, self.config["front_distance_range"], [0, 0.5])
-        #rear_distance = utils.lmap(rear_distance, self.config["rear_distance_range"], [0, 0.5])
-        safe_distance = front_distance #+ rear_distance
+        if front_vehicle != None and rear_vehicle != None:
+            front_distance = utils.lmap(front_distance, self.config["front_distance_range"], [0, 0.5])
+            rear_distance = utils.lmap(rear_distance, self.config["rear_distance_range"], [0, 0.5])
+            safe_distance = front_distance + rear_distance
+        elif front_vehicle != None:
+            front_distance = utils.lmap(front_distance, self.config["front_distance_range"], [0, 1])
+            safe_distance = front_distance
+        elif rear_vehicle != None:
+            rear_distance = utils.lmap(rear_distance, self.config["rear_distance_range"], [0, 1])
+            safe_distance = rear_distance
+        else:
+            safe_distance = 1
         
         ### Energy Saving ###
         # finding acceleration
