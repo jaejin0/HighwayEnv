@@ -67,6 +67,9 @@ class AbstractEnv(gym.Env):
         assert render_mode is None or render_mode in self.metadata["render_modes"]
         self.render_mode = render_mode
         self.enable_auto_render = False
+        
+        # storing action
+        self.action = None
 
         self.reset()
 
@@ -228,6 +231,9 @@ class AbstractEnv(gym.Env):
         :param action: the action performed by the ego-vehicle
         :return: a tuple (observation, reward, terminated, truncated, info)
         """
+        
+        self.action = action
+        
         if self.road is None or self.vehicle is None:
             raise NotImplementedError("The road and vehicle must be initialized in the environment implementation")
 

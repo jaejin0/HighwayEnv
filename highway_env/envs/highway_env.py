@@ -138,14 +138,14 @@ class HighwayEnv(AbstractEnv):
         safe_distance = front_distance + rear_distance
         
         ### Energy Saving ###
-        # config from class D sedan with electric powertrain in from CarSim
+        # config from class D sedan with electric powertrain from CarSim
         vehicle_mass = 1458  # [kg]
         rolling_resistance_coefficient = 0.012 
         gravity = 9.81  # [m/s^2]
         wheel_radius = 0.33  # [m]
         
-        # config of assumption wheel mass is about 40 lb (18 kg)
-        wheel_mass = 18  # [kg]
+        # config for assumed wheel mass
+        wheel_mass = 20  # [kg]
         
         # calculation
         normal_force = vehicle_mass * gravity
@@ -156,7 +156,7 @@ class HighwayEnv(AbstractEnv):
         angular_velocity = self.vehicle.speed / wheel_radius
         moment_of_inertia = angular_momentum / angular_velocity
         angular_acceleration = self.vehicle.acc / wheel_radius
-        # print(self.vehicle.acc)
+        print(self.action)
         acceleration_torque = moment_of_inertia * angular_acceleration
         
         total_torque = acceleration_torque + load_torque
