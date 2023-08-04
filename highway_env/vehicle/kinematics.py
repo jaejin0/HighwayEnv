@@ -45,7 +45,7 @@ class Vehicle(RoadObject):
         self.log = []
         self.history = deque(maxlen=self.HISTORY_SIZE)
         
-        self.acc
+        self.acc = 0
 
     @classmethod
     def create_random(cls, road: Road,
