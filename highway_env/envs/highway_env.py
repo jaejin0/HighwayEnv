@@ -48,13 +48,15 @@ class HighwayEnv(AbstractEnv):
             "lane_change_reward": 0,   # The reward received at each lane change action.
             
             
-            "reward_speed_range": [-40, 40],
+            
             "normalize_reward": True,
             "offroad_terminal": False,
             
             
             ### Speed ###   20
             "speed_reward": 20,
+            
+            "reward_speed_range": [-40, 40],
             
             ### Safety ###   80
             "collision_reward": -50,
@@ -126,6 +128,7 @@ class HighwayEnv(AbstractEnv):
         # Use forward speed rather than speed, see https://github.com/eleurent/highway-env/issues/268
         
         ### Speed ###
+        print(self.road.network.speed_limit)
         scaled_speed = utils.lmap(self.vehicle.speed, self.config["reward_speed_range"], [0, 1])
         
         ### Safety ###
