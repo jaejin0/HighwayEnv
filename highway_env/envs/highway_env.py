@@ -134,6 +134,10 @@ class HighwayEnv(AbstractEnv):
         
         ### Safety ###
         front_vehicle, rear_vehicle = self.road.neighbour_vehicles(self.vehicle, self.vehicle.lane_index)
+        if rear_vehicle == None:
+            print("NONEE")
+        
+        
         front_distance, rear_distance = self.vehicle.lane_distance_to(front_vehicle), self.vehicle.lane_distance_to(rear_vehicle)
         rear_distance = abs(rear_distance)
         
