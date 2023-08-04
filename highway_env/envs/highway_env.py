@@ -126,7 +126,6 @@ class HighwayEnv(AbstractEnv):
         
         ### Speed ###
         scaled_speed = utils.lmap(self.vehicle.speed, self.config["reward_speed_range"], [0, 1])
-        print(scaled_speed)
         
         ### Safety ###
         front_vehicle, rear_vehicle = self.road.neighbour_vehicles(self.vehicle, self.vehicle.lane_index)
