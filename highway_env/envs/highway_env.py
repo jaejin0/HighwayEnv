@@ -56,8 +56,6 @@ class HighwayEnv(AbstractEnv):
             ### Speed ###   20
             "speed_reward": 20,
             
-            "reward_speed_range": [-40, 40],
-            
             ### Safety ###   80
             "collision_reward": -50,
             "safe_distance_reward": 5,
@@ -121,17 +119,17 @@ class HighwayEnv(AbstractEnv):
         return reward
 
     def _rewards(self, action: Action) -> Dict[Text, float]:
-        neighbours = self.road.network.all_side_lanes(self.vehicle.lane_index)
-        lane = self.vehicle.target_lane_index[2] if isinstance(self.vehicle, ControlledVehicle) \
-            else self.vehicle.lane_index[2]
         # Use forward speed rather than speed, see https://github.com/eleurent/highway-env/issues/268
         
         ### Speed ###
         index = self.vehicle.lane_index
         speed_limit = self.road.network.graph[index[0]][index[1]][index[2]].speed_limit
         speed = np.clip(self.vehicle.speed, 0, 40)
-        print(speed)
-        scaled_speed = utils.lmap(self.vehicle.speed, self.config["reward_speed_range"], [0, 1])
+        if speed <= speed_limit:
+            speed_reward = utils.lmap(speed, [0, speed_limit], [0, 1])
+        else:
+            speed_reward = self.vehicle.MAX_SPEED - speed  # how much it is close to the max
+            speed_reward = utils.lmap(speed_reward, [0, self.vehicle.MAX_SPEED], [0, 1])
         
         ### Safety ###
         front_vehicle, rear_vehicle = self.road.neighbour_vehicles(self.vehicle, self.vehicle.lane_index)
@@ -176,7 +174,7 @@ class HighwayEnv(AbstractEnv):
         
         return {
             ### Speed ###
-            "speed_reward": np.clip(scaled_speed, 0, 1),
+            "speed_reward": np.clip(speed_reward, 0, 1),
             
             ### Safety ###
             "collision_reward": float(self.vehicle.crashed),
