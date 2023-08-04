@@ -40,15 +40,30 @@ class HighwayEnv(AbstractEnv):
             "duration": 40,  # [s]
             "ego_spacing": 2,
             "vehicles_density": 1,
-            "collision_reward": -1,    # The reward received when colliding with a vehicle.
-            "right_lane_reward": 0.1,  # The reward received when driving on the right-most lanes, linearly mapped to
-                                       # zero for other lanes.
-            "high_speed_reward": 0.4,  # The reward received when driving at full speed, linearly mapped to zero for
-                                       # lower speeds according to config["reward_speed_range"].
-            "lane_change_reward": 0,   # The reward received at each lane change action.
-            "reward_speed_range": [20, 30],
-            "normalize_reward": True,
-            "offroad_terminal": False
+            # "collision_reward": -1,    # The reward received when colliding with a vehicle.
+            # "right_lane_reward": 0.1,  # The reward received when driving on the right-most lanes, linearly mapped to
+            #                            # zero for other lanes.
+            # "high_speed_reward": 0.4,  # The reward received when driving at full speed, linearly mapped to zero for
+            #                            # lower speeds according to config["reward_speed_range"].
+            # "lane_change_reward": 0,   # The reward received at each lane change action.
+            
+            
+            # "reward_speed_range": [-40, 40],
+            # "normalize_reward": True,
+            # "offroad_terminal": False
+            
+            
+            ### Speed ###   25
+            "speed_reward": 25,
+            
+            ### Safety ###   75
+            "collision_reward": -50,
+            "safe_distance_reward": 5,
+            "out_of_road_reward": 20,
+            
+            ### Energy Saving ###  0
+            "torque_reward": 0
+            
         })
         return config
 
@@ -105,19 +120,28 @@ class HighwayEnv(AbstractEnv):
             else self.vehicle.lane_index[2]
         # Use forward speed rather than speed, see https://github.com/eleurent/highway-env/issues/268
         
-        forward_speed = self.vehicle.speed * np.cos(self.vehicle.heading)
-        scaled_speed = utils.lmap(forward_speed, self.config["reward_speed_range"], [0, 1])
+        ### Speed ###
+        scaled_speed = utils.lmap(self.vehicle.speed, self.config["reward_speed_range"], [0, 1])
+        
+        ### Safety ###
+        front_vehicle, rear_vehicle = self.road.neighbour_vehicles(self.vehicle, self.vehicle.lane_index)
+        front_distance, rear_distance = self.vehicle.lane_distance_to(front_vehicle), self.vehicle.lane_distance_to(rear_vehicle)
+        minimum_safe_distance = 30
+        if front_distance > minimum_safe_distance:
+            front_distance = minimum_safe_distance
+        print(rear_distance)
+        # Normalization
+        front_distance = utils.lmap(front_distance, self.config["front_distance_range"], [0, 1])
+        
         return {
-            "collision_reward": float(self.vehicle.crashed),
             "right_lane_reward": lane / max(len(neighbours) - 1, 1),
-            "high_speed_reward": np.clip(scaled_speed, 0, 1),
-            "on_road_reward": float(self.vehicle.on_road)
+            "on_road_reward": float(self.vehicle.on_road),
             
             ### Speed ###
-            # "speed_reward": 
+            "speed_reward": np.clip(scaled_speed, 0, 1),
             
             ### Safety ###
-            # "collision_reward":
+            "collision_reward": float(self.vehicle.crashed)
             # "safe_distance_reward":
             # "out_of_road_reward":
             
