@@ -131,7 +131,7 @@ class HighwayEnv(AbstractEnv):
             front_distance = minimum_safe_distance
         print(rear_distance)
         # Normalization
-        front_distance = utils.lmap(front_distance, self.config["front_distance_range"], [0, 1])
+        # front_distance = utils.lmap(front_distance, self.config["front_distance_range"], [0, 1])
         
         return {
             "right_lane_reward": lane / max(len(neighbours) - 1, 1),
