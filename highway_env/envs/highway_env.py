@@ -53,19 +53,24 @@ class HighwayEnv(AbstractEnv):
             "offroad_terminal": False,
             
             
-            ### Speed ###   25
-            "speed_reward": 25,
+            ### Speed ###   20
+            "speed_reward": 20,
             
-            ### Safety ###   75
+            ### Safety ###   80
             "collision_reward": -50,
             "safe_distance_reward": 5,
-            "on_road_reward": 20,
+            "on_road_reward": 25,
             
             "front_distance_range": [0, 30],
             "rear_distance_range": [0, 30],
             
             ### Energy Saving ###  0
-            "torque_reward": 0
+            "torque_reward": 0,
+            
+            "total_torque_range": [23.64, 89.64],
+            
+            # Reward Range #
+            "reward_range": [-50, 50]
             
         })
         return config
@@ -110,10 +115,7 @@ class HighwayEnv(AbstractEnv):
         rewards = self._rewards(action)
         reward = sum(self.config.get(name, 0) * reward for name, reward in rewards.items())
         if self.config["normalize_reward"]:
-            reward = utils.lmap(reward,
-                                [self.config["collision_reward"],
-                                 self.config["high_speed_reward"] + self.config["right_lane_reward"]],
-                                [0, 1])
+            reward = utils.lmap(reward, self.config["reward_range"], [0, 1])
         return reward
 
     def _rewards(self, action: Action) -> Dict[Text, float]:
@@ -124,6 +126,7 @@ class HighwayEnv(AbstractEnv):
         
         ### Speed ###
         scaled_speed = utils.lmap(self.vehicle.speed, self.config["reward_speed_range"], [0, 1])
+        print(scaled_speed)
         
         ### Safety ###
         front_vehicle, rear_vehicle = self.road.neighbour_vehicles(self.vehicle, self.vehicle.lane_index)
@@ -154,18 +157,17 @@ class HighwayEnv(AbstractEnv):
         # calculation
         normal_force = vehicle_mass * gravity
         rolling_resistance = rolling_resistance_coefficient * normal_force  # rolling resistances for 4 wheels
-        load_torque = rolling_resistance * wheel_radius
+        load_torque = rolling_resistance * wheel_radius  # 56.64 [Nm]
         
         angular_momentum = wheel_mass * self.vehicle.speed * wheel_radius
         angular_velocity = self.vehicle.speed / wheel_radius
         moment_of_inertia = angular_momentum / angular_velocity
         angular_acceleration = acceleration / wheel_radius
-        acceleration_torque = moment_of_inertia * angular_acceleration
-        print(acceleration_torque)
-        total_torque = acceleration_torque + load_torque
-        
-        # find total torque range and normalize
-        # check if the equation is correct and find proofs for citations
+        acceleration_torque = moment_of_inertia * angular_acceleration  # 6.6 * acceleration
+
+        total_torque = acceleration_torque + load_torque  # 6.6 * acceleration + 56.64
+        # total torque range: [23.64, 89.64]
+        total_torque = utils.lmap(total_torque, self.config["total_torque_range"], [0, 1])
         
         return {
             ### Speed ###
