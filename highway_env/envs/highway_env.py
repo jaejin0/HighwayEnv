@@ -34,7 +34,7 @@ class HighwayEnv(AbstractEnv):
                 "type": "TrajectoryAction",
             },
             "lanes_count": 4,
-            "vehicles_count": 0, # 50
+            "vehicles_count": 50, # 50
             "controlled_vehicles": 1,
             "initial_lane_id": None,
             "duration": 40,  # [s]
