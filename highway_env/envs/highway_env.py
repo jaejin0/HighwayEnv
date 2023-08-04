@@ -129,7 +129,8 @@ class HighwayEnv(AbstractEnv):
         minimum_safe_distance = 30
         if front_distance > minimum_safe_distance:
             front_distance = minimum_safe_distance
-        print(rear_distance)
+        # print(rear_distance) # I get negative
+        print(front_distance)
         # Normalization
         # front_distance = utils.lmap(front_distance, self.config["front_distance_range"], [0, 1])
         
