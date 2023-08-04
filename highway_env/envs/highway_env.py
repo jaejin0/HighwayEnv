@@ -114,7 +114,6 @@ class HighwayEnv(AbstractEnv):
                                 [self.config["collision_reward"],
                                  self.config["high_speed_reward"] + self.config["right_lane_reward"]],
                                 [0, 1])
-        reward *= rewards['on_road_reward']
         return reward
 
     def _rewards(self, action: Action) -> Dict[Text, float]:
@@ -157,6 +156,7 @@ class HighwayEnv(AbstractEnv):
         angular_velocity = self.vehicle.speed / wheel_radius
         moment_of_inertia = angular_momentum / angular_velocity
         angular_acceleration = self.vehicle.acc / wheel_radius
+        print(self.vehicle.acc)
         acceleration_torque = moment_of_inertia * angular_acceleration
         
         total_torque = acceleration_torque + load_torque
