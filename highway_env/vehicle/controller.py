@@ -424,7 +424,6 @@ class TrajectoryVehicle(Vehicle):
                 self.trajectory_index += 1
             # else: do not change angle
 
-        self.acc = action["acceleration"]
         action = {"steering": self.steering_control(self.target_steering_angle),
                   "acceleration": action["acceleration"]}
         super().act(action)

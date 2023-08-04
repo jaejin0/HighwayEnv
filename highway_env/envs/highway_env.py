@@ -156,7 +156,7 @@ class HighwayEnv(AbstractEnv):
         angular_velocity = self.vehicle.speed / wheel_radius
         moment_of_inertia = angular_momentum / angular_velocity
         angular_acceleration = self.vehicle.acc / wheel_radius
-        print(self.vehicle.acc)
+        # print(self.vehicle.acc)
         acceleration_torque = moment_of_inertia * angular_acceleration
         
         total_torque = acceleration_torque + load_torque
