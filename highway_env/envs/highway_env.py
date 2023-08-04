@@ -59,7 +59,7 @@ class HighwayEnv(AbstractEnv):
             ### Safety ###   75
             "collision_reward": -50,
             "safe_distance_reward": 5,
-            "out_of_road_reward": 20,
+            "on_road_reward": 20,
             
             "front_distance_range": [0, 30],
             "rear_distance_range": [0, 30],
@@ -171,7 +171,7 @@ class HighwayEnv(AbstractEnv):
             ### Safety ###
             "collision_reward": float(self.vehicle.crashed),
             "safe_distance_reward": np.clip(safe_distance, 0, 1),
-            "out_of_road_reward": float(self.vehicle.on_road),
+            "on_road_reward": float(self.vehicle.on_road),
             
             ### Energy Saving ###
             "torque_reward": np.clip(total_torque, 0, 1)
