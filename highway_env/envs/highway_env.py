@@ -161,7 +161,7 @@ class HighwayEnv(AbstractEnv):
         moment_of_inertia = angular_momentum / angular_velocity
         angular_acceleration = acceleration / wheel_radius
         acceleration_torque = moment_of_inertia * angular_acceleration
-        print(load_torque)
+        print(acceleration_torque)
         total_torque = acceleration_torque + load_torque
         
         # find total torque range and normalize
