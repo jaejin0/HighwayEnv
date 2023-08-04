@@ -148,7 +148,7 @@ class HighwayEnv(AbstractEnv):
         gravity = 9.81  # [m/s^2]
         wheel_radius = 0.33  # [m]
         
-        # config for assumed wheel mass
+        # config for standard wheel mass
         wheel_mass = 20  # [kg]
         
         # calculation
@@ -160,9 +160,8 @@ class HighwayEnv(AbstractEnv):
         angular_velocity = self.vehicle.speed / wheel_radius
         moment_of_inertia = angular_momentum / angular_velocity
         angular_acceleration = acceleration / wheel_radius
-        print(self.vehicle.speed)
         acceleration_torque = moment_of_inertia * angular_acceleration
-        
+        print(load_torque)
         total_torque = acceleration_torque + load_torque
         
         # find total torque range and normalize
