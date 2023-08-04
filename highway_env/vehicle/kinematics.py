@@ -117,7 +117,8 @@ class Vehicle(RoadObject):
             self.speed += self.action['acceleration'] * (1 / 15)
             
             self.acc = self.action['acceleration']
-            print(self.acc)
+            if (self.acc == 5):
+                print(self.acc)
 
     def step(self, dt: float) -> None:
         """
