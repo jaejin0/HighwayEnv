@@ -109,8 +109,12 @@ class Vehicle(RoadObject):
         """
         if action:
             self.action = action
+            self.action['acceleration'] = float(self.action['acceleration'])
+            if self.speed > self.MAX_SPEED:
+                self.action['acceleration'] = min(self.action['acceleration'], 1.0 * (self.MAX_SPEED - self.speed))
+            elif self.speed < self.MIN_SPEED:
+                self.action['acceleration'] = max(self.action['acceleration'], 1.0 * (self.MIN_SPEED - self.speed))
             self.speed += self.action['acceleration'] * (1 / 45)
-
 
     def step(self, dt: float) -> None:
         """
