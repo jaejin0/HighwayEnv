@@ -128,9 +128,9 @@ class HighwayEnv(AbstractEnv):
         
         ### Speed ###
         index = self.vehicle.lane_index
-        print(self.road.network.graph[index[0]][index[1]][index[2]].speed_limit)
-        # print(self.road.network.get_closest_lane_index speed_limit)
-        # print(self.vehicle.road.)
+        speed_limit = self.road.network.graph[index[0]][index[1]][index[2]].speed_limit
+        speed = np.clip(self.vehicle.speed, 0, 40)
+        print(speed)
         scaled_speed = utils.lmap(self.vehicle.speed, self.config["reward_speed_range"], [0, 1])
         
         ### Safety ###
