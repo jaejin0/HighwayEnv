@@ -44,8 +44,6 @@ class Vehicle(RoadObject):
         self.impact = None
         self.log = []
         self.history = deque(maxlen=self.HISTORY_SIZE)
-        
-        self.acceleration = 10
 
     @classmethod
     def create_random(cls, road: Road,
