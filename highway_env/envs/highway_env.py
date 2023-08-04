@@ -118,7 +118,6 @@ class HighwayEnv(AbstractEnv):
         reward = sum(self.config.get(name, 0) * reward for name, reward in rewards.items())
         if self.config["normalize_reward"]:
             reward = utils.lmap(reward, self.config["reward_range"], [0, 1])
-        print(reward)
         return reward
 
     def _rewards(self, action: Action) -> Dict[Text, float]:
@@ -129,7 +128,7 @@ class HighwayEnv(AbstractEnv):
         
         ### Speed ###
         index = self.vehicle.lane_index
-        print(self.road.network.graph[index[0]][index[1]])
+        print(self.road.network.graph[index[0]][index[1]].speed_limit)
         # print(self.road.network.get_closest_lane_index speed_limit)
         # print(self.vehicle.road.)
         scaled_speed = utils.lmap(self.vehicle.speed, self.config["reward_speed_range"], [0, 1])
