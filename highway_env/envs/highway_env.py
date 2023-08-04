@@ -140,7 +140,7 @@ class HighwayEnv(AbstractEnv):
         ### Energy Saving ###
         # finding acceleration
         ACCELERATION_RANGE = (-5, 5.0)
-        acceleration = utils.lmap(self.action[0], [0, 1], ACCELERATION_RANGE)
+        acceleration = utils.lmap(self.acceleration, [0, 1], ACCELERATION_RANGE)
         
         # config from class D sedan with electric powertrain from CarSim
         vehicle_mass = 1458  # [kg]

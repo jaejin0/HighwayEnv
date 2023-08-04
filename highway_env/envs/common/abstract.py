@@ -69,7 +69,7 @@ class AbstractEnv(gym.Env):
         self.enable_auto_render = False
         
         # storing action
-        self.action = None
+        self.acceleration = 0
 
         self.reset()
 
@@ -232,7 +232,7 @@ class AbstractEnv(gym.Env):
         :return: a tuple (observation, reward, terminated, truncated, info)
         """
         
-        self.action = action
+        self.action = action[0]
         
         if self.road is None or self.vehicle is None:
             raise NotImplementedError("The road and vehicle must be initialized in the environment implementation")
