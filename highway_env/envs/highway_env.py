@@ -128,7 +128,9 @@ class HighwayEnv(AbstractEnv):
         # Use forward speed rather than speed, see https://github.com/eleurent/highway-env/issues/268
         
         ### Speed ###
-        print(self.road.network.speed_limit)
+        print(self.road.network.get_closest_lane_index)
+        # print(self.road.network.get_closest_lane_index speed_limit)
+        # print(self.vehicle.road.)
         scaled_speed = utils.lmap(self.vehicle.speed, self.config["reward_speed_range"], [0, 1])
         
         ### Safety ###
