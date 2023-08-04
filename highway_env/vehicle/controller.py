@@ -357,6 +357,8 @@ class TrajectoryVehicle(Vehicle):
         self.target_x = 0
         self.target_y = 0
         self.trajectory_index = 0
+        
+        self.acc = 0
 
     @classmethod
     def create_from(cls, vehicle: "ControlledVehicle") -> "ControlledVehicle":
@@ -422,6 +424,7 @@ class TrajectoryVehicle(Vehicle):
                 self.trajectory_index += 1
             # else: do not change angle
 
+        self.acc = action["acceleration"]
         action = {"steering": self.steering_control(self.target_steering_angle),
                   "acceleration": action["acceleration"]}
         super().act(action)

@@ -61,6 +61,9 @@ class HighwayEnv(AbstractEnv):
             "safe_distance_reward": 5,
             "out_of_road_reward": 20,
             
+            "front_distance_range": [0, 30],
+            "rear_distance_range": [0, 30],
+            
             ### Energy Saving ###  0
             "torque_reward": 0
             
@@ -129,25 +132,49 @@ class HighwayEnv(AbstractEnv):
         minimum_safe_distance = 30
         if front_distance > minimum_safe_distance:
             front_distance = minimum_safe_distance
-        # print(rear_distance) # I get negative
-        print(front_distance)
-        # Normalization
-        # front_distance = utils.lmap(front_distance, self.config["front_distance_range"], [0, 1])
+        rear_distance = abs(rear_distance)
+
+        front_distance = utils.lmap(front_distance, self.config["front_distance_range"], [0, 0.5])
+        rear_distance = utils.lmap(rear_distance, self.config["rear_distance_range"], [0, 0.5])
+        safe_distance = front_distance + rear_distance
+        
+        ### Energy Saving ###
+        # config from class D sedan with electric powertrain in from CarSim
+        vehicle_mass = 1458  # [kg]
+        rolling_resistance_coefficient = 0.012 
+        gravity = 9.81  # [m/s^2]
+        wheel_radius = 0.33  # [m]
+        
+        # config of assumption wheel mass is about 40 lb (18 kg)
+        wheel_mass = 18  # [kg]
+        
+        # calculation
+        normal_force = vehicle_mass * gravity
+        rolling_resistance = rolling_resistance_coefficient * normal_force  # rolling resistances for 4 wheels
+        load_torque = rolling_resistance * wheel_radius
+        
+        angular_momentum = wheel_mass * self.vehicle.speed * wheel_radius
+        angular_velocity = self.vehicle.speed / wheel_radius
+        moment_of_inertia = angular_momentum / angular_velocity
+        angular_acceleration = self.vehicle.acc / wheel_radius
+        acceleration_torque = moment_of_inertia * angular_acceleration
+        
+        total_torque = acceleration_torque + load_torque
+        
+        # find total torque range and normalize
+        # check if the equation is correct and find proofs for citations
         
         return {
-            "right_lane_reward": lane / max(len(neighbours) - 1, 1),
-            "on_road_reward": float(self.vehicle.on_road),
-            
             ### Speed ###
             "speed_reward": np.clip(scaled_speed, 0, 1),
             
             ### Safety ###
-            "collision_reward": float(self.vehicle.crashed)
-            # "safe_distance_reward":
-            # "out_of_road_reward":
+            "collision_reward": float(self.vehicle.crashed),
+            "safe_distance_reward": np.clip(safe_distance, 0, 1),
+            "out_of_road_reward": float(self.vehicle.on_road),
             
             ### Energy Saving ###
-            # "torque_reward":
+            "torque_reward": np.clip(total_torque, 0, 1)
         }
 
     def _is_terminated(self) -> bool:
