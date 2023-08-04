@@ -121,7 +121,7 @@ class HighwayEnv(AbstractEnv):
 
     def _rewards(self, action: Action) -> Dict[Text, float]:
         # Use forward speed rather than speed, see https://github.com/eleurent/highway-env/issues/268
-        print(self.vehicle.speed)
+        
         ### Speed ###
         index = self.vehicle.lane_index
         speed_limit = self.road.network.graph[index[0]][index[1]][index[2]].speed_limit
