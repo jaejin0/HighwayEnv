@@ -144,8 +144,8 @@ class HighwayEnv(AbstractEnv):
         if rear_distance > minimum_safe_distance:
             rear_distance = minimum_safe_distance
 
-        front_distance = utils.lmap(front_distance, self.config["front_distance_range"], [0, 0.5])
-        rear_distance = utils.lmap(rear_distance, self.config["rear_distance_range"], [0, 0.5])
+        front_distance = utils.lmap(front_distance, self.config["front_distance_range"], [0, 1])
+        rear_distance = utils.lmap(rear_distance, self.config["rear_distance_range"], [0, 1])
         safe_distance = front_distance + rear_distance
         
         ### Energy Saving ###
