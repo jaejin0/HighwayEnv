@@ -44,6 +44,8 @@ class Vehicle(RoadObject):
         self.impact = None
         self.log = []
         self.history = deque(maxlen=self.HISTORY_SIZE)
+        
+        self.acc
 
     @classmethod
     def create_random(cls, road: Road,
@@ -113,6 +115,8 @@ class Vehicle(RoadObject):
             elif self.speed < self.MIN_SPEED:
                 self.action['acceleration'] = max(self.action['acceleration'], 1.0 * (self.MIN_SPEED - self.speed))
             self.speed += self.action['acceleration'] * (1 / 15)
+            
+            self.acc = ['acceleration']
 
     def step(self, dt: float) -> None:
         """
