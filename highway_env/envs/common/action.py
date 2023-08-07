@@ -76,7 +76,7 @@ class TrajectoryAction(ActionType):
 
     [distance, angle]
 
-    The space intervals are always [0, 1], but are mapped to distance/angle intervals through configurations.
+    The space intervals are always [-1, 1], but are mapped to distance/angle intervals through configurations.
     """
 
     ACCELERATION_RANGE = (-5, 5.0)
@@ -110,22 +110,22 @@ class TrajectoryAction(ActionType):
         self.size = 1 + self.TRAJECTORY_POINTS_NUM * 2  # acceleration and distance and angle of each trajectory points 
 
     def space(self) -> spaces.Space:
-        return spaces.Box(0., 1., shape=(self.size,), dtype=np.float32)
+        return spaces.Box(-1., 1., shape=(self.size,), dtype=np.float32)
 
     @property
     def vehicle_class(self) -> Callable:
         return TrajectoryVehicle
 
     def act(self, action: Union[int, np.ndarray]) -> None:
-        acceleration = utils.lmap(action[0], [0, 1], self.ACCELERATION_RANGE)
+        acceleration = utils.lmap(action[0], [-1, 1], self.ACCELERATION_RANGE)
         
         distance = []
         for i in range(1, len(action), 2):
-            distance.append(utils.lmap(action[i], [0, 1], self.trajectory_distance_range))
+            distance.append(utils.lmap(action[i], [-1, 1], self.trajectory_distance_range))
         
         angle = []
         for j in range(2, len(action), 2):
-            angle.append(utils.lmap(action[j], [0, 1], self.trajectory_angle_range))
+            angle.append(utils.lmap(action[j], [-1, 1], self.trajectory_angle_range))
         
         self.controlled_vehicle.act({
             "acceleration": acceleration,
