@@ -28,7 +28,7 @@ class HighwayEnv(AbstractEnv):
             "observation": {
                 "type": "Kinematics",
                 "vehicles_count": 10,
-                "features": ["presence", "x", "y", "vx", "vy", "heading", "cos_h", "sin_h"],
+                "features": ["presence", "x", "y", "vx", "vy", "heading", "cos_h", "sin_h", "long_off", "lat_off", "ang_off"],
             },
             "action": {
                 "type": "TrajectoryAction",
@@ -59,7 +59,7 @@ class HighwayEnv(AbstractEnv):
             ### Safety ###   80
             "collision_reward": -50,
             "safe_distance_reward": 5,
-            "on_road_reward": 25,
+            "on_road_reward": 50,
             
             "front_distance_range": [0, 30],
             "rear_distance_range": [0, 30],
@@ -70,7 +70,7 @@ class HighwayEnv(AbstractEnv):
             "total_torque_range": [23.64, 89.64],
             
             # Reward Range #
-            "reward_range": [-50, 50]
+            "reward_range": [-50, 75]
             
         })
         return config
