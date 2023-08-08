@@ -70,6 +70,10 @@ class AbstractEnv(gym.Env):
         
         # storing action
         self.acceleration = 0
+        # info
+        self.speed_reward = 0
+        self.safe_distance = 0
+        self.total_torque = 0
 
         self.reset()
 
