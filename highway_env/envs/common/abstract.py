@@ -185,6 +185,14 @@ class AbstractEnv(gym.Env):
         except NotImplementedError:
             pass
         return info
+    
+    def reward_info(self):
+        """
+        Check we truncate the episode at the current step
+
+        :return: is the episode truncated
+        """
+        raise NotImplementedError
 
     def reset(self,
               *,
@@ -208,7 +216,8 @@ class AbstractEnv(gym.Env):
         self._reset()
         self.define_spaces()  # Second, to link the obs and actions to the vehicles once the scene is created
         obs = self.observation_type.observe()
-        info = self._info(obs, action=self.action_space.sample())
+        # info = self._info(obs, action=self.action_space.sample())
+        info = self.reward_info()
         if self.render_mode == 'human':
             self.render()
         return obs, info
@@ -244,7 +253,8 @@ class AbstractEnv(gym.Env):
         reward = self._reward(action)
         terminated = self._is_terminated()
         truncated = self._is_truncated()
-        info = self._info(obs, action)
+        # info = self._info(obs, action)
+        info = self.reward_info()
         if self.render_mode == 'human':
             self.render()
 

@@ -130,6 +130,7 @@ class HighwayEnv(AbstractEnv):
         else:
             speed_reward = self.vehicle.MAX_SPEED - speed  # how much it is close to the max
             speed_reward = utils.lmap(speed_reward, [0, self.vehicle.MAX_SPEED], [0, 1])
+        self.speed_reward = speed_reward
         
         ### Safety ###
         front_vehicle, rear_vehicle = self.road.neighbour_vehicles(self.vehicle, self.vehicle.lane_index)
@@ -156,6 +157,8 @@ class HighwayEnv(AbstractEnv):
             safe_distance = rear_distance
         else:
             safe_distance = 1
+        
+        self.safe_distance = safe_distance
         
         ### Energy Saving ###
         # finding acceleration
@@ -184,6 +187,7 @@ class HighwayEnv(AbstractEnv):
 
         total_torque = acceleration_torque + load_torque  # 6.6 * acceleration + 56.64
         # total torque range: [23.64, 89.64]
+        self.total_torque = total_torque
         total_torque = utils.lmap(total_torque, self.config["total_torque_range"], [0, 1])
         
         return {
@@ -208,6 +212,18 @@ class HighwayEnv(AbstractEnv):
         """The episode is truncated if the time limit is reached."""
         return self.time >= self.config["duration"]
 
+    def reward_info(self):
+        info = {
+            "speed": self.vehicle.speed,
+            "speed_reward": self.speed_reward,
+            "crashed": self.vehicle.crashed,
+            "safe_distance_reward": self.safe_distance,
+            "on_road_reward": self.vehicle.on_road,
+            "acceleration": self.acceleration,
+            "torque": self.total_torque,
+        }
+        
+        return info
 
 class HighwayEnvFast(HighwayEnv):
     """

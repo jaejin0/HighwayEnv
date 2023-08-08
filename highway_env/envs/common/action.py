@@ -82,13 +82,13 @@ class TrajectoryAction(ActionType):
     ACCELERATION_RANGE = (-5, 5.0)
     """Acceleration range: [-x, x], in m/s²."""
 
-    STEERING_RANGE = (-np.pi / 6, np.pi / 6)
+    STEERING_RANGE = (-np.pi / 5, np.pi / 5)
     """Steering angle range: [-x, x], in rad."""
     
     TRAJECTORY_DISTANCE_RANGE = (5, 10)
     """Trajectory distance range: [min, max], in m."""
     
-    TRAJECTORY_ANGLE_RANGE = (-np.pi / 6, np.pi / 6)
+    TRAJECTORY_ANGLE_RANGE = (-np.pi / 5, np.pi / 5)
     """Trajectory angle range: [-x, x], in rad."""
 
     TRAJECTORY_POINTS_NUM = 8
