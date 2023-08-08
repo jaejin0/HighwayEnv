@@ -215,7 +215,7 @@ class HighwayEnv(AbstractEnv):
     def reward_info(self):
         info = {
             "speed": self.vehicle.speed,
-            "speed_reward": self.speed_reward,
+            # "speed_reward": self.speed_reward,
             "crashed": self.vehicle.crashed,
             "safe_distance_reward": self.safe_distance,
             "on_road_reward": self.vehicle.on_road,
