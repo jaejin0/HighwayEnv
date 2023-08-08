@@ -53,13 +53,13 @@ class HighwayEnv(AbstractEnv):
             "offroad_terminal": True,
             
             
-            ### Speed ###   20
-            "speed_reward": 20,
+            ### Speed ###   [0, 80]
+            "speed_reward": 80,
             
-            ### Safety ###   80
-            "collision_reward": -50,
-            "safe_distance_reward": 5,
-            "on_road_reward": 50,
+            ### Safety ###   [-100, 120]
+            "collision_reward": -100,
+            "safe_distance_reward": 20,
+            "on_road_reward": 100,
             
             "front_distance_range": [0, 30],
             "rear_distance_range": [0, 30],
@@ -70,7 +70,7 @@ class HighwayEnv(AbstractEnv):
             "total_torque_range": [23.64, 89.64],
             
             # Reward Range #
-            "reward_range": [-50, 75]
+            "reward_range": [-100, 200]
             
         })
         return config
