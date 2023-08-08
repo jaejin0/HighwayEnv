@@ -526,7 +526,7 @@ class TrajectoryVehicle(Vehicle):
             road = self.road.network.all_side_lanes(lane_index)
             print(road)
             for lane in road:
-                if lane.on_lane(cur_pt):
+                if self.road.network(lane).on_lane(cur_pt):
                     points.append(cur_pt)
                     break
        
