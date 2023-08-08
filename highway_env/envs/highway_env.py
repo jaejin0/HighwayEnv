@@ -50,7 +50,7 @@ class HighwayEnv(AbstractEnv):
             
             
             "normalize_reward": True,
-            "offroad_terminal": False,
+            "offroad_terminal": True,
             
             
             ### Speed ###   20
