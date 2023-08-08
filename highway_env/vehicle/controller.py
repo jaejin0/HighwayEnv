@@ -522,7 +522,15 @@ class TrajectoryVehicle(Vehicle):
             cur_angle = cur_angle + angles[i]
             cur_pt = cur_pt + np.array([np.cos(cur_angle), np.sin(cur_angle)]) * dis
             
-            points.append(cur_pt)
+            lane_index = self.road.network.get_closest_lane_index(self.position, self.heading)
+            road = self.road.network.all_side_lanes(lane_index)
+            print(self.road.network)
+            for lane in road:
+                if lane.on_lane(cur_pt):
+                    points.append(cur_pt)
+                    break
+       
+            # points.append(cur_pt)
         
         return points
 
