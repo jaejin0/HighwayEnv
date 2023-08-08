@@ -524,9 +524,8 @@ class TrajectoryVehicle(Vehicle):
             
             lane_index = self.road.network.get_closest_lane_index(self.position, self.heading)
             road = self.road.network.all_side_lanes(lane_index)
-            print(road)
             for lane in road:
-                if self.road.network(lane).on_lane(cur_pt):
+                if self.road.network.get_lane(lane).on_lane(cur_pt):
                     points.append(cur_pt)
                     break
        
