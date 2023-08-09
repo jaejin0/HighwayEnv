@@ -65,12 +65,12 @@ class HighwayEnv(AbstractEnv):
             "rear_distance_range": [0, 30],
             
             ### Energy Saving ###  0
-            "torque_reward": -75,
+            "torque_reward": -33,
             
             "total_torque_range": [23.64, 89.64],
             
             # Reward Range #
-            "reward_range": [-175, 200]
+            "reward_range": [-133, 200]
             
         })
         return config
